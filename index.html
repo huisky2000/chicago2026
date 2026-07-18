@@ -191,6 +191,7 @@
     }
 
     .chip[data-filter="airport"] { border-color: #aab4bd; }
+    .chip[data-filter="info"] { border-color: #b9a7df; }
     .chip[data-filter="flight"] { border-color: #8fb3d8; }
     .chip[data-filter="hotel"] { border-color: #83c8ca; }
     .chip[data-filter="culture"] { border-color: #9ebce0; }
@@ -247,6 +248,7 @@
     .badge.rental { background: #fff2da; }
     .badge.drive { background: #e6f4eb; }
     .badge.airport { background: #e7eaed; }
+    .badge.info { background: #efe9fb; }
     .badge.flight { background: #e6f0fb; }
 
     .quick-bookings {
@@ -507,6 +509,7 @@
         <div class="map-toolbar">
           <div class="filters" aria-label="Map filters">
             <button class="chip active" type="button" data-filter="all">All</button>
+            <button class="chip" type="button" data-filter="info">Info.</button>
             <button class="chip" type="button" data-filter="flight">Flights</button>
             <button class="chip" type="button" data-filter="hotel">Hotels</button>
             <button class="chip" type="button" data-filter="culture">Culture</button>
@@ -643,6 +646,7 @@
     };
 
     const places = [
+      { id: "info-chicago", label: "I", type: "info", day: "all", title: "Chicago: City Background", coords: [41.8819, -87.6278], note: "Chicago is not just a big city with tall buildings. It is where modern skyscraper design grew up after the Great Chicago Fire, where the elevated train still rattles above the streets like a movie scene, and where Lake Michigan can feel more like an inland sea than a lake. Watch for the mix: steel bridges, old theatres, glass towers, sports culture, blues and jazz history, Route 66, deep-dish pizza, hot dogs, steak, BBQ, and museums with actual submarines and dinosaurs. Good challenge while visiting: look up often, because the city tells a lot of its story through buildings.", action: "Chicago guide", url: "https://www.choosechicago.com/" },
       { id: "trd", label: "T", type: "flight", day: "all", title: "Trondheim Airport TRD", coords: [63.4578, 10.924], note: "Start and end airport. Depart 4 Oct 05:30; add CPH-TRD after 12 Oct 10:45.", action: "TRD map", url: "https://www.google.com/maps/search/?api=1&query=Trondheim%20Airport%20Vaernes" },
       { id: "cph", label: "C", type: "flight", day: "all", title: "Copenhagen Airport CPH", coords: [55.6181, 12.6561], note: "Outbound connection 4 Oct 07:10-13:55. Return arrives 12 Oct 10:45; CPH-TRD is missing.", action: "CPH map", url: "https://www.google.com/maps/search/?api=1&query=Copenhagen%20Airport" },
       { id: "ordflight", label: "O", type: "flight", day: "all", title: "Chicago O'Hare ORD", coords: [41.9742, -87.9073], note: "Arrive 4 Oct 16:10. Depart 11 Oct 19:15 on SAS booking YCV6Z8.", action: "ORD map", url: "https://www.google.com/maps/search/?api=1&query=Chicago%20O%27Hare%20International%20Airport" },
@@ -700,6 +704,7 @@
 
     const typeMeta = {
       airport: { name: "Airport", color: "#1f2933" },
+      info: { name: "Info", color: "#7051a3" },
       flight: { name: "Flights", color: "#2364aa" },
       hotel: { name: "Hotel", color: "#087d80" },
       culture: { name: "Culture", color: "#2364aa" },

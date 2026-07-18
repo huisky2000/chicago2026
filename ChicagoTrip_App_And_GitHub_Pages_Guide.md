@@ -21,7 +21,7 @@ This note documents the map-first Chicago trip app and the GitHub Pages deployme
 The app is now map-first. The main screen is:
 
 - A large interactive Chicago map.
-- Category filters: flights, hotels, culture, nature, steak/BBQ, cars, drives, airport.
+- Category filters: info, flights, hotels, culture, nature, steak/BBQ, cars, drives, airport.
 - Day chips for 4-11 Oct.
 - A compact side panel that changes when a map pin or visible-place item is selected.
 - A small lower area for suggested flow, decisions, notes, weather, and sources.
@@ -49,6 +49,7 @@ Example place:
 Useful `type` values:
 
 - `airport`
+- `info`
 - `flight`
 - `hotel`
 - `culture`
