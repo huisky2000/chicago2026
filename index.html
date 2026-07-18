@@ -19,20 +19,13 @@
       --amber: #a86412;
       --violet: #7051a3;
       --teal: #087d80;
-      --soft-blue: #eaf2fb;
-      --soft-green: #e9f5ef;
-      --soft-amber: #fff4df;
-      --soft-red: #fff0ee;
-      --shadow: 0 10px 26px rgba(16, 33, 48, 0.10);
+      --dark: #1f2933;
+      --shadow: 0 14px 34px rgba(16, 33, 48, .13);
       font-family: Arial, Helvetica, sans-serif;
     }
 
     * {
       box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
     }
 
     body {
@@ -44,225 +37,230 @@
     header {
       position: sticky;
       top: 0;
-      z-index: 20;
-      padding: 14px 14px 10px;
-      background: rgba(255, 255, 255, 0.96);
+      z-index: 40;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .97);
       border-bottom: 1px solid var(--line);
       backdrop-filter: blur(10px);
     }
 
     h1 {
       margin: 0;
-      font-size: 22px;
+      font-size: 21px;
       line-height: 1.2;
     }
 
     h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
+      margin: 0;
+      font-size: 17px;
       line-height: 1.25;
     }
 
     h3 {
-      margin: 12px 0 8px;
-      font-size: 15px;
+      margin: 0 0 8px;
+      font-size: 14px;
+      line-height: 1.25;
     }
 
     p {
-      margin: 0 0 10px;
+      margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.45;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
     a {
       color: var(--blue);
     }
 
-    ul {
-      margin: 0;
-      padding-left: 18px;
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    .sub {
+      margin-top: 3px;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
+      font-size: 12px;
     }
 
-    nav {
+    .header-actions {
       display: flex;
-      gap: 8px;
-      margin-top: 12px;
-      overflow-x: auto;
-      padding-bottom: 2px;
+      flex-wrap: wrap;
+      gap: 7px;
+      justify-content: end;
     }
 
-    nav a {
-      flex: 0 0 auto;
-      padding: 9px 12px;
+    .btn,
+    .chip {
+      display: inline-flex;
+      min-height: 36px;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 10px;
       border: 1px solid var(--line);
       border-radius: 999px;
       color: var(--ink);
       background: #fff;
       text-decoration: none;
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.15;
+      cursor: pointer;
+    }
+
+    .btn.primary,
+    .chip.active {
+      color: #fff;
+      border-color: #0f4f90;
+      background: var(--blue);
+    }
+
+    .btn.green {
+      color: #fff;
+      border-color: #17613d;
+      background: var(--green);
+    }
+
+    .btn.red {
+      color: #fff;
+      border-color: #9d2e27;
+      background: var(--red);
     }
 
     main {
-      max-width: 1060px;
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 14px;
+      padding: 12px;
     }
 
-    section {
-      margin: 0 0 14px;
-      padding: 14px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      scroll-margin-top: 140px;
-    }
-
-    .sub {
-      margin: 4px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .hero-grid {
+    .trip-shell {
       display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
+      grid-template-columns: minmax(0, 1fr) 340px;
       gap: 12px;
       align-items: stretch;
     }
 
-    .hero-card {
-      min-height: 260px;
-      padding: 16px;
+    .map-card,
+    .side-card,
+    .compact-card {
       border: 1px solid var(--line);
-      border-radius: 10px;
-      background:
-        linear-gradient(135deg, rgba(23, 33, 43, .92), rgba(35, 100, 170, .82)),
-        url("https://images.unsplash.com/photo-1494522855154-9297ac14b55f?auto=format&fit=crop&w=1400&q=80");
-      background-position: center;
-      background-size: cover;
-      color: #fff;
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    .hero-card p,
-    .hero-card span {
-      color: rgba(255, 255, 255, .86);
-    }
-
-    .hero-card h2 {
-      max-width: 620px;
-      margin-top: 74px;
-      font-size: 30px;
-      line-height: 1.12;
-    }
-
-    .hero-status {
+    .map-card {
+      min-height: calc(100vh - 92px);
       display: grid;
-      gap: 8px;
+      grid-template-rows: auto minmax(520px, 1fr);
     }
 
-    .status-row {
+    .map-toolbar {
       display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 8px;
-      align-items: start;
+      gap: 9px;
       padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #fbfcfd;
-      font-size: 13px;
-      line-height: 1.35;
+      border-bottom: 1px solid var(--line);
     }
 
-    .status-row strong {
-      color: var(--ink);
+    .filters,
+    .days {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 1px;
     }
 
-    .grid {
+    .chip {
+      flex: 0 0 auto;
+    }
+
+    .chip[data-filter="airport"] { border-color: #aab4bd; }
+    .chip[data-filter="hotel"] { border-color: #83c8ca; }
+    .chip[data-filter="culture"] { border-color: #9ebce0; }
+    .chip[data-filter="food"] { border-color: #e3a39e; }
+    .chip[data-filter="rental"] { border-color: #dfbf88; }
+    .chip[data-filter="drive"] { border-color: #9dcbad; }
+
+    #tripMap {
+      width: 100%;
+      min-height: 520px;
+      background: #dfe8ed;
+    }
+
+    .side-card {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 10px;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      min-height: calc(100vh - 92px);
     }
 
-    .mini {
-      padding: 11px;
+    .panel-head,
+    .panel-body,
+    .panel-foot {
+      padding: 12px;
+    }
+
+    .panel-head {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      min-height: 24px;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      color: var(--ink);
+      background: #eef3f6;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .badge.hotel { background: #dff4f3; }
+    .badge.culture { background: #e6f0fb; }
+    .badge.food { background: #ffe7e4; }
+    .badge.rental { background: #fff2da; }
+    .badge.drive { background: #e6f4eb; }
+    .badge.airport { background: #e7eaed; }
+
+    .quick-bookings {
+      display: grid;
+      gap: 8px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .booking {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 8px;
+      padding: 8px;
       border: 1px solid var(--line);
       border-radius: 10px;
       background: #fbfcfd;
-    }
-
-    .mini[data-detail] {
-      cursor: pointer;
-      transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
-    }
-
-    .mini[data-detail]:hover,
-    .mini[data-detail]:focus {
-      border-color: #8fb3d8;
-      box-shadow: 0 8px 18px rgba(16, 33, 48, .12);
-      outline: none;
-      transform: translateY(-1px);
-    }
-
-    .mini strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--ink);
-      font-size: 14px;
-    }
-
-    .mini span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .mini.flight {
-      border-left: 6px solid var(--blue);
-    }
-
-    .mini.warning-card {
-      border-color: #efc36d;
-      background: var(--soft-amber);
-    }
-
-    .mini.food {
-      border-left: 6px solid var(--red);
-    }
-
-    .mini.hotel {
-      border-left: 6px solid var(--teal);
-    }
-
-    .mini.rental {
-      border-left: 6px solid var(--amber);
-    }
-
-    .mini.drive {
-      border-left: 6px solid var(--green);
-    }
-
-    .mini.culture {
-      border-left: 6px solid var(--violet);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      margin: 3px 4px 3px 0;
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: #eef3f6;
-      color: var(--ink);
       font-size: 12px;
-      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .booking strong {
+      color: var(--ink);
+    }
+
+    .booking span {
+      color: var(--muted);
     }
 
     .ref {
@@ -271,208 +269,143 @@
       font-weight: 800;
     }
 
-    .timeline {
-      display: grid;
-      gap: 10px;
-    }
-
-    .day-card {
-      display: grid;
-      grid-template-columns: 86px 1fr;
-      gap: 10px;
-      padding: 11px;
-      border: 1px solid var(--line);
-      border-left: 6px solid var(--blue);
-      border-radius: 10px;
-      background: #fbfcfd;
-    }
-
-    .day-card:nth-child(3n) {
-      border-left-color: var(--green);
-    }
-
-    .day-card:nth-child(4n) {
-      border-left-color: var(--violet);
-    }
-
-    .day-date {
-      font-weight: 800;
-      font-size: 13px;
-      line-height: 1.25;
-    }
-
-    .day-date span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-weight: 400;
+    .selected-note {
+      margin: 9px 0 11px;
     }
 
     .actions {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+      gap: 7px;
+    }
+
+    .place-list {
+      display: grid;
+      gap: 7px;
+      max-height: 340px;
+      overflow-y: auto;
+      padding: 0 12px 12px;
+    }
+
+    .place-button {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 8px;
+      width: 100%;
+      min-height: 42px;
+      align-items: center;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .place-button.active {
+      border-color: #8fb3d8;
+      background: #f1f7fd;
+    }
+
+    .dot {
+      display: grid;
+      width: 24px;
+      height: 24px;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .place-title {
+      display: block;
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .place-meta {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .compact-card {
+      padding: 12px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 8px;
       margin-top: 10px;
     }
 
-    .btn {
-      display: inline-flex;
-      min-height: 42px;
-      align-items: center;
-      justify-content: center;
-      padding: 9px 12px;
-      border: 1px solid #0f4f90;
-      border-radius: 10px;
-      color: #fff;
-      background: var(--blue);
-      text-align: center;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1.2;
-      cursor: pointer;
-    }
-
-    .btn.secondary {
-      color: var(--ink);
-      background: #fff;
-      border-color: var(--line);
-    }
-
-    .btn.green {
-      border-color: #17613d;
-      background: var(--green);
-    }
-
-    .btn.red {
-      border-color: #9d2e27;
-      background: var(--red);
-    }
-
-    textarea,
-    input {
-      width: 100%;
-      min-height: 44px;
-      padding: 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--ink);
-      background: #fff;
-      font: inherit;
-      font-size: 14px;
-    }
-
-    textarea {
-      min-height: 92px;
-      resize: vertical;
-    }
-
-    label {
-      display: grid;
-      gap: 5px;
-      color: var(--ink);
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    label span {
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    .map-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 270px;
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    #tripMap {
-      min-height: 570px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      overflow: hidden;
-      background: #e9eef2;
-    }
-
-    .map-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      min-height: 570px;
-    }
-
-    .map-controls {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 8px;
-    }
-
-    .map-filter {
-      display: flex;
-      min-height: 40px;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: #fff;
-      color: var(--ink);
-      font: inherit;
-      font-size: 13px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .map-filter.active {
-      color: #fff;
-      border-color: #0f4f90;
-      background: var(--blue);
-    }
-
-    .legend {
-      display: grid;
-      gap: 7px;
-      margin: 0;
-      padding: 11px;
+    .mini {
+      padding: 9px;
       border: 1px solid var(--line);
       border-radius: 10px;
       background: #fbfcfd;
+    }
+
+    .mini strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 12px;
+    }
+
+    .mini span {
+      display: block;
       color: var(--muted);
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.35;
     }
 
-    .legend-row {
-      display: grid;
-      grid-template-columns: 22px 1fr;
-      gap: 8px;
-      align-items: center;
+    details {
+      margin-top: 10px;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
     }
 
-    .line-sample {
-      height: 4px;
-      border-radius: 999px;
-      background: var(--blue);
-    }
-
-    .line-sample.dashed {
-      background: repeating-linear-gradient(90deg, var(--violet), var(--violet) 8px, transparent 8px, transparent 14px);
-    }
-
-    .map-tip {
-      margin: 0;
-      padding: 11px;
-      border: 1px solid #efc36d;
-      border-radius: 10px;
-      color: #51360b;
-      background: var(--soft-amber);
+    summary {
+      cursor: pointer;
       font-size: 13px;
-      line-height: 1.4;
+      font-weight: 800;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 72px;
+      margin-top: 8px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      color: var(--ink);
+      background: #fff;
+      font-size: 13px;
+      resize: vertical;
+    }
+
+    .weather-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .leaflet-popup-content {
-      min-width: 220px;
+      min-width: 210px;
       margin: 12px;
       color: var(--ink);
       font-family: Arial, Helvetica, sans-serif;
@@ -480,587 +413,196 @@
       line-height: 1.35;
     }
 
-    .map-popup-title {
+    .popup-title {
       display: block;
       margin-bottom: 5px;
       font-size: 14px;
       font-weight: 800;
     }
 
-    .map-popup-meta {
-      margin: 0 0 8px;
-      color: var(--muted);
-    }
-
-    .popup-actions {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .popup-actions a,
-    .popup-actions button {
-      display: inline-flex;
-      min-height: 34px;
-      align-items: center;
-      justify-content: center;
-      padding: 7px 9px;
-      border: 1px solid #0f4f90;
-      border-radius: 8px;
-      background: var(--blue);
-      color: #fff;
-      text-align: center;
-      text-decoration: none;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .popup-actions .secondary {
-      color: var(--ink);
-      background: #fff;
-      border-color: var(--line);
-    }
-
-    dialog {
-      width: min(760px, calc(100vw - 24px));
-      max-height: calc(100vh - 24px);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      box-shadow: 0 24px 70px rgba(16, 33, 48, .32);
-    }
-
-    dialog::backdrop {
-      background: rgba(23, 33, 43, .42);
-    }
-
-    .modal-top {
-      display: flex;
-      gap: 10px;
-      align-items: start;
-      justify-content: space-between;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .modal-top h2 {
-      margin: 0;
-    }
-
-    .modal-body {
-      padding-top: 12px;
-    }
-
-    .close-btn {
-      flex: 0 0 auto;
-      min-width: 42px;
-      min-height: 38px;
-      padding: 6px 10px;
-      color: var(--ink);
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      font: inherit;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .weather-main {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin: 8px 0;
-    }
-
-    .temp {
-      font-size: 30px;
-      font-weight: 800;
-    }
-
-    .source-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .source-list a {
-      display: block;
-      padding: 9px 10px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      color: var(--ink);
-      background: #fbfcfd;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .footer-space {
-      height: 22px;
-    }
-
-    @media (max-width: 760px) {
-      .hero-grid,
-      .map-shell {
+    @media (max-width: 860px) {
+      header {
         grid-template-columns: 1fr;
       }
 
-      .hero-card h2 {
-        margin-top: 46px;
-        font-size: 26px;
+      .header-actions {
+        justify-content: start;
       }
 
-      .map-panel {
+      .trip-shell,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .map-card,
+      .side-card {
         min-height: auto;
+      }
+
+      .side-card {
+        grid-template-rows: auto auto auto auto;
+      }
+
+      #tripMap {
+        min-height: 62vh;
+      }
+
+      .place-list {
+        max-height: 260px;
       }
     }
 
     @media (max-width: 520px) {
-      header {
-        padding: 12px 10px 8px;
-      }
-
       main {
-        padding: 10px;
+        padding: 8px;
       }
 
-      section {
-        padding: 12px;
-        border-radius: 10px;
+      header {
+        padding: 9px;
       }
 
-      .day-card,
-      .status-row {
+      .header-actions .btn {
+        flex: 1 1 auto;
+      }
+
+      .booking {
         grid-template-columns: 1fr;
       }
 
       .actions {
         grid-template-columns: 1fr;
       }
-
-      #tripMap {
-        min-height: 62vh;
-      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Chicago Autumn Trip 2026</h1>
-    <p class="sub">4-11 October 2026 | Father and son | TRD-CPH-ORD, SAS</p>
-    <nav aria-label="App sections">
-      <a href="#dashboard">Dashboard</a>
-      <a href="#flights">Flights</a>
-      <a href="#hotels">Hotels</a>
-      <a href="#rentals">Rentals</a>
-      <a href="#timeline">Plan</a>
-      <a href="#map">Map</a>
-      <a href="#drives">Drives</a>
-      <a href="#food">Steak</a>
-      <a href="#notes">Notes</a>
-      <a href="#weather">Weather</a>
-      <a href="#sources">Sources</a>
-    </nav>
+    <div>
+      <h1>Chicago Autumn Trip 2026</h1>
+      <div class="sub">4-11 Oct | Father and son | TRD-CPH-ORD on SAS</div>
+    </div>
+    <div class="header-actions">
+      <a class="btn primary" href="https://www.flysas.com/" target="_blank" rel="noopener">SAS</a>
+      <a class="btn" href="https://esta.cbp.dhs.gov/" target="_blank" rel="noopener">ESTA</a>
+      <a class="btn" href="https://www.transitchicago.com/blueline/" target="_blank" rel="noopener">CTA</a>
+    </div>
   </header>
 
   <main>
-    <section id="dashboard">
-      <div class="hero-grid">
-        <div class="hero-card">
-          <span>Autumn city week with room for hotels, car rental, and the missing return leg.</span>
-          <h2>Architecture, museums, lakefront walks, and a proper steak/grill plan for a 17-year-old.</h2>
-          <p>Use this as the working trip cockpit. Bookings are separated from ideas, and every optional route can be promoted later into the daily plan.</p>
-        </div>
-        <div class="hero-status">
-          <div class="status-row">
-            <strong>Booked</strong>
-            <span>TRD-CPH <span class="ref">YCZBGV</span>, CPH-ORD/ORD-CPH <span class="ref">YCV6Z8</span>.</span>
+    <section class="trip-shell" aria-label="Map-first trip planner">
+      <div class="map-card">
+        <div class="map-toolbar">
+          <div class="filters" aria-label="Map filters">
+            <button class="chip active" type="button" data-filter="all">All</button>
+            <button class="chip" type="button" data-filter="hotel">Hotels</button>
+            <button class="chip" type="button" data-filter="culture">Culture</button>
+            <button class="chip" type="button" data-filter="food">Steak + BBQ</button>
+            <button class="chip" type="button" data-filter="rental">Cars</button>
+            <button class="chip" type="button" data-filter="drive">Drives</button>
+            <button class="chip" type="button" data-filter="airport">Airport</button>
           </div>
-          <div class="status-row">
-            <strong>Missing</strong>
-            <span>CPH-TRD after arrival in Copenhagen on Monday 12 Oct at 10:45.</span>
-          </div>
-          <div class="status-row">
-            <strong>Pending</strong>
-            <span>Chicago hotel, possible car rental, ESTA/passport checks, and restaurant reservations.</span>
-          </div>
-          <div class="status-row">
-            <strong>Best car use</strong>
-            <span>Rent for one day outside downtown, likely 10 Oct or morning 11 Oct, not for the whole stay.</span>
-          </div>
-        </div>
-      </div>
-      <div class="actions">
-        <a class="btn" href="https://www.flysas.com/" target="_blank" rel="noopener">Open SAS</a>
-        <a class="btn secondary" href="https://esta.cbp.dhs.gov/" target="_blank" rel="noopener">ESTA Check</a>
-        <a class="btn secondary" href="https://www.transitchicago.com/blueline/" target="_blank" rel="noopener">CTA Blue Line</a>
-        <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=hotels%20downtown%20Chicago%20River%20North%20Loop" target="_blank" rel="noopener">Hotel Search Area</a>
-      </div>
-    </section>
-
-    <section id="flights">
-      <h2>Main Bookings</h2>
-      <div class="grid">
-        <div class="mini flight" data-detail="flight-trd-cph" role="button" tabindex="0">
-          <strong>4 Oct: TRD to CPH</strong>
-          <span>SAS, booking <span class="ref">YCZBGV</span>. Trondheim 05:30 -> Copenhagen 07:10.</span>
-        </div>
-        <div class="mini flight" data-detail="flight-cph-ord" role="button" tabindex="0">
-          <strong>4 Oct: CPH to ORD</strong>
-          <span>SAS, booking <span class="ref">YCV6Z8</span>. Copenhagen 13:55 -> Chicago O'Hare 16:10.</span>
-        </div>
-        <div class="mini flight" data-detail="flight-ord-cph" role="button" tabindex="0">
-          <strong>11 Oct: ORD to CPH</strong>
-          <span>SAS, booking <span class="ref">YCV6Z8</span>. Chicago O'Hare 19:15 -> Copenhagen 10:45 on 12 Oct.</span>
-        </div>
-        <div class="mini warning-card" data-detail="flight-missing" role="button" tabindex="0">
-          <strong>12 Oct: CPH to TRD missing</strong>
-          <span>Add this later. Target a comfortable onward connection after the long-haul arrival at 10:45.</span>
-        </div>
-      </div>
-      <div class="actions">
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Trondheim%20Airport%20Vaernes" target="_blank" rel="noopener">TRD</a>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Copenhagen%20Airport" target="_blank" rel="noopener">CPH</a>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Chicago%20O'Hare%20International%20Airport" target="_blank" rel="noopener">ORD</a>
-        <a class="btn secondary" href="https://www.flychicago.com/ohare/myflight/international/pages/default.aspx" target="_blank" rel="noopener">ORD Arrival Steps</a>
-      </div>
-    </section>
-
-    <section id="hotels">
-      <h2>Hotel Shortlist</h2>
-      <p>For this father-son trip, prioritize either River North/Loop convenience or West Loop food access. I would avoid compact one-bed hotels unless you are fully comfortable sharing one bed.</p>
-      <div class="grid">
-        <div class="mini hotel" data-detail="hotel-hyatt-place" role="button" tabindex="0">
-          <strong>Best balanced: Hyatt Place Chicago/River North</strong>
-          <span>Good first quote to check: central, practical, rooms with sofa-bed options, easy for steakhouse and river cruise days.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.hyatt.com/hyatt-place/en-US/chizd-hyatt-place-chicago-river-north" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Hyatt%20Place%20Chicago%20River%20North" target="_blank" rel="noopener">Map</a>
+          <div class="days" aria-label="Day focus">
+            <button class="chip active" type="button" data-day="all">Whole week</button>
+            <button class="chip" type="button" data-day="oct4">4 Oct</button>
+            <button class="chip" type="button" data-day="oct5">5 Oct</button>
+            <button class="chip" type="button" data-day="oct6">6 Oct</button>
+            <button class="chip" type="button" data-day="oct7">7 Oct</button>
+            <button class="chip" type="button" data-day="oct8">8 Oct</button>
+            <button class="chip" type="button" data-day="oct9">9 Oct</button>
+            <button class="chip" type="button" data-day="oct10">10 Oct</button>
+            <button class="chip" type="button" data-day="oct11">11 Oct</button>
           </div>
         </div>
-        <div class="mini hotel" data-detail="hotel-embassy-river-north" role="button" tabindex="0">
-          <strong>Most comfortable: Embassy Suites River North</strong>
-          <span>Two-room suite concept, central River North location, breakfast included. Strong if you want more space.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.hilton.com/en/hotels/chidwes-embassy-suites-chicago-downtown-river-north/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Embassy%20Suites%20Chicago%20Downtown%20River%20North" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini hotel" data-detail="hotel-residence-inn" role="button" tabindex="0">
-          <strong>Apartment feel: Residence Inn River North</strong>
-          <span>All-suites style with kitchen/sofa-bed options. Good if you want a bit more routine during the week.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.marriott.com/en-us/hotels/chirn-residence-inn-chicago-downtown-river-north/overview/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Residence%20Inn%20Chicago%20Downtown%20River%20North" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini hotel" data-detail="hotel-hampton-majestic" role="button" tabindex="0">
-          <strong>Best Loop value check: Hampton Inn Majestic</strong>
-          <span>Theatre District location, free breakfast, easy walking to Art Institute, Millennium Park, Willis Tower, and CTA.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.hilton.com/en/hotels/chitdhx-hampton-majestic-chicago-theatre-district/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Hampton%20Inn%20Majestic%20Chicago%20Theatre%20District" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini hotel" data-detail="hotel-homewood-west-loop" role="button" tabindex="0">
-          <strong>Food-zone option: Homewood Suites West Loop</strong>
-          <span>Near Fulton Market/West Loop restaurants, suites and breakfast. Good if steak, BBQ, and casual food are central.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.hilton.com/en/hotels/chiwwhw-homewood-suites-chicago-west-loop-fulton-market-area/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Homewood%20Suites%20Chicago%20West%20Loop%20Fulton%20Market" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini warning-card" data-detail="hotel-airport-note" role="button" tabindex="0">
-          <strong>Airport hotels: only if plans change</strong>
-          <span>Loews O'Hare or Hilton O'Hare can be useful for a disrupted/late airport night, but downtown is better for this itinerary.</span>
-          <div class="actions">
-            <a class="btn secondary" href="https://www.loewshotels.com/chicago-ohare" target="_blank" rel="noopener">Loews O'Hare</a>
-            <a class="btn secondary" href="https://www.flychicago.com/ohare/ServicesAmenities/amenities/Pages/hotel.aspx" target="_blank" rel="noopener">Hilton ORD</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="rentals">
-      <h2>Car Rental Shortlist</h2>
-      <p>Recommendation: skip a car for downtown days, then rent one compact/midsize car on Saturday 10 Oct. Your son is 17, so plan on you being the only rental driver.</p>
-      <div class="grid">
-        <div class="mini rental" data-detail="rental-budget-north-loop" role="button" tabindex="0">
-          <strong>Best downtown pickup: Budget/Avis North Loop</strong>
-          <span>214 N Clark / Clark & Wacker area. Practical if your hotel is River North or Loop. Watch short weekend hours.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.budget.com/en/locations/us/il/chicago/c2g" target="_blank" rel="noopener">Budget</a>
-            <a class="btn secondary" href="https://www.avis.com/en/locations/nam/us/il/chicago/ch1" target="_blank" rel="noopener">Avis</a>
-          </div>
-        </div>
-        <div class="mini rental" data-detail="rental-hertz-state" role="button" tabindex="0">
-          <strong>Alternate downtown pickup: Hertz State Street</strong>
-          <span>Useful River North/Mag Mile location. Compare against Budget/Avis for Saturday pickup and Sunday return rules.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.hertz.com/us/en/location/unitedstates/illinois/chicago/chic12" target="_blank" rel="noopener">Hertz</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Hertz%20401%20N%20State%20St%20Chicago" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini rental" data-detail="rental-ord-mmf" role="button" tabindex="0">
-          <strong>Best airport return option: ORD Multi-Modal Facility</strong>
-          <span>Use this if one-way downtown pickup -> ORD return is reasonably priced, or if you rent from ORD before a dunes/northwest route.</span>
-          <div class="actions">
-            <a class="btn" href="https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx" target="_blank" rel="noopener">ORD Rentals</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=10255%20W%20Zemke%20Blvd%20Chicago%20IL%2060666" target="_blank" rel="noopener">MMF Map</a>
-          </div>
-        </div>
-        <div class="mini warning-card" data-detail="rental-checks" role="button" tabindex="0">
-          <strong>Before booking</strong>
-          <span>Compare total price with taxes, one-way fee, toll transponder, hotel parking, Sunday return hours, and insurance coverage.</span>
-        </div>
-      </div>
-    </section>
-
-    <section id="timeline">
-      <h2>Draft Day Plan</h2>
-      <p>This is intentionally light until hotels are known. It keeps Tuesday away from the Art Institute because the museum currently lists Tuesday as closed.</p>
-      <div class="timeline">
-        <div class="day-card" data-detail="day-oct4" role="button" tabindex="0">
-          <div class="day-date">Sun 4 Oct<span>Arrival</span></div>
-          <div>
-            <strong>TRD-CPH-ORD, then easy evening</strong>
-            <p>After Terminal 5 immigration and baggage, choose hotel transfer and a low-risk dinner. If staying downtown, Prime & Provisions or Green Street Smoked Meats are good arrival-night targets.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct5" role="button" tabindex="0">
-          <div class="day-date">Mon 5 Oct<span>Architecture</span></div>
-          <div>
-            <strong>Chicago River, Loop, Millennium Park</strong>
-            <p>Do the architecture river cruise while it is still in the late-season window, then walk the Riverwalk, Chicago Cultural Center, Millennium Park, and the lakefront.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct6" role="button" tabindex="0">
-          <div class="day-date">Tue 6 Oct<span>Science</span></div>
-          <div>
-            <strong>Griffin Museum of Science and Industry</strong>
-            <p>Best teen-friendly museum day: U-505 Submarine, science exhibits, giant dome theater, and Hyde Park or Chinatown food afterward.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct7" role="button" tabindex="0">
-          <div class="day-date">Wed 7 Oct<span>Art + city</span></div>
-          <div>
-            <strong>Art Institute, Route 66 start, West Loop dinner</strong>
-            <p>Use Wednesday for the Art Institute and downtown icons. Evening choice: Au Cheval burger, Bavette's steak, or a show if schedules line up.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct8" role="button" tabindex="0">
-          <div class="day-date">Thu 8 Oct<span>Museum campus</span></div>
-          <div>
-            <strong>Field Museum and lakefront</strong>
-            <p>Field Museum, Shedd/Alder Planetarium viewpoints, then a relaxed steakhouse night. Thursday also works as an Art Institute backup because of later hours.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct9" role="button" tabindex="0">
-          <div class="day-date">Fri 9 Oct<span>North Side</span></div>
-          <div>
-            <strong>Wrigleyville, Lincoln Park, comedy/theatre check</strong>
-            <p>Use the North Side for Wrigley Field, Lincoln Park, Old Town, or Second City/Chicago Theatre only if the specific show feels suitable for a 17-year-old.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct10" role="button" tabindex="0">
-          <div class="day-date">Sat 10 Oct<span>Car day</span></div>
-          <div>
-            <strong>Best car-rental day</strong>
-            <p>Pick one driving routine: Oak Park + Morton Arboretum for architecture/fall colors, or Indiana Dunes for lake scenery and a real road-trip feel.</p>
-          </div>
-        </div>
-        <div class="day-card" data-detail="day-oct11" role="button" tabindex="0">
-          <div class="day-date">Sun 11 Oct<span>Depart</span></div>
-          <div>
-            <strong>Last morning, then ORD</strong>
-            <p>Keep the day close to the hotel. Aim for ORD around 16:00 for the 19:15 long-haul departure, earlier if returning a rental car.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="map">
-      <h2>Chicago Map</h2>
-      <p>Use the filters to see culture, food, or driving options. Tap pins for map links and day details.</p>
-      <div class="map-shell">
         <div id="tripMap" role="application" aria-label="Interactive Chicago trip map"></div>
-        <aside class="map-panel" aria-label="Map controls">
-          <div class="map-controls">
-            <button class="map-filter active" type="button" data-map-filter="all">Everything</button>
-            <button class="map-filter" type="button" data-map-filter="hotel">Hotels</button>
-            <button class="map-filter" type="button" data-map-filter="culture">Culture</button>
-            <button class="map-filter" type="button" data-map-filter="food">Steak + Grill</button>
-            <button class="map-filter" type="button" data-map-filter="rental">Car Rental</button>
-            <button class="map-filter" type="button" data-map-filter="drive">Car Routes</button>
-            <button class="map-filter" type="button" data-map-filter="airport">Airport</button>
-          </div>
-          <div class="legend">
-            <div class="legend-row"><span class="line-sample" style="background:#2364aa"></span><span>Downtown culture flow</span></div>
-            <div class="legend-row"><span class="line-sample" style="background:#087d80"></span><span>Hotel shortlist</span></div>
-            <div class="legend-row"><span class="line-sample" style="background:#c53f35"></span><span>Steak, BBQ, burgers</span></div>
-            <div class="legend-row"><span class="line-sample" style="background:#a86412"></span><span>Car rental points</span></div>
-            <div class="legend-row"><span class="line-sample" style="background:#1f7a4d"></span><span>Suggested car day</span></div>
-            <div class="legend-row"><span class="line-sample dashed"></span><span>Optional side route</span></div>
-          </div>
-          <p class="map-tip">Downtown parking is expensive and slow. Treat the car as an outside-the-city tool unless the hotel includes easy parking.</p>
-        </aside>
       </div>
+
+      <aside class="side-card" aria-label="Selected trip information">
+        <div class="panel-head">
+          <h2 id="selectedTitle">Start With The Map</h2>
+          <p id="selectedSubtitle">Pick a pin, filter, or day. The details stay here.</p>
+          <div id="selectedBadges" class="badge-row"></div>
+        </div>
+
+        <div class="quick-bookings">
+          <div class="booking">
+            <strong>4 Oct</strong>
+            <span>TRD 05:30 -> CPH 07:10 <span class="ref">YCZBGV</span></span>
+          </div>
+          <div class="booking">
+            <strong>4 Oct</strong>
+            <span>CPH 13:55 -> ORD 16:10 <span class="ref">YCV6Z8</span></span>
+          </div>
+          <div class="booking">
+            <strong>11 Oct</strong>
+            <span>ORD 19:15 -> CPH 10:45 +1 <span class="ref">YCV6Z8</span></span>
+          </div>
+          <div class="booking">
+            <strong>Missing</strong>
+            <span>CPH -> TRD after Monday 12 Oct 10:45</span>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <p id="selectedNote" class="selected-note">Best first move: choose a hotel zone, then reserve one steakhouse and one Saturday car day.</p>
+          <div id="selectedActions" class="actions"></div>
+        </div>
+
+        <div>
+          <div class="panel-foot">
+            <h3 id="listTitle">Visible Places</h3>
+          </div>
+          <div id="placeList" class="place-list"></div>
+        </div>
+      </aside>
     </section>
 
-    <section id="drives">
-      <h2>Driving Routines</h2>
-      <p>For this trip, the strongest recommendation is a one-day rental, not a week-long rental. CTA and walking are better inside downtown Chicago.</p>
-      <div class="grid">
-        <div class="mini drive" data-detail="drive-oak-park" role="button" tabindex="0">
-          <strong>Routine A: Oak Park + Morton Arboretum</strong>
-          <span>Architecture, Frank Lloyd Wright streets, fall color, manageable mileage. Best all-round car day for 10 Oct.</span>
-          <div class="actions">
-            <a class="btn green" href="https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=The%20Morton%20Arboretum%2C%20Lisle%2C%20IL&waypoints=Frank%20Lloyd%20Wright%20Home%20and%20Studio%2C%20Oak%20Park%2C%20IL&travelmode=driving" target="_blank" rel="noopener">Open Route</a>
-          </div>
-        </div>
-        <div class="mini drive" data-detail="drive-dunes" role="button" tabindex="0">
-          <strong>Routine B: Indiana Dunes</strong>
-          <span>Lake Michigan beaches, dunes, industrial-skyline contrast, and a stronger "road trip" feel. Weather-dependent.</span>
-          <div class="actions">
-            <a class="btn green" href="https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Indiana%20Dunes%20National%20Park%2C%20IN&travelmode=driving" target="_blank" rel="noopener">Open Route</a>
-          </div>
-        </div>
-        <div class="mini drive" data-detail="drive-northshore" role="button" tabindex="0">
-          <strong>Routine C: North Shore short loop</strong>
-          <span>Bahai Temple, Evanston lakefront, Northwestern campus, and easy return. Good if you want a shorter driving day.</span>
-          <div class="actions">
-            <a class="btn green" href="https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Bahai%20House%20of%20Worship%2C%20Wilmette%2C%20IL&waypoints=Evanston%20Lakefront%2C%20Evanston%2C%20IL&travelmode=driving" target="_blank" rel="noopener">Open Route</a>
-          </div>
-        </div>
-        <div class="mini warning-card">
-          <strong>Car rental timing</strong>
-          <span>If returning the car on 11 Oct, leave a generous buffer. Rental return plus international check-in can turn a relaxed day into airport arithmetic.</span>
+    <section class="lower-grid" aria-label="Compact planning notes">
+      <div class="compact-card">
+        <h2>Suggested Flow</h2>
+        <div class="mini-grid">
+          <div class="mini"><strong>4 Oct</strong><span>Arrive, hotel, easy grill dinner.</span></div>
+          <div class="mini"><strong>5 Oct</strong><span>Architecture river cruise + Loop.</span></div>
+          <div class="mini"><strong>6 Oct</strong><span>Griffin MSI. Art Institute is currently closed Tuesdays.</span></div>
+          <div class="mini"><strong>7 Oct</strong><span>Art Institute + West Loop dinner.</span></div>
+          <div class="mini"><strong>8 Oct</strong><span>Field Museum + lakefront.</span></div>
+          <div class="mini"><strong>9 Oct</strong><span>North Side, Wrigley, comedy/theatre check.</span></div>
+          <div class="mini"><strong>10 Oct</strong><span>One-day car rental: Oak Park + Morton Arboretum.</span></div>
+          <div class="mini"><strong>11 Oct</strong><span>Short morning, ORD by about 16:00.</span></div>
         </div>
       </div>
-    </section>
 
-    <section id="food">
-      <h2>Steak, BBQ, Burgers</h2>
-      <p>These are options to reserve or keep in the back pocket. For a 17-year-old steak/grill fan, I would prioritize one classic steakhouse night and one BBQ/burger night.</p>
-      <div class="grid">
-        <div class="mini food" data-detail="food-gibsons" role="button" tabindex="0">
-          <strong>Gibsons Bar & Steakhouse</strong>
-          <span>Classic Chicago steakhouse, big portions, lively River North/Gold Coast location. Reserve early.</span>
-          <div class="actions">
-            <a class="btn red" href="https://gibsonssteakhouse.com/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Gibsons%20Bar%20and%20Steakhouse%20Chicago" target="_blank" rel="noopener">Map</a>
-          </div>
+      <div class="compact-card">
+        <h2>Keep / Decide</h2>
+        <div class="mini-grid">
+          <div class="mini"><strong>Hotel target</strong><span>River North first, West Loop if food wins.</span></div>
+          <div class="mini"><strong>Car target</strong><span>One day only. You drive; son is 17.</span></div>
+          <div class="mini"><strong>Food target</strong><span>One classic steakhouse, one BBQ/burger night.</span></div>
+          <div class="mini"><strong>Flight target</strong><span>Add CPH-TRD after 12 Oct 10:45.</span></div>
         </div>
-        <div class="mini food" data-detail="food-bavettes" role="button" tabindex="0">
-          <strong>Bavette's Bar & Boeuf</strong>
-          <span>Great steakhouse choice if you want a more atmospheric dinner. Harder reservation, worth trying.</span>
-          <div class="actions">
-            <a class="btn red" href="https://www.bavettessteakhouse.com/chicago/home" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Bavette%27s%20Bar%20and%20Boeuf%20Chicago" target="_blank" rel="noopener">Map</a>
+        <details>
+          <summary>Planning notes</summary>
+          <textarea data-save="notes" placeholder="Hotels, car rental, restaurant bookings, CPH-TRD options..."></textarea>
+        </details>
+        <details>
+          <summary>Weather</summary>
+          <div id="weatherGrid" class="weather-row">
+            <div class="mini"><strong>Loading</strong><span>Weather appears when online.</span></div>
           </div>
-        </div>
-        <div class="mini food" data-detail="food-prime" role="button" tabindex="0">
-          <strong>Prime & Provisions</strong>
-          <span>Downtown steakhouse near LaSalle and Wacker. Convenient if the hotel lands in the Loop/River North.</span>
-          <div class="actions">
-            <a class="btn red" href="https://www.primeandprovisions.com/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Prime%20and%20Provisions%20Chicago" target="_blank" rel="noopener">Map</a>
+        </details>
+        <details>
+          <summary>Sources</summary>
+          <div class="mini-grid">
+            <a class="btn" href="https://www.choosechicago.com/events/" target="_blank" rel="noopener">Events</a>
+            <a class="btn" href="https://www.architecture.org/city-tours/river-cruise" target="_blank" rel="noopener">River Cruise</a>
+            <a class="btn" href="https://www.artic.edu/" target="_blank" rel="noopener">Art Institute</a>
+            <a class="btn" href="https://www.fieldmuseum.org/" target="_blank" rel="noopener">Field Museum</a>
+            <a class="btn" href="https://www.griffinmsi.org/" target="_blank" rel="noopener">Griffin MSI</a>
+            <a class="btn" href="https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx" target="_blank" rel="noopener">ORD Cars</a>
           </div>
-        </div>
-        <div class="mini food" data-detail="food-greenstreet" role="button" tabindex="0">
-          <strong>Green Street Smoked Meats</strong>
-          <span>Central Texas-style BBQ in the West Loop. Strong arrival-night or casual dinner candidate.</span>
-          <div class="actions">
-            <a class="btn red" href="https://www.greenstreetmeats.com/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Green%20Street%20Smoked%20Meats%20Chicago" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini food" data-detail="food-smoque" role="button" tabindex="0">
-          <strong>Smoque BBQ</strong>
-          <span>Brisket, ribs, pulled pork. Easier with a car, rideshare, or on a North Side day.</span>
-          <div class="actions">
-            <a class="btn red" href="https://smoquebbq.com/" target="_blank" rel="noopener">Website</a>
-            <a class="btn secondary" href="https://www.google.com/maps/search/?api=1&query=Smoque%20BBQ%20Chicago" target="_blank" rel="noopener">Map</a>
-          </div>
-        </div>
-        <div class="mini food" data-detail="food-aucheval" role="button" tabindex="0">
-          <strong>Au Cheval / Small Cheval</strong>
-          <span>Famous burger track. Use Au Cheval for the full experience, Small Cheval for easier logistics.</span>
-          <div class="actions">
-            <a class="btn red" href="https://www.auchevaldiner.com/chicago/home" target="_blank" rel="noopener">Au Cheval</a>
-            <a class="btn secondary" href="https://smallcheval.com/" target="_blank" rel="noopener">Small Cheval</a>
-          </div>
-        </div>
+        </details>
       </div>
     </section>
-
-    <section id="notes">
-      <h2>Editable Planning Notes</h2>
-      <p>These fields save in this browser via local storage, useful while you add hotels and daily details.</p>
-      <div class="grid">
-        <label>
-          Hotel shortlist
-          <span>River North, Loop, West Loop, or near a Blue Line stop are the easiest zones.</span>
-          <textarea data-save="hotels" placeholder="Add hotel candidates, booking refs, check-in/out times..."></textarea>
-        </label>
-        <label>
-          Missing flight leg
-          <span>CPH-TRD after Monday 12 Oct 10:45 arrival in Copenhagen.</span>
-          <textarea data-save="missing-flight" placeholder="Add CPH-TRD flight options here..."></textarea>
-        </label>
-        <label>
-          Car rental
-          <span>Best current idea: rent only for Saturday 10 Oct.</span>
-          <textarea data-save="car" placeholder="Pickup/drop-off, booking ref, insurance, parking notes..."></textarea>
-        </label>
-        <label>
-          Food reservations
-          <span>Book at least one steakhouse once the hotel area is known.</span>
-          <textarea data-save="food" placeholder="Gibsons, Bavette's, Prime & Provisions, Green Street, Smoque..."></textarea>
-        </label>
-      </div>
-    </section>
-
-    <section id="weather">
-      <h2>Weather Snapshot</h2>
-      <p>Live weather appears when online. Forecast for October will only become useful close to departure.</p>
-      <div id="weatherGrid" class="grid">
-        <div class="mini"><strong>Loading weather...</strong><span>Open this page while online.</span></div>
-      </div>
-    </section>
-
-    <section id="sources">
-      <h2>Useful Source Links</h2>
-      <p>Checked on 18 July 2026. Event calendars may change, so re-check before buying tickets.</p>
-      <div class="source-list">
-        <a href="https://www.choosechicago.com/events/" target="_blank" rel="noopener">Choose Chicago events calendar</a>
-        <a href="https://www.chicago.gov/city/en/depts/dca/supp_info/dates.html" target="_blank" rel="noopener">City of Chicago DCASE 2026 festival dates</a>
-        <a href="https://www.architecture.org/city-tours/river-cruise" target="_blank" rel="noopener">Chicago Architecture Center river cruise schedule</a>
-        <a href="https://www.architecture.org/open-house-chicago/about" target="_blank" rel="noopener">Open House Chicago 2026, after your trip on 17-18 Oct</a>
-        <a href="https://www.artic.edu/" target="_blank" rel="noopener">Art Institute of Chicago hours and tickets</a>
-        <a href="https://www.fieldmuseum.org/" target="_blank" rel="noopener">Field Museum hours and exhibitions</a>
-        <a href="https://www.griffinmsi.org/" target="_blank" rel="noopener">Griffin Museum of Science and Industry</a>
-        <a href="https://www.transitchicago.com/fares/" target="_blank" rel="noopener">CTA fares and passes</a>
-        <a href="https://www.flychicago.com/ohare/myflight/international/pages/default.aspx" target="_blank" rel="noopener">O'Hare international arrival process</a>
-        <a href="https://www.hyatt.com/hyatt-place/en-US/chizd-hyatt-place-chicago-river-north" target="_blank" rel="noopener">Hyatt Place Chicago/River North</a>
-        <a href="https://www.hilton.com/en/hotels/chidwes-embassy-suites-chicago-downtown-river-north/" target="_blank" rel="noopener">Embassy Suites Chicago Downtown River North</a>
-        <a href="https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx" target="_blank" rel="noopener">O'Hare rental car facility</a>
-        <a href="https://www.budget.com/en/locations/us/il/chicago/c2g" target="_blank" rel="noopener">Budget North Loop-Downtown rental location</a>
-        <a href="https://www.hertz.com/us/en/location/unitedstates/illinois/chicago/chic12" target="_blank" rel="noopener">Hertz State Street rental location</a>
-      </div>
-    </section>
-
-    <div class="footer-space"></div>
   </main>
-
-  <dialog id="detailDialog">
-    <div class="modal-top">
-      <h2 id="detailTitle">Details</h2>
-      <button class="close-btn" type="button" id="closeDialog" aria-label="Close details">Close</button>
-    </div>
-    <div id="detailBody" class="modal-body"></div>
-  </dialog>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -1077,465 +619,265 @@
       ordReturn: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Chicago%20O%27Hare%20International%20Airport&travelmode=transit"
     };
 
-    const mapPlaces = [
-      { id: "ord", name: "Chicago O'Hare International Airport", coords: [41.9742, -87.9073], type: "airport", group: "airport", note: "International arrival/departure airport. SAS long-haul booking YCV6Z8.", detail: "flight-cph-ord", route: routeLinks.ordDowntown },
-      { id: "loop", name: "Chicago Loop", coords: [41.8787, -87.6298], type: "culture", group: "culture", note: "Useful center point for hotels, transit, theatres, and museum access.", detail: "day-oct5", route: routeLinks.riverwalk },
-      { id: "hyattplace", name: "Hyatt Place Chicago/River North", coords: [41.8903, -87.6307], type: "hotel", group: "hotel", note: "Best balanced hotel check: central, practical, sofa-bed room options.", detail: "hotel-hyatt-place" },
-      { id: "embassyrn", name: "Embassy Suites River North", coords: [41.8918, -87.6287], type: "hotel", group: "hotel", note: "Two-room suite option with breakfast in River North.", detail: "hotel-embassy-river-north" },
-      { id: "residenceinn", name: "Residence Inn River North", coords: [41.8892, -87.6303], type: "hotel", group: "hotel", note: "All-suites/apartment-feel option with kitchen and sofa-bed room types.", detail: "hotel-residence-inn" },
-      { id: "hamptonmajestic", name: "Hampton Inn Majestic Theatre District", coords: [41.8800, -87.6306], type: "hotel", group: "hotel", note: "Loop value check with breakfast near theatres, Art Institute, and CTA.", detail: "hotel-hampton-majestic" },
-      { id: "homewoodwestloop", name: "Homewood Suites West Loop", coords: [41.8842, -87.6422], type: "hotel", group: "hotel", note: "Suite/breakfast option near Fulton Market and West Loop food.", detail: "hotel-homewood-west-loop" },
-      { id: "cac", name: "Chicago Architecture Center", coords: [41.8877, -87.6234], type: "culture", group: "culture", note: "Best launch point for the architecture river cruise.", detail: "day-oct5", route: routeLinks.riverwalk },
-      { id: "millennium", name: "Millennium Park", coords: [41.8826, -87.6226], type: "culture", group: "culture", note: "First-trip essential: Cloud Gate, park, lakefront, and easy Loop walking.", detail: "day-oct5", route: routeLinks.riverwalk },
-      { id: "art", name: "Art Institute of Chicago", coords: [41.8796, -87.6237], type: "culture", group: "culture", note: "Avoid Tuesday based on current hours. Wednesday or Thursday fits well.", detail: "day-oct7", route: routeLinks.art },
-      { id: "field", name: "Field Museum", coords: [41.8663, -87.6170], type: "culture", group: "culture", note: "Museum Campus anchor, good with lakefront viewpoints.", detail: "day-oct8", route: routeLinks.field },
-      { id: "msi", name: "Griffin Museum of Science and Industry", coords: [41.7906, -87.5831], type: "culture", group: "culture", note: "Strong teen-friendly pick: U-505 Submarine, science exhibits, dome theater.", detail: "day-oct6", route: routeLinks.msi },
-      { id: "wrigley", name: "Wrigley Field", coords: [41.9484, -87.6553], type: "culture", group: "culture", note: "North Side icon. Game schedules depend on postseason and future releases.", detail: "day-oct9", route: routeLinks.north },
-      { id: "oakpark", name: "Frank Lloyd Wright Home and Studio", coords: [41.8944, -87.8006], type: "drive", group: "drive", note: "Architecture-focused first stop for the car day.", detail: "drive-oak-park", route: routeLinks.oakPark },
-      { id: "morton", name: "Morton Arboretum", coords: [41.8162, -88.0708], type: "drive", group: "drive", note: "Fall color destination, good pairing with Oak Park.", detail: "drive-oak-park", route: routeLinks.oakPark },
-      { id: "dunes", name: "Indiana Dunes National Park", coords: [41.6533, -87.0524], type: "drive", group: "drive", note: "Lake Michigan and dunes day trip. Best in clear weather.", detail: "drive-dunes", route: routeLinks.dunes },
-      { id: "bahai", name: "Bahai House of Worship", coords: [42.0743, -87.6846], type: "drive", group: "drive", note: "North Shore short-loop destination with Evanston.", detail: "drive-northshore", route: routeLinks.northshore },
-      { id: "budgetnorthloop", name: "Budget/Avis North Loop", coords: [41.8862, -87.6310], type: "rental", group: "rental", note: "Best downtown pickup check near Clark and Wacker. Compare weekend hours.", detail: "rental-budget-north-loop" },
-      { id: "hertzstate", name: "Hertz State Street", coords: [41.8895, -87.6281], type: "rental", group: "rental", note: "Alternate downtown rental point near River North/Mag Mile.", detail: "rental-hertz-state" },
-      { id: "ordmmf", name: "ORD Multi-Modal Facility", coords: [41.9950, -87.8848], type: "rental", group: "rental", note: "Airport rental-car facility at 10255 W. Zemke Blvd.", detail: "rental-ord-mmf" },
-      { id: "gibsons", name: "Gibsons Bar & Steakhouse", coords: [41.9019, -87.6286], type: "food", group: "food", note: "Classic Chicago steakhouse for one big dinner.", detail: "food-gibsons" },
-      { id: "bavettes", name: "Bavette's Bar & Boeuf", coords: [41.8892, -87.6349], type: "food", group: "food", note: "Atmospheric steakhouse. Reservation useful.", detail: "food-bavettes" },
-      { id: "prime", name: "Prime & Provisions", coords: [41.8866, -87.6326], type: "food", group: "food", note: "Downtown steakhouse near LaSalle and Wacker.", detail: "food-prime" },
-      { id: "greenstreet", name: "Green Street Smoked Meats", coords: [41.8836, -87.6486], type: "food", group: "food", note: "Casual West Loop BBQ: brisket, smoked meats, sides.", detail: "food-greenstreet" },
-      { id: "smoque", name: "Smoque BBQ", coords: [41.9507, -87.7279], type: "food", group: "food", note: "Brisket/ribs option northwest of downtown.", detail: "food-smoque" },
-      { id: "aucheval", name: "Au Cheval", coords: [41.8847, -87.6470], type: "food", group: "food", note: "Famous burger in the West Loop.", detail: "food-aucheval" }
+    const places = [
+      { id: "ord", label: "A", type: "airport", day: "oct4", title: "O'Hare International Airport", coords: [41.9742, -87.9073], note: "Arrive 4 Oct 16:10. Depart 11 Oct 19:15.", action: "ORD route", url: routeLinks.ordDowntown },
+      { id: "hyatt", label: "H", type: "hotel", day: "all", title: "Hyatt Place River North", coords: [41.8903, -87.6307], note: "Best balanced first quote: central, practical, sofa-bed room options.", action: "Hotel", url: "https://www.hyatt.com/hyatt-place/en-US/chizd-hyatt-place-chicago-river-north" },
+      { id: "embassy", label: "H", type: "hotel", day: "all", title: "Embassy Suites River North", coords: [41.8918, -87.6287], note: "Most comfortable: two-room suite concept and breakfast.", action: "Hotel", url: "https://www.hilton.com/en/hotels/chidwes-embassy-suites-chicago-downtown-river-north/" },
+      { id: "residence", label: "H", type: "hotel", day: "all", title: "Residence Inn River North", coords: [41.8892, -87.6303], note: "Apartment feel: suite/kitchen/sofa-bed style option.", action: "Hotel", url: "https://www.marriott.com/en-us/hotels/chirn-residence-inn-chicago-downtown-river-north/overview/" },
+      { id: "hampton", label: "H", type: "hotel", day: "all", title: "Hampton Inn Majestic", coords: [41.88, -87.6306], note: "Loop value check near theatres, Art Institute, and CTA.", action: "Hotel", url: "https://www.hilton.com/en/hotels/chitdhx-hampton-majestic-chicago-theatre-district/" },
+      { id: "homewood", label: "H", type: "hotel", day: "all", title: "Homewood Suites West Loop", coords: [41.8842, -87.6422], note: "Best if West Loop food access matters most.", action: "Hotel", url: "https://www.hilton.com/en/hotels/chiwwhw-homewood-suites-chicago-west-loop-fulton-market-area/" },
+      { id: "cac", label: "C", type: "culture", day: "oct5", title: "Architecture River Cruise", coords: [41.8877, -87.6234], note: "Do this early in the week while the seasonal cruise window fits.", action: "Route", url: routeLinks.riverwalk },
+      { id: "millennium", label: "C", type: "culture", day: "oct5", title: "Millennium Park", coords: [41.8826, -87.6226], note: "Classic first Chicago walk: park, lakefront, Cultural Center.", action: "Route", url: routeLinks.riverwalk },
+      { id: "msi", label: "C", type: "culture", day: "oct6", title: "Griffin MSI", coords: [41.7906, -87.5831], note: "Best teen-friendly museum day: U-505, science, dome theater.", action: "Route", url: routeLinks.msi },
+      { id: "art", label: "C", type: "culture", day: "oct7", title: "Art Institute", coords: [41.8796, -87.6237], note: "Use Wednesday or Thursday; currently closed Tuesdays.", action: "Route", url: routeLinks.art },
+      { id: "field", label: "C", type: "culture", day: "oct8", title: "Field Museum", coords: [41.8663, -87.617], note: "Museum Campus anchor plus lakefront skyline views.", action: "Route", url: routeLinks.field },
+      { id: "wrigley", label: "C", type: "culture", day: "oct9", title: "Wrigley Field / North Side", coords: [41.9484, -87.6553], note: "Good Friday neighborhood day: Wrigley, Lincoln Park, Old Town.", action: "Route", url: routeLinks.north },
+      { id: "gibsons", label: "S", type: "food", day: "all", title: "Gibsons Steakhouse", coords: [41.9019, -87.6286], note: "Classic Chicago steakhouse. Reserve early.", action: "Website", url: "https://gibsonssteakhouse.com/" },
+      { id: "bavettes", label: "S", type: "food", day: "oct7", title: "Bavette's", coords: [41.8892, -87.6349], note: "Atmospheric steakhouse for Art Institute / West Loop night.", action: "Website", url: "https://www.bavettessteakhouse.com/chicago/home" },
+      { id: "prime", label: "S", type: "food", day: "all", title: "Prime & Provisions", coords: [41.8866, -87.6326], note: "Convenient downtown steakhouse near Loop/River North.", action: "Website", url: "https://www.primeandprovisions.com/" },
+      { id: "greenstreet", label: "B", type: "food", day: "oct4", title: "Green Street Smoked Meats", coords: [41.8836, -87.6486], note: "Casual BBQ option for arrival night or West Loop dinner.", action: "Website", url: "https://www.greenstreetmeats.com/" },
+      { id: "smoque", label: "B", type: "food", day: "oct9", title: "Smoque BBQ", coords: [41.9507, -87.7279], note: "Brisket/ribs. Easier by car, rideshare, or North Side day.", action: "Website", url: "https://smoquebbq.com/" },
+      { id: "aucheval", label: "B", type: "food", day: "oct7", title: "Au Cheval", coords: [41.8847, -87.647], note: "Famous burger; Small Cheval is the easier version.", action: "Website", url: "https://www.auchevaldiner.com/chicago/home" },
+      { id: "budget", label: "R", type: "rental", day: "oct10", title: "Budget/Avis North Loop", coords: [41.8862, -87.631], note: "Best downtown pickup check. Watch Saturday/Sunday hours.", action: "Budget", url: "https://www.budget.com/en/locations/us/il/chicago/c2g" },
+      { id: "hertz", label: "R", type: "rental", day: "oct10", title: "Hertz State Street", coords: [41.8895, -87.6281], note: "Alternate downtown pickup near River North/Mag Mile.", action: "Hertz", url: "https://www.hertz.com/us/en/location/unitedstates/illinois/chicago/chic12" },
+      { id: "ordmmf", label: "R", type: "rental", day: "oct11", title: "ORD Rental Car Facility", coords: [41.995, -87.8848], note: "Airport return option if one-way fee and timing make sense.", action: "ORD cars", url: "https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx" },
+      { id: "oakpark", label: "D", type: "drive", day: "oct10", title: "Oak Park", coords: [41.8944, -87.8006], note: "Recommended car-day first stop: Frank Lloyd Wright architecture.", action: "Drive", url: routeLinks.oakPark },
+      { id: "morton", label: "D", type: "drive", day: "oct10", title: "Morton Arboretum", coords: [41.8162, -88.0708], note: "Best fall-color pairing with Oak Park.", action: "Drive", url: routeLinks.oakPark },
+      { id: "dunes", label: "D", type: "drive", day: "oct10", title: "Indiana Dunes", coords: [41.6533, -87.0524], note: "Weather-dependent lake-and-dunes road trip option.", action: "Drive", url: routeLinks.dunes },
+      { id: "bahai", label: "D", type: "drive", day: "oct10", title: "North Shore Loop", coords: [42.0743, -87.6846], note: "Shorter drive: Evanston lakefront and Bahai Temple.", action: "Drive", url: routeLinks.northshore }
     ];
 
-    const mapRoutes = [
-      { ids: ["ord", "loop"], group: "airport", color: "#111827", label: "ORD to downtown" },
-      { ids: ["hyattplace", "embassyrn", "residenceinn", "hamptonmajestic", "homewoodwestloop"], group: "hotel", color: "#087d80", label: "Hotel shortlist" },
-      { ids: ["loop", "cac", "millennium", "art"], group: "culture", color: "#2364aa", label: "Loop culture walk" },
-      { ids: ["loop", "field", "msi"], group: "culture", color: "#7051a3", label: "Museum days" },
-      { ids: ["loop", "gibsons", "bavettes", "prime", "greenstreet", "aucheval"], group: "food", color: "#c53f35", label: "Downtown steak/BBQ cluster" },
-      { ids: ["budgetnorthloop", "hertzstate", "ordmmf"], group: "rental", color: "#a86412", label: "Rental pickup/return points" },
-      { ids: ["loop", "oakpark", "morton"], group: "drive", color: "#1f7a4d", label: "Oak Park + Morton Arboretum" },
-      { ids: ["loop", "dunes"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "Indiana Dunes option" },
-      { ids: ["loop", "bahai"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "North Shore option" }
+    const routes = [
+      { ids: ["ord", "hyatt"], group: "airport", color: "#1f2933", label: "Airport to hotel zone" },
+      { ids: ["hyatt", "embassy", "residence", "hampton", "homewood"], group: "hotel", color: "#087d80", label: "Hotel shortlist" },
+      { ids: ["hyatt", "cac", "millennium", "art"], group: "culture", color: "#2364aa", label: "Loop walk" },
+      { ids: ["hyatt", "field", "msi"], group: "culture", color: "#7051a3", label: "Museum days" },
+      { ids: ["hyatt", "gibsons", "bavettes", "prime", "greenstreet", "aucheval"], group: "food", color: "#c53f35", label: "Food cluster" },
+      { ids: ["budget", "hertz", "ordmmf"], group: "rental", color: "#a86412", label: "Rental options" },
+      { ids: ["hyatt", "oakpark", "morton"], group: "drive", color: "#1f7a4d", label: "Oak Park + Morton" },
+      { ids: ["hyatt", "dunes"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "Dunes option" },
+      { ids: ["hyatt", "bahai"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "North Shore option" }
     ];
 
-    function sourceLink(label, url) {
-      return `<a class="btn secondary" href="${url}" target="_blank" rel="noopener">${label}</a>`;
-    }
+    const typeMeta = {
+      airport: { name: "Airport", color: "#1f2933" },
+      hotel: { name: "Hotel", color: "#087d80" },
+      culture: { name: "Culture", color: "#2364aa" },
+      food: { name: "Steak + BBQ", color: "#c53f35" },
+      rental: { name: "Car Rental", color: "#a86412" },
+      drive: { name: "Drive", color: "#1f7a4d" }
+    };
 
-    const detailWindows = {
-      "flight-trd-cph": {
-        title: "4 Oct: TRD to CPH",
-        body: `
-          <p>SAS booking <strong>YCZBGV</strong>. Trondheim to Copenhagen, 05:30-07:10 local time.</p>
-          <p>Connection buffer in Copenhagen is 6 hours 45 minutes before the Chicago flight. That is long but comfortable, especially after a very early departure from Trondheim.</p>
-          <div class="actions">${sourceLink("Open SAS", "https://www.flysas.com/")}${sourceLink("CPH Airport", "https://www.cph.dk/en")}</div>`
-      },
-      "flight-cph-ord": {
-        title: "4 Oct: CPH to ORD",
-        body: `
-          <p>SAS booking <strong>YCV6Z8</strong>. Copenhagen to Chicago O'Hare, 13:55-16:10 local time.</p>
-          <p>At O'Hare, international travelers generally clear immigration, claim baggage, and clear customs before exiting. Current airport guidance says this process is rarely more than two hours, but arrival-day patience is still wise.</p>
-          <div class="actions">${sourceLink("ORD arrival guide", "https://www.flychicago.com/ohare/myflight/international/pages/default.aspx")}${sourceLink("Downtown transit", routeLinks.ordDowntown)}</div>`
-      },
-      "flight-ord-cph": {
-        title: "11 Oct: ORD to CPH",
-        body: `
-          <p>SAS booking <strong>YCV6Z8</strong>. Chicago O'Hare to Copenhagen, 19:15 on Sunday 11 Oct, arriving 10:45 on Monday 12 Oct.</p>
-          <p>If the final day includes a rental car, return it early enough that airport transfer, bag drop, security, and a meal do not become rushed.</p>
-          <div class="actions">${sourceLink("Navigate to ORD", routeLinks.ordReturn)}${sourceLink("Open SAS", "https://www.flysas.com/")}</div>`
-      },
-      "flight-missing": {
-        title: "Missing: CPH to TRD",
-        body: `
-          <p>The final home leg is not booked yet. The long-haul flight arrives in Copenhagen at 10:45 on Monday 12 Oct.</p>
-          <p>When adding CPH-TRD, leave enough time for any baggage, terminal movement, meal, and schedule disruption. If it is on a separate booking, be more conservative.</p>
-          <div class="actions">${sourceLink("Search SAS", "https://www.flysas.com/")}</div>`
-      },
-      "hotel-hyatt-place": {
-        title: "Hotel: Hyatt Place Chicago/River North",
-        body: `
-          <p>My best first quote to check. It is central for the river cruise, steakhouse dinners, CTA, and walking routes. Hyatt lists spacious rooms with Cozy Corner sleeper sofas, including two-queen room types.</p>
-          <p>Good fit if the price is fair and you want straightforward logistics rather than a stylish-but-small room.</p>
-          <div class="actions">${sourceLink("Hotel website", "https://www.hyatt.com/hyatt-place/en-US/chizd-hyatt-place-chicago-river-north")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Hyatt%20Place%20Chicago%20River%20North")}</div>`
-      },
-      "hotel-embassy-river-north": {
-        title: "Hotel: Embassy Suites River North",
-        body: `
-          <p>Most comfortable room-shape candidate: two-room suites, free made-to-order breakfast, and a central River North base within easy reach of Riverwalk, Navy Pier, Millennium Park, and the Art Institute.</p>
-          <p>Check this if you want separate sleeping space and breakfast value more than boutique style.</p>
-          <div class="actions">${sourceLink("Hotel website", "https://www.hilton.com/en/hotels/chidwes-embassy-suites-chicago-downtown-river-north/")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Embassy%20Suites%20Chicago%20Downtown%20River%20North")}</div>`
-      },
-      "hotel-residence-inn": {
-        title: "Hotel: Residence Inn River North",
-        body: `
-          <p>Good apartment-feel option. Marriott lists all-suites conveniences, kitchen/sofa-bed style room types, Wi-Fi, and laundry. Useful if you want a little routine during a full week.</p>
-          <p>Compare this directly with Hyatt Place and Embassy Suites; the winner is probably whichever gives the best room layout at the best total price.</p>
-          <div class="actions">${sourceLink("Hotel website", "https://www.marriott.com/en-us/hotels/chirn-residence-inn-chicago-downtown-river-north/overview/")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Residence%20Inn%20Chicago%20Downtown%20River%20North")}</div>`
-      },
-      "hotel-hampton-majestic": {
-        title: "Hotel: Hampton Inn Majestic Theatre District",
-        body: `
-          <p>Best Loop value check. Hilton lists free hot breakfast and Wi-Fi, and the location is close to CIBC Theatre, Millennium Park, Art Institute, Willis Tower, CTA Blue/Red lines, dining, and shopping.</p>
-          <p>Pick this if the price is clearly better and you want a simple sightseeing base.</p>
-          <div class="actions">${sourceLink("Hotel website", "https://www.hilton.com/en/hotels/chitdhx-hampton-majestic-chicago-theatre-district/")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Hampton%20Inn%20Majestic%20Chicago%20Theatre%20District")}</div>`
-      },
-      "hotel-homewood-west-loop": {
-        title: "Hotel: Homewood Suites West Loop",
-        body: `
-          <p>Good if food is central: Fulton Market and West Loop restaurants are close, and Hilton lists suites, free hot breakfast, free Wi-Fi, and a Wednesday evening social.</p>
-          <p>This location is less classic-tourist than River North/Loop, but it pairs very well with Green Street Smoked Meats, Au Cheval, and West Loop dinners.</p>
-          <div class="actions">${sourceLink("Hotel website", "https://www.hilton.com/en/hotels/chiwwhw-homewood-suites-chicago-west-loop-fulton-market-area/")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Homewood%20Suites%20Chicago%20West%20Loop%20Fulton%20Market")}</div>`
-      },
-      "hotel-airport-note": {
-        title: "Airport Hotel Note",
-        body: `
-          <p>For the planned itinerary, stay downtown. Airport hotels make sense only if flights change, you add an airport-side first/last night, or pricing downtown becomes unreasonable.</p>
-          <p>Loews O'Hare has a complimentary airport shuttle and Rosemont access. Hilton O'Hare is the on-site airport hotel near Terminal 2.</p>
-          <div class="actions">${sourceLink("Loews O'Hare", "https://www.loewshotels.com/chicago-ohare")}${sourceLink("Hilton ORD", "https://www.flychicago.com/ohare/ServicesAmenities/amenities/Pages/hotel.aspx")}</div>`
-      },
-      "rental-budget-north-loop": {
-        title: "Car Rental: Budget/Avis North Loop",
-        body: `
-          <p>Best downtown pickup candidate if your hotel is in River North or the Loop. Budget describes the counter at North Clark and Upper Wacker, with on-site cars and same-location return.</p>
-          <p>Important: weekend office hours can be short, and Budget notes after-hours returns may not be available at all locations. Check Saturday pickup and Sunday return before booking.</p>
-          <div class="actions">${sourceLink("Budget North Loop", "https://www.budget.com/en/locations/us/il/chicago/c2g")}${sourceLink("Avis North Loop", "https://www.avis.com/en/locations/nam/us/il/chicago/ch1")}</div>`
-      },
-      "rental-hertz-state": {
-        title: "Car Rental: Hertz State Street",
-        body: `
-          <p>Good alternate downtown rental point. Hertz describes this location as close to the Chicago River and Magnificent Mile, which fits River North/Mag Mile hotels.</p>
-          <p>Compare total price, pickup time, Sunday return policy, and whether a compact/midsize car is enough for the driving routine.</p>
-          <div class="actions">${sourceLink("Hertz State Street", "https://www.hertz.com/us/en/location/unitedstates/illinois/chicago/chic12")}${sourceLink("Open map", "https://www.google.com/maps/search/?api=1&query=Hertz%20401%20N%20State%20St%20Chicago")}</div>`
-      },
-      "rental-ord-mmf": {
-        title: "Car Rental: ORD Multi-Modal Facility",
-        body: `
-          <p>All O'Hare airport rental-car companies are in the Multi-Modal Facility at 10255 W. Zemke Blvd. The airport says travelers use the Airport Transit System between terminals and the MMF.</p>
-          <p>Use this if returning the car at ORD on departure day is convenient and the one-way fee is acceptable. Otherwise, downtown pickup/return is calmer.</p>
-          <div class="actions">${sourceLink("ORD rental cars", "https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx")}${sourceLink("MMF map", "https://www.google.com/maps/search/?api=1&query=10255%20W%20Zemke%20Blvd%20Chicago%20IL%2060666")}</div>`
-      },
-      "rental-checks": {
-        title: "Car Rental Booking Checks",
-        body: `
-          <p>Before booking, compare the total price after taxes, one-way fee, toll transponder, fuel policy, hotel parking, and insurance. If pickup and return are at different places, check the one-way fee carefully.</p>
-          <p>Your son is 17, so he should not be planned as a driver. Avis and Budget generally rent from age 21 in most U.S. states; Hertz generally says 20; Enterprise lists 25 as the standard requirement with possible young-driver fees under 25.</p>
-          <div class="actions">${sourceLink("Avis age rules", "https://www.avis.com/en/help/usa-faqs/age-requirements")}${sourceLink("Budget age rules", "https://www.budget.com/en/help/usa-faqs/age-to-rent")}${sourceLink("Hertz age rules", "https://www.hertz.com/us/en/about-us/age-restrictions-and-exceptions")}${sourceLink("Enterprise requirements", "https://www.enterprise.com/en/car-rental-faqs/us-renter-requirements/car-rental-requirements.html")}</div>`
-      },
-      "day-oct4": {
-        title: "Sunday 4 Oct: Arrival",
-        body: `
-          <p>Flight day: TRD 05:30 -> CPH 07:10, then CPH 13:55 -> ORD 16:10.</p>
-          <p>Arrival priorities: clear Terminal 5, get to the hotel, eat well, sleep. If the hotel is downtown, Green Street Smoked Meats is casual and satisfying; Prime & Provisions is the more classic steakhouse-style choice.</p>
-          <div class="actions">${sourceLink("ORD arrival guide", "https://www.flychicago.com/ohare/myflight/international/pages/default.aspx")}${sourceLink("ORD to downtown", routeLinks.ordDowntown)}</div>`
-      },
-      "day-oct5": {
-        title: "Monday 5 Oct: Architecture + Loop",
-        body: `
-          <p>Recommended first full day: Chicago Architecture Center river cruise, Chicago Riverwalk, Chicago Cultural Center, Millennium Park, and lakefront.</p>
-          <p>The CAC river cruise currently lists its summer season through 12 Oct 2026, so your visit fits. Book earlier in the week in case wind/rain makes you want a backup day.</p>
-          <div class="actions">${sourceLink("CAC river cruise", "https://www.architecture.org/city-tours/river-cruise")}${sourceLink("Walking route", routeLinks.riverwalk)}</div>`
-      },
-      "day-oct6": {
-        title: "Tuesday 6 Oct: Griffin MSI",
-        body: `
-          <p>Tuesday is a good day for the Griffin Museum of Science and Industry because the Art Institute is currently closed Tuesdays. Prioritize U-505 Submarine, hands-on exhibits, and the dome theater.</p>
-          <p>Food pairing: Chinatown after the museum, or return to West Loop for burgers/BBQ.</p>
-          <div class="actions">${sourceLink("Griffin MSI", "https://www.griffinmsi.org/")}${sourceLink("Transit route", routeLinks.msi)}</div>`
-      },
-      "day-oct7": {
-        title: "Wednesday 7 Oct: Art + West Loop",
-        body: `
-          <p>Art Institute, Route 66 Begin sign, Chicago Athletic Association building, and a West Loop dinner. This is the neatest day for Bavette's or Au Cheval.</p>
-          <p>If you want a theatre night, check Broadway in Chicago and Chicago Theatre calendars again closer to departure.</p>
-          <div class="actions">${sourceLink("Art Institute", "https://www.artic.edu/")}${sourceLink("Broadway in Chicago", "https://www.broadwayinchicago.com/")}${sourceLink("Walking route", routeLinks.art)}</div>`
-      },
-      "day-oct8": {
-        title: "Thursday 8 Oct: Field Museum + Lakefront",
-        body: `
-          <p>Field Museum, Museum Campus, Adler Planetarium skyline viewpoint, and lakefront walking. If the Art Institute got skipped, Thursday evening is the best backup based on current hours.</p>
-          <p>Food pairing: Gibsons for classic steakhouse, or Prime & Provisions if staying near the Loop.</p>
-          <div class="actions">${sourceLink("Field Museum", "https://www.fieldmuseum.org/")}${sourceLink("Museum route", routeLinks.field)}</div>`
-      },
-      "day-oct9": {
-        title: "Friday 9 Oct: North Side",
-        body: `
-          <p>Wrigley Field, Lincoln Park, Old Town, and maybe a show. Sports schedules and some theatre calendars may still change, so treat this as a flexible neighborhood day.</p>
-          <p>If you choose comedy, check content suitability for a 17-year-old before booking.</p>
-          <div class="actions">${sourceLink("Chicago Theatre", "https://www.msg.com/the-chicago-theatre")}${sourceLink("North Side route", routeLinks.north)}</div>`
-      },
-      "day-oct10": {
-        title: "Saturday 10 Oct: Car Day",
-        body: `
-          <p>Best car-rental day. Routine A is the cleanest: Oak Park for Frank Lloyd Wright architecture, then Morton Arboretum for autumn color.</p>
-          <p>Routine B is more weather-dependent: Indiana Dunes for lake scenery and a proper road-trip feeling. Routine C is a shorter North Shore loop.</p>
-          <div class="actions">${sourceLink("Oak Park + Morton", routeLinks.oakPark)}${sourceLink("Indiana Dunes", routeLinks.dunes)}${sourceLink("North Shore", routeLinks.northshore)}</div>`
-      },
-      "day-oct11": {
-        title: "Sunday 11 Oct: Departure",
-        body: `
-          <p>Keep the final day close to the hotel: coffee, a short walk, last food stop, then O'Hare. For the 19:15 departure, aim to be at ORD around 16:00, earlier if returning a rental car.</p>
-          <p>The flight arrives Copenhagen at 10:45 on Monday 12 Oct. CPH-TRD is still missing.</p>
-          <div class="actions">${sourceLink("Navigate to ORD", routeLinks.ordReturn)}${sourceLink("Open SAS", "https://www.flysas.com/")}</div>`
-      },
-      "drive-oak-park": {
-        title: "Drive Routine A: Oak Park + Morton Arboretum",
-        body: `
-          <p>This is the recommended car day: downtown Chicago -> Frank Lloyd Wright Home and Studio / Oak Park neighborhood walk -> Morton Arboretum -> back to Chicago.</p>
-          <p>Why it fits: not too much driving, good autumn value, architecture plus nature, and no need to keep a car overnight unless pricing makes it worthwhile.</p>
-          <div class="actions">${sourceLink("Open driving route", routeLinks.oakPark)}${sourceLink("Frank Lloyd Wright Trust", "https://flwright.org/")}${sourceLink("Morton Arboretum", "https://mortonarb.org/")}</div>`
-      },
-      "drive-dunes": {
-        title: "Drive Routine B: Indiana Dunes",
-        body: `
-          <p>Downtown Chicago -> Indiana Dunes National Park -> optional lakeshore stops -> back to Chicago.</p>
-          <p>Choose this if the weather is dry and you want dunes, beach, lake, and a road-trip feel. Pack layers; October wind by Lake Michigan can be sharp.</p>
-          <div class="actions">${sourceLink("Open driving route", routeLinks.dunes)}${sourceLink("Indiana Dunes NPS", "https://www.nps.gov/indu/index.htm")}</div>`
-      },
-      "drive-northshore": {
-        title: "Drive Routine C: North Shore",
-        body: `
-          <p>Downtown Chicago -> Evanston lakefront -> Bahai House of Worship -> optional Ravinia/Glencoe area -> back to Chicago.</p>
-          <p>This is the short, calmer drive if you want to leave the city but not spend most of Saturday in the car.</p>
-          <div class="actions">${sourceLink("Open driving route", routeLinks.northshore)}${sourceLink("Bahai Temple", "https://www.bahai.us/bahai-temple/")}</div>`
-      },
-      "food-gibsons": {
-        title: "Food: Gibsons",
-        body: `
-          <p>Classic Chicago steakhouse, strong father-son dinner option, especially if staying north of the river. Reserve once the hotel is settled.</p>
-          <div class="actions">${sourceLink("Gibsons", "https://gibsonssteakhouse.com/")}</div>`
-      },
-      "food-bavettes": {
-        title: "Food: Bavette's",
-        body: `
-          <p>Steakhouse with more atmosphere and a tougher reservation. Good target for Wednesday after Art Institute / West Loop.</p>
-          <div class="actions">${sourceLink("Bavette's", "https://www.bavettessteakhouse.com/chicago/home")}</div>`
-      },
-      "food-prime": {
-        title: "Food: Prime & Provisions",
-        body: `
-          <p>Convenient downtown steakhouse near the Loop and River North. Useful if you want a classic steak night without crossing town.</p>
-          <div class="actions">${sourceLink("Prime & Provisions", "https://www.primeandprovisions.com/")}</div>`
-      },
-      "food-greenstreet": {
-        title: "Food: Green Street Smoked Meats",
-        body: `
-          <p>Casual West Loop BBQ with smoked meats and sides. Good for arrival night or a low-fuss dinner after a long museum day.</p>
-          <div class="actions">${sourceLink("Green Street", "https://www.greenstreetmeats.com/")}</div>`
-      },
-      "food-smoque": {
-        title: "Food: Smoque BBQ",
-        body: `
-          <p>Brisket and ribs option northwest of downtown. It is easiest on the North Side day, by rideshare, or with the rental car.</p>
-          <div class="actions">${sourceLink("Smoque BBQ", "https://smoquebbq.com/")}</div>`
-      },
-      "food-aucheval": {
-        title: "Food: Au Cheval / Small Cheval",
-        body: `
-          <p>Au Cheval is the famous full burger experience. Small Cheval is easier if you want the burger idea with fewer logistics.</p>
-          <div class="actions">${sourceLink("Au Cheval", "https://www.auchevaldiner.com/chicago/home")}${sourceLink("Small Cheval", "https://smallcheval.com/")}</div>`
-      }
+    const dayMeta = {
+      all: "Whole week",
+      oct4: "4 Oct",
+      oct5: "5 Oct",
+      oct6: "6 Oct",
+      oct7: "7 Oct",
+      oct8: "8 Oct",
+      oct9: "9 Oct",
+      oct10: "10 Oct",
+      oct11: "11 Oct"
     };
 
     const weatherLocations = [
-      { name: "Downtown Chicago", lat: 41.8781, lon: -87.6298 },
-      { name: "O'Hare", lat: 41.9742, lon: -87.9073 },
-      { name: "Indiana Dunes", lat: 41.6533, lon: -87.0524 }
+      { name: "Chicago", lat: 41.8781, lon: -87.6298 },
+      { name: "O'Hare", lat: 41.9742, lon: -87.9073 }
     ];
 
     const weatherCodes = {
-      0: "Clear",
-      1: "Mainly clear",
-      2: "Partly cloudy",
-      3: "Overcast",
-      45: "Fog",
-      48: "Rime fog",
-      51: "Light drizzle",
-      53: "Drizzle",
-      55: "Dense drizzle",
-      61: "Light rain",
-      63: "Rain",
-      65: "Heavy rain",
-      71: "Light snow",
-      73: "Snow",
-      75: "Heavy snow",
-      80: "Light showers",
-      81: "Showers",
-      82: "Heavy showers",
-      95: "Thunderstorm"
+      0: "Clear", 1: "Mainly clear", 2: "Partly cloudy", 3: "Overcast",
+      45: "Fog", 48: "Fog", 51: "Drizzle", 53: "Drizzle", 55: "Drizzle",
+      61: "Light rain", 63: "Rain", 65: "Heavy rain", 71: "Light snow",
+      73: "Snow", 75: "Heavy snow", 80: "Showers", 81: "Showers",
+      82: "Heavy showers", 95: "Thunderstorm"
     };
 
-    function initDetails() {
-      const dialog = document.getElementById("detailDialog");
-      const title = document.getElementById("detailTitle");
-      const body = document.getElementById("detailBody");
-      const close = document.getElementById("closeDialog");
+    let activeFilter = "all";
+    let activeDay = "all";
+    let selectedId = "hyatt";
+    let map;
+    let markerLayer;
+    let routeLayer;
+    const markers = new Map();
+    const routeLines = [];
 
-      function openDetail(key) {
-        const detail = detailWindows[key];
-        if (!detail) return;
-        title.textContent = detail.title;
-        body.innerHTML = detail.body;
-        if (typeof dialog.showModal === "function") {
-          dialog.showModal();
-        } else {
-          alert(detail.title + "\n\n" + body.textContent.trim());
-        }
-      }
+    function mapSearch(place) {
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.title + " Chicago")}`;
+    }
 
-      window.openTripDetail = openDetail;
-
-      close.addEventListener("click", () => dialog.close());
-      dialog.addEventListener("click", (event) => {
-        if (event.target === dialog) dialog.close();
-      });
-
-      document.querySelectorAll("[data-detail]").forEach((card) => {
-        card.addEventListener("click", (event) => {
-          if (event.target.closest("a")) return;
-          openDetail(card.dataset.detail);
-        });
-        card.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            openDetail(card.dataset.detail);
-          }
-        });
+    function iconFor(place) {
+      const meta = typeMeta[place.type];
+      return L.divIcon({
+        className: "",
+        html: `<span style="display:grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:${meta.color};color:#fff;font-size:12px;font-weight:800;box-shadow:0 3px 11px rgba(16,33,48,.28);">${place.label}</span>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15],
+        popupAnchor: [0, -15]
       });
     }
 
-    function initTripMap() {
-      const mapEl = document.getElementById("tripMap");
-      if (!mapEl || typeof L === "undefined") return;
+    function visiblePlaces() {
+      return places.filter((place) => {
+        const filterMatch = activeFilter === "all" || place.type === activeFilter;
+        const dayMatch = activeDay === "all" || place.day === activeDay || place.day === "all";
+        return filterMatch && dayMatch;
+      });
+    }
 
-      const placeById = Object.fromEntries(mapPlaces.map((place) => [place.id, place]));
-      const colorByType = {
-        airport: "#111827",
-        hotel: "#087d80",
-        culture: "#2364aa",
-        food: "#c53f35",
-        rental: "#a86412",
-        drive: "#1f7a4d"
-      };
+    function actionHtml(place) {
+      return `
+        <a class="btn primary" href="${place.url}" target="_blank" rel="noopener">${place.action}</a>
+        <a class="btn" href="${mapSearch(place)}" target="_blank" rel="noopener">Map</a>`;
+    }
 
-      const labels = {
-        airport: "A",
-        hotel: "H",
-        culture: "C",
-        food: "F",
-        rental: "R",
-        drive: "D"
-      };
+    function popupHtml(place) {
+      return `
+        <span class="popup-title">${place.title}</span>
+        <p>${place.note}</p>
+        <div class="actions" style="margin-top:8px">${actionHtml(place)}</div>`;
+    }
 
-      const map = L.map(mapEl, {
-        scrollWheelZoom: false,
-        tap: true
+    function renderSelection(place) {
+      selectedId = place.id;
+      document.getElementById("selectedTitle").textContent = place.title;
+      document.getElementById("selectedSubtitle").textContent = `${typeMeta[place.type].name} | ${dayMeta[place.day] || ""}`;
+      document.getElementById("selectedNote").textContent = place.note;
+      document.getElementById("selectedBadges").innerHTML = `
+        <span class="badge ${place.type}">${typeMeta[place.type].name}</span>
+        <span class="badge">${dayMeta[place.day] || "Flexible"}</span>`;
+      document.getElementById("selectedActions").innerHTML = actionHtml(place);
+      renderList();
+    }
+
+    function renderList() {
+      const visible = visiblePlaces();
+      document.getElementById("listTitle").textContent = `Visible Places (${visible.length})`;
+      document.getElementById("placeList").innerHTML = visible.map((place) => {
+        const meta = typeMeta[place.type];
+        return `
+          <button class="place-button ${place.id === selectedId ? "active" : ""}" type="button" data-place="${place.id}">
+            <span class="dot" style="background:${meta.color}">${place.label}</span>
+            <span>
+              <span class="place-title">${place.title}</span>
+              <span class="place-meta">${dayMeta[place.day] || ""} | ${meta.name}</span>
+            </span>
+          </button>`;
+      }).join("");
+
+      document.querySelectorAll("[data-place]").forEach((button) => {
+        button.addEventListener("click", () => selectPlace(button.dataset.place, true));
+      });
+    }
+
+    function selectPlace(id, openPopup) {
+      const place = places.find((item) => item.id === id);
+      const marker = markers.get(id);
+      if (!place || !marker) return;
+      renderSelection(place);
+      map.panTo(place.coords, { animate: true });
+      if (openPopup) marker.openPopup();
+    }
+
+    function routeVisible(route) {
+      if (activeFilter !== "all" && route.group !== activeFilter) return false;
+      if (activeDay === "all") return true;
+      return route.ids.some((id) => {
+        const place = places.find((item) => item.id === id);
+        return place && (place.day === activeDay || place.day === "all");
+      });
+    }
+
+    function fitVisible() {
+      const visible = visiblePlaces();
+      if (!visible.length) return;
+      map.fitBounds(L.latLngBounds(visible.map((place) => place.coords)).pad(.18));
+    }
+
+    function applyView() {
+      const visibleIds = new Set(visiblePlaces().map((place) => place.id));
+      markers.forEach((marker, id) => {
+        if (visibleIds.has(id) && !markerLayer.hasLayer(marker)) marker.addTo(markerLayer);
+        if (!visibleIds.has(id) && markerLayer.hasLayer(marker)) markerLayer.removeLayer(marker);
       });
 
+      routeLines.forEach((line) => {
+        const show = routeVisible(line.tripRoute);
+        if (show && !routeLayer.hasLayer(line)) line.addTo(routeLayer);
+        if (!show && routeLayer.hasLayer(line)) routeLayer.removeLayer(line);
+      });
+
+      document.querySelectorAll("[data-filter]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.filter === activeFilter);
+      });
+      document.querySelectorAll("[data-day]").forEach((button) => {
+        button.classList.toggle("active", button.dataset.day === activeDay);
+      });
+
+      const selectedVisible = visibleIds.has(selectedId);
+      if (!selectedVisible && visiblePlaces()[0]) {
+        renderSelection(visiblePlaces()[0]);
+      } else {
+        renderList();
+      }
+      setTimeout(fitVisible, 20);
+    }
+
+    function initMap() {
+      if (typeof L === "undefined") return;
+      map = L.map("tripMap", { scrollWheelZoom: false, tap: true });
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: "&copy; OpenStreetMap contributors"
       }).addTo(map);
 
-      const markerLayer = L.layerGroup().addTo(map);
-      const routeLayer = L.layerGroup().addTo(map);
-      const markers = [];
-      const routeLines = [];
+      markerLayer = L.layerGroup().addTo(map);
+      routeLayer = L.layerGroup().addTo(map);
 
-      function markerIcon(place) {
-        const color = colorByType[place.type] || "#2364aa";
-        const label = labels[place.type] || ".";
-        return L.divIcon({
-          className: "",
-          html: `<span style="display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:2px solid #fff;background:${color};color:#fff;font-size:12px;font-weight:800;box-shadow:0 3px 10px rgba(16,33,48,.28);">${label}</span>`,
-          iconSize: [28, 28],
-          iconAnchor: [14, 14],
-          popupAnchor: [0, -14]
-        });
-      }
-
-      function popupHtml(place) {
-        const mapSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.name + " Chicago")}`;
-        return `
-          <span class="map-popup-title">${place.name}</span>
-          <p class="map-popup-meta">${place.note}</p>
-          <div class="popup-actions">
-            ${place.route ? `<a href="${place.route}" target="_blank" rel="noopener">Navigate</a>` : ""}
-            <a class="secondary" href="${mapSearch}" target="_blank" rel="noopener">Open In Maps</a>
-            ${place.detail ? `<button class="secondary" type="button" onclick="window.openTripDetail('${place.detail}')">Details</button>` : ""}
-          </div>`;
-      }
-
-      function addMarker(place) {
-        const marker = L.marker(place.coords, { icon: markerIcon(place), title: place.name })
-          .bindPopup(popupHtml(place));
-        marker.tripGroup = place.group;
-        marker.tripType = place.type;
-        markers.push(marker);
+      places.forEach((place) => {
+        const marker = L.marker(place.coords, { icon: iconFor(place), title: place.title })
+          .bindPopup(popupHtml(place))
+          .on("click", () => renderSelection(place));
+        markers.set(place.id, marker);
         marker.addTo(markerLayer);
-      }
+      });
 
-      function addRoute(route) {
+      const placeById = Object.fromEntries(places.map((place) => [place.id, place]));
+      routes.forEach((route) => {
         const points = route.ids.map((id) => placeById[id]).filter(Boolean);
         const line = L.polyline(points.map((place) => place.coords), {
           color: route.color,
           weight: route.dash ? 4 : 5,
-          opacity: route.dash ? .78 : .92,
+          opacity: route.dash ? .75 : .9,
           dashArray: route.dash || null
         }).bindTooltip(route.label, { sticky: true });
-        line.tripGroup = route.group;
+        line.tripRoute = route;
         routeLines.push(line);
         line.addTo(routeLayer);
-      }
-
-      function visibleForFilter(item, filter) {
-        if (filter === "all") return true;
-        return item.tripGroup === filter || item.tripType === filter;
-      }
-
-      function fitVisible() {
-        const visibleLatLngs = [];
-        markers.forEach((marker) => {
-          if (markerLayer.hasLayer(marker)) visibleLatLngs.push(marker.getLatLng());
-        });
-        if (visibleLatLngs.length) {
-          map.fitBounds(L.latLngBounds(visibleLatLngs).pad(.16));
-        }
-      }
-
-      function applyFilter(filter) {
-        markers.forEach((marker) => {
-          const shouldShow = visibleForFilter(marker, filter);
-          if (shouldShow && !markerLayer.hasLayer(marker)) marker.addTo(markerLayer);
-          if (!shouldShow && markerLayer.hasLayer(marker)) markerLayer.removeLayer(marker);
-        });
-
-        routeLines.forEach((line) => {
-          const shouldShow = filter === "all" || line.tripGroup === filter;
-          if (shouldShow && !routeLayer.hasLayer(line)) line.addTo(routeLayer);
-          if (!shouldShow && routeLayer.hasLayer(line)) routeLayer.removeLayer(line);
-        });
-
-        document.querySelectorAll("[data-map-filter]").forEach((button) => {
-          button.classList.toggle("active", button.dataset.mapFilter === filter);
-        });
-
-        setTimeout(fitVisible, 20);
-      }
-
-      mapPlaces.forEach(addMarker);
-      mapRoutes.forEach(addRoute);
-
-      document.querySelectorAll("[data-map-filter]").forEach((button) => {
-        button.addEventListener("click", () => applyFilter(button.dataset.mapFilter));
       });
 
-      fitVisible();
+      document.querySelectorAll("[data-filter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeFilter = button.dataset.filter;
+          applyView();
+        });
+      });
+
+      document.querySelectorAll("[data-day]").forEach((button) => {
+        button.addEventListener("click", () => {
+          activeDay = button.dataset.day;
+          applyView();
+        });
+      });
+
+      renderSelection(places.find((place) => place.id === selectedId));
+      applyView();
       setTimeout(() => map.invalidateSize(), 100);
     }
 
     function saveFields() {
       document.querySelectorAll("[data-save]").forEach((field) => {
-        const key = "chicagoTrip2026." + field.dataset.save;
+        const key = "chicagoTrip2026.mapFirst." + field.dataset.save;
         field.value = localStorage.getItem(key) || "";
         field.addEventListener("input", () => localStorage.setItem(key, field.value));
       });
@@ -1544,38 +886,28 @@
     async function loadWeather() {
       const grid = document.getElementById("weatherGrid");
       const cards = await Promise.all(weatherLocations.map(async (loc) => {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto`;
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
         try {
           const res = await fetch(url);
           if (!res.ok) throw new Error("Weather unavailable");
           const data = await res.json();
           const current = data.current;
           const daily = data.daily;
-          const text = weatherCodes[current.weather_code] || "Weather";
           return `
             <div class="mini">
               <strong>${loc.name}</strong>
-              <div class="weather-main">
-                <span class="temp">${Math.round(current.temperature_2m)} deg C</span>
-                <span>${text}</span>
-              </div>
-              <span class="pill">Wind ${Math.round(current.wind_speed_10m)} km/h</span>
-              <span class="pill">Rain ${current.precipitation} mm</span>
-              <span class="pill">Today ${Math.round(daily.temperature_2m_min[0])}-${Math.round(daily.temperature_2m_max[0])} deg C</span>
+              <span>${Math.round(current.temperature_2m)} deg C, ${weatherCodes[current.weather_code] || "Weather"}</span>
+              <span>Wind ${Math.round(current.wind_speed_10m)} km/h</span>
+              <span>Today ${Math.round(daily.temperature_2m_min[0])}-${Math.round(daily.temperature_2m_max[0])} deg C</span>
             </div>`;
         } catch (err) {
-          return `
-            <div class="mini">
-              <strong>${loc.name}</strong>
-              <span>Weather could not load. Open when online or check your weather app.</span>
-            </div>`;
+          return `<div class="mini"><strong>${loc.name}</strong><span>Weather unavailable.</span></div>`;
         }
       }));
       grid.innerHTML = cards.join("");
     }
 
-    initDetails();
-    initTripMap();
+    initMap();
     saveFields();
     loadWeather();
   </script>

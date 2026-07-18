@@ -1,6 +1,6 @@
 # Chicago Trip App And GitHub Pages Guide
 
-This note documents how the Chicago trip app is organized and how to publish it with GitHub Pages.
+This note documents the map-first Chicago trip app and the GitHub Pages deployment workflow.
 
 ## Main Files
 
@@ -10,55 +10,61 @@ This note documents how the Chicago trip app is organized and how to publish it 
 - `.github/workflows/deploy.yml`
   GitHub Actions workflow for deploying the static site to GitHub Pages.
 
-## What `index.html` Contains
+## App Shape
 
-The app is a single static HTML file. It does not need a build system.
+The app is now map-first. The main screen is:
 
-Main sections:
+- A large interactive Chicago map.
+- Category filters: hotels, culture, steak/BBQ, cars, drives, airport.
+- Day chips for 4-11 Oct.
+- A compact side panel that changes when a map pin or visible-place item is selected.
+- A small lower area for suggested flow, decisions, notes, weather, and sources.
 
-- `Dashboard`
-- `Flights`
-- `Hotels`
-- `Rentals`
-- `Plan`
-- `Map`
-- `Drives`
-- `Steak`
-- `Notes`
-- `Weather`
-- `Sources`
+This keeps most information behind interaction instead of showing long text sections.
 
-Important features:
+## How To Edit
 
-- Booking cards and planning cards open detail dialogs.
-- The map uses Leaflet/OpenStreetMap and needs internet access.
-- Map filters include hotels, culture, steak/grill, car rental, driving routes, and airport.
-- Weather uses Open-Meteo and needs internet access.
-- Editable planning notes are saved in the browser with local storage.
+Open `index.html` and search for these data blocks:
 
-## How To Edit The HTML
+- `routeLinks`: Google Maps and official route links.
+- `places`: all map pins, notes, categories, dates, and primary actions.
+- `routes`: visible route lines on the map.
+- `weatherLocations`: live weather cards.
 
-Open `index.html` and search for the relevant section.
+Most updates should be made in `places`.
 
-Common edits:
+Example place:
 
-- Dashboard: search for `<section id="dashboard">`
-- Flight bookings: search for `<section id="flights">`
-- Hotel shortlist: search for `<section id="hotels">`
-- Car rental shortlist: search for `<section id="rentals">`
-- Draft plan: search for `<section id="timeline">`
-- Map controls: search for `<section id="map">`
-- Food ideas: search for `<section id="food">`
-- Route links and detail data: search for `const routeLinks`
-- Map points: search for `const mapPlaces`
-- Map route lines: search for `const mapRoutes`
-- Detail dialogs: search for `const detailWindows`
+```js
+{ id: "example", label: "C", type: "culture", day: "oct7", title: "Example Place", coords: [41.88, -87.63], note: "Short note.", action: "Website", url: "https://example.com" }
+```
+
+Useful `type` values:
+
+- `airport`
+- `hotel`
+- `culture`
+- `food`
+- `rental`
+- `drive`
+
+Useful `day` values:
+
+- `all`
+- `oct4`
+- `oct5`
+- `oct6`
+- `oct7`
+- `oct8`
+- `oct9`
+- `oct10`
+- `oct11`
 
 ## How To Test Locally
 
-Because this is static, you can open `index.html` directly in a browser.
+Open `index.html` directly in a browser.
 
-Recommended quick check from PowerShell:
+Quick JavaScript parse check from PowerShell:
 
 ```powershell
 node -e "const fs=require('fs'); const html=fs.readFileSync('index.html','utf8'); const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]); for (const s of scripts) new Function(s); console.log('inline scripts parse ok');"
@@ -69,6 +75,14 @@ Expected output:
 ```text
 inline scripts parse ok
 ```
+
+Also check:
+
+1. Map loads.
+2. Category filters change visible pins.
+3. Day chips change visible pins.
+4. Clicking a pin updates the side panel.
+5. Planning notes save in the browser.
 
 ## GitHub Pages Deployment
 
@@ -83,30 +97,8 @@ The workflow:
 1. Runs on pushes to `main`.
 2. Checks out the repository.
 3. Configures GitHub Pages.
-4. Copies `index.html` and any supporting static files into `_site`.
+4. Copies `index.html` and supporting static files into `_site`.
 5. Uploads `_site` as a Pages artifact.
 6. Deploys it to GitHub Pages.
 
-## GitHub Repository Settings
-
-In the GitHub repository:
-
-1. Go to `Settings`.
-2. Go to `Pages`.
-3. Under `Build and deployment`, set `Source` to `GitHub Actions`.
-4. Push changes to the `main` branch.
-5. Open the `Actions` tab and watch the deployment workflow.
-
-The published site URL appears in the deployment job.
-
-## Useful Update Checklist
-
-After changing `index.html`:
-
-1. Run the inline JavaScript parse check.
-2. Open `index.html` in a browser.
-3. Click a booking card and confirm the detail dialog opens.
-4. Open the map and test the filters.
-5. Click several map markers.
-6. Commit and push to `main`.
-7. Check the GitHub Actions deployment.
+In the GitHub repository, set `Settings -> Pages -> Build and deployment -> Source` to `GitHub Actions`.
