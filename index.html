@@ -3,7 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2364aa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Chicago Trip">
+  <meta name="application-name" content="Chicago Trip">
   <title>Chicago Autumn Trip 2026</title>
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="icons/chicago-trip-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
     :root {
@@ -19,6 +27,7 @@
       --amber: #a86412;
       --violet: #7051a3;
       --teal: #087d80;
+      --forest: #2f6f3e;
       --dark: #1f2933;
       --shadow: 0 14px 34px rgba(16, 33, 48, .13);
       font-family: Arial, Helvetica, sans-serif;
@@ -182,8 +191,10 @@
     }
 
     .chip[data-filter="airport"] { border-color: #aab4bd; }
+    .chip[data-filter="flight"] { border-color: #8fb3d8; }
     .chip[data-filter="hotel"] { border-color: #83c8ca; }
     .chip[data-filter="culture"] { border-color: #9ebce0; }
+    .chip[data-filter="nature"] { border-color: #8fbd9a; }
     .chip[data-filter="food"] { border-color: #e3a39e; }
     .chip[data-filter="rental"] { border-color: #dfbf88; }
     .chip[data-filter="drive"] { border-color: #9dcbad; }
@@ -231,10 +242,12 @@
 
     .badge.hotel { background: #dff4f3; }
     .badge.culture { background: #e6f0fb; }
+    .badge.nature { background: #e6f4eb; }
     .badge.food { background: #ffe7e4; }
     .badge.rental { background: #fff2da; }
     .badge.drive { background: #e6f4eb; }
     .badge.airport { background: #e7eaed; }
+    .badge.flight { background: #e6f0fb; }
 
     .quick-bookings {
       display: grid;
@@ -494,8 +507,10 @@
         <div class="map-toolbar">
           <div class="filters" aria-label="Map filters">
             <button class="chip active" type="button" data-filter="all">All</button>
+            <button class="chip" type="button" data-filter="flight">Flights</button>
             <button class="chip" type="button" data-filter="hotel">Hotels</button>
             <button class="chip" type="button" data-filter="culture">Culture</button>
+            <button class="chip" type="button" data-filter="nature">Nature</button>
             <button class="chip" type="button" data-filter="food">Steak + BBQ</button>
             <button class="chip" type="button" data-filter="rental">Cars</button>
             <button class="chip" type="button" data-filter="drive">Drives</button>
@@ -566,7 +581,7 @@
           <div class="mini"><strong>7 Oct</strong><span>Art Institute + West Loop dinner.</span></div>
           <div class="mini"><strong>8 Oct</strong><span>Field Museum + lakefront.</span></div>
           <div class="mini"><strong>9 Oct</strong><span>North Side, Wrigley, comedy/theatre check.</span></div>
-          <div class="mini"><strong>10 Oct</strong><span>One-day car rental: Oak Park + Morton Arboretum.</span></div>
+          <div class="mini"><strong>10 Oct</strong><span>One-day car rental: choose Morton/Cantigny, Dunes, or Starved Rock.</span></div>
           <div class="mini"><strong>11 Oct</strong><span>Short morning, ORD by about 16:00.</span></div>
         </div>
       </div>
@@ -576,6 +591,7 @@
         <div class="mini-grid">
           <div class="mini"><strong>Hotel target</strong><span>River North first, West Loop if food wins.</span></div>
           <div class="mini"><strong>Car target</strong><span>One day only. You drive; son is 17.</span></div>
+          <div class="mini"><strong>Nature target</strong><span>Easy: Morton/Cantigny. Big day: Starved Rock.</span></div>
           <div class="mini"><strong>Food target</strong><span>One classic steakhouse, one BBQ/burger night.</span></div>
           <div class="mini"><strong>Flight target</strong><span>Add CPH-TRD after 12 Oct 10:45.</span></div>
         </div>
@@ -598,6 +614,9 @@
             <a class="btn" href="https://www.fieldmuseum.org/" target="_blank" rel="noopener">Field Museum</a>
             <a class="btn" href="https://www.griffinmsi.org/" target="_blank" rel="noopener">Griffin MSI</a>
             <a class="btn" href="https://www.flychicago.com/ohare/tofrom/rentalcar/pages/default.aspx" target="_blank" rel="noopener">ORD Cars</a>
+            <a class="btn" href="https://www.nps.gov/indu/" target="_blank" rel="noopener">Indiana Dunes</a>
+            <a class="btn" href="https://dnr.illinois.gov/parks/park.starvedrock.html" target="_blank" rel="noopener">Starved Rock</a>
+            <a class="btn" href="https://mortonarb.org/explore/activities/explore-grounds/fall-color-report/" target="_blank" rel="noopener">Morton Color</a>
           </div>
         </details>
       </div>
@@ -616,10 +635,17 @@
       oakPark: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=The%20Morton%20Arboretum%2C%20Lisle%2C%20IL&waypoints=Frank%20Lloyd%20Wright%20Home%20and%20Studio%2C%20Oak%20Park%2C%20IL&travelmode=driving",
       dunes: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Indiana%20Dunes%20National%20Park%2C%20IN&travelmode=driving",
       northshore: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Bahai%20House%20of%20Worship%2C%20Wilmette%2C%20IL&waypoints=Evanston%20Lakefront%2C%20Evanston%2C%20IL&travelmode=driving",
+      botanicGarden: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Chicago%20Botanic%20Garden%2C%20Glencoe%2C%20IL&travelmode=driving",
+      cantigny: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Cantigny%20Park%2C%20Wheaton%2C%20IL&waypoints=The%20Morton%20Arboretum%2C%20Lisle%2C%20IL&travelmode=driving",
+      lakeGeneva: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Lake%20Geneva%20Shore%20Path%2C%20Lake%20Geneva%2C%20WI&travelmode=driving",
+      starvedRock: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Starved%20Rock%20State%20Park%2C%20Oglesby%2C%20IL&waypoints=Matthiessen%20State%20Park%2C%20Oglesby%2C%20IL&travelmode=driving",
       ordReturn: "https://www.google.com/maps/dir/?api=1&origin=Chicago%20Loop%2C%20Chicago%2C%20IL&destination=Chicago%20O%27Hare%20International%20Airport&travelmode=transit"
     };
 
     const places = [
+      { id: "trd", label: "T", type: "flight", day: "all", title: "Trondheim Airport TRD", coords: [63.4578, 10.924], note: "Start and end airport. Depart 4 Oct 05:30; add CPH-TRD after 12 Oct 10:45.", action: "TRD map", url: "https://www.google.com/maps/search/?api=1&query=Trondheim%20Airport%20Vaernes" },
+      { id: "cph", label: "C", type: "flight", day: "all", title: "Copenhagen Airport CPH", coords: [55.6181, 12.6561], note: "Outbound connection 4 Oct 07:10-13:55. Return arrives 12 Oct 10:45; CPH-TRD is missing.", action: "CPH map", url: "https://www.google.com/maps/search/?api=1&query=Copenhagen%20Airport" },
+      { id: "ordflight", label: "O", type: "flight", day: "all", title: "Chicago O'Hare ORD", coords: [41.9742, -87.9073], note: "Arrive 4 Oct 16:10. Depart 11 Oct 19:15 on SAS booking YCV6Z8.", action: "ORD map", url: "https://www.google.com/maps/search/?api=1&query=Chicago%20O%27Hare%20International%20Airport" },
       { id: "ord", label: "A", type: "airport", day: "oct4", title: "O'Hare International Airport", coords: [41.9742, -87.9073], note: "Arrive 4 Oct 16:10. Depart 11 Oct 19:15.", action: "ORD route", url: routeLinks.ordDowntown },
       { id: "hyatt", label: "H", type: "hotel", day: "all", title: "Hyatt Place River North", coords: [41.8903, -87.6307], note: "Best balanced first quote: central, practical, sofa-bed room options.", action: "Hotel", url: "https://www.hyatt.com/hyatt-place/en-US/chizd-hyatt-place-chicago-river-north" },
       { id: "embassy", label: "H", type: "hotel", day: "all", title: "Embassy Suites River North", coords: [41.8918, -87.6287], note: "Most comfortable: two-room suite concept and breakfast.", action: "Hotel", url: "https://www.hilton.com/en/hotels/chidwes-embassy-suites-chicago-downtown-river-north/" },
@@ -644,10 +670,19 @@
       { id: "oakpark", label: "D", type: "drive", day: "oct10", title: "Oak Park", coords: [41.8944, -87.8006], note: "Recommended car-day first stop: Frank Lloyd Wright architecture.", action: "Drive", url: routeLinks.oakPark },
       { id: "morton", label: "D", type: "drive", day: "oct10", title: "Morton Arboretum", coords: [41.8162, -88.0708], note: "Best fall-color pairing with Oak Park.", action: "Drive", url: routeLinks.oakPark },
       { id: "dunes", label: "D", type: "drive", day: "oct10", title: "Indiana Dunes", coords: [41.6533, -87.0524], note: "Weather-dependent lake-and-dunes road trip option.", action: "Drive", url: routeLinks.dunes },
-      { id: "bahai", label: "D", type: "drive", day: "oct10", title: "North Shore Loop", coords: [42.0743, -87.6846], note: "Shorter drive: Evanston lakefront and Bahai Temple.", action: "Drive", url: routeLinks.northshore }
+      { id: "bahai", label: "D", type: "drive", day: "oct10", title: "North Shore Loop", coords: [42.0743, -87.6846], note: "Shorter drive: Evanston lakefront and Bahai Temple.", action: "Drive", url: routeLinks.northshore },
+      { id: "botanic", label: "N", type: "nature", day: "oct10", title: "Chicago Botanic Garden", coords: [42.148, -87.789], note: "Easy nature half-day. Official garden notes say early October is prime for fall color.", action: "Garden", url: "https://www.chicagobotanic.org/fall" },
+      { id: "illinoisbeach", label: "N", type: "nature", day: "oct10", title: "Illinois Beach State Park", coords: [42.466, -87.81], note: "Lake Michigan shoreline, dunes, beach, hiking and biking trails north of Chicago.", action: "Park", url: "https://dnr.illinois.gov/parks/park.adelinejaygeo-karisillinoisbeach.html" },
+      { id: "cantigny", label: "N", type: "nature", day: "oct10", title: "Cantigny Park", coords: [41.8562, -88.1528], note: "Gardens, trails, museums, picnic areas. Good pairing with Morton Arboretum.", action: "Park", url: "https://cantigny.org/" },
+      { id: "lakegeneva", label: "N", type: "nature", day: "oct10", title: "Lake Geneva Shore Path", coords: [42.5917, -88.4334], note: "Longer scenic day: lakeshore walk with water views, estates, and autumn color.", action: "Shore path", url: "https://www.visitlakegeneva.com/things-to-do/shore-path/" },
+      { id: "starvedrock", label: "N", type: "nature", day: "oct10", title: "Starved Rock State Park", coords: [41.3193, -88.9946], note: "Big hiking day: river overlooks, canyons, 13 miles of trails. Open 7 a.m. to sunset.", action: "Park", url: "https://dnr.illinois.gov/parks/park.starvedrock.html" },
+      { id: "matthiessen", label: "N", type: "nature", day: "oct10", title: "Matthiessen State Park", coords: [41.2956, -89.0251], note: "Canyons and trails near Starved Rock. Check trail closures before going.", action: "Park", url: "https://dnr.illinois.gov/parks/park.matthiessen.html" }
     ];
 
     const routes = [
+      { ids: ["trd", "cph", "ordflight"], group: "flight", color: "#2364aa", label: "Outbound SAS: TRD-CPH-ORD" },
+      { ids: ["ordflight", "cph"], group: "flight", color: "#7051a3", dash: "10 10", label: "Return SAS: ORD-CPH" },
+      { ids: ["cph", "trd"], group: "flight", color: "#a86412", dash: "4 8", label: "Missing leg: CPH-TRD" },
       { ids: ["ord", "hyatt"], group: "airport", color: "#1f2933", label: "Airport to hotel zone" },
       { ids: ["hyatt", "embassy", "residence", "hampton", "homewood"], group: "hotel", color: "#087d80", label: "Hotel shortlist" },
       { ids: ["hyatt", "cac", "millennium", "art"], group: "culture", color: "#2364aa", label: "Loop walk" },
@@ -655,14 +690,20 @@
       { ids: ["hyatt", "gibsons", "bavettes", "prime", "greenstreet", "aucheval"], group: "food", color: "#c53f35", label: "Food cluster" },
       { ids: ["budget", "hertz", "ordmmf"], group: "rental", color: "#a86412", label: "Rental options" },
       { ids: ["hyatt", "oakpark", "morton"], group: "drive", color: "#1f7a4d", label: "Oak Park + Morton" },
+      { ids: ["hyatt", "botanic", "illinoisbeach"], group: "nature", color: "#2f6f3e", label: "North nature route" },
+      { ids: ["hyatt", "morton", "cantigny"], group: "nature", color: "#2f6f3e", label: "Easy fall-color route" },
+      { ids: ["hyatt", "lakegeneva"], group: "nature", color: "#2f6f3e", dash: "8 10", label: "Lake Geneva option" },
+      { ids: ["hyatt", "starvedrock", "matthiessen"], group: "nature", color: "#2f6f3e", dash: "8 10", label: "Starved Rock canyon day" },
       { ids: ["hyatt", "dunes"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "Dunes option" },
       { ids: ["hyatt", "bahai"], group: "drive", color: "#1f7a4d", dash: "8 10", label: "North Shore option" }
     ];
 
     const typeMeta = {
       airport: { name: "Airport", color: "#1f2933" },
+      flight: { name: "Flights", color: "#2364aa" },
       hotel: { name: "Hotel", color: "#087d80" },
       culture: { name: "Culture", color: "#2364aa" },
+      nature: { name: "Nature", color: "#2f6f3e" },
       food: { name: "Steak + BBQ", color: "#c53f35" },
       rental: { name: "Car Rental", color: "#a86412" },
       drive: { name: "Drive", color: "#1f7a4d" }
@@ -703,7 +744,7 @@
     const routeLines = [];
 
     function mapSearch(place) {
-      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.title + " Chicago")}`;
+      return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.title)}`;
     }
 
     function iconFor(place) {
@@ -719,7 +760,7 @@
 
     function visiblePlaces() {
       return places.filter((place) => {
-        const filterMatch = activeFilter === "all" || place.type === activeFilter;
+        const filterMatch = activeFilter === "all" ? place.type !== "flight" : place.type === activeFilter;
         const dayMatch = activeDay === "all" || place.day === activeDay || place.day === "all";
         return filterMatch && dayMatch;
       });
@@ -780,6 +821,7 @@
     }
 
     function routeVisible(route) {
+      if (activeFilter === "all" && route.group === "flight") return false;
       if (activeFilter !== "all" && route.group !== activeFilter) return false;
       if (activeDay === "all") return true;
       return route.ids.some((id) => {

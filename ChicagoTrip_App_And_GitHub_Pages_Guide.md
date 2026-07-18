@@ -7,6 +7,12 @@ This note documents the map-first Chicago trip app and the GitHub Pages deployme
 - `index.html`
   Main static web app. GitHub Pages serves this as the homepage.
 
+- `site.webmanifest`
+  Home-screen app metadata for Android and other installable-browser flows.
+
+- `icons/`
+  Home-screen icons, including `apple-touch-icon.png` for iPhone/iPad.
+
 - `.github/workflows/deploy.yml`
   GitHub Actions workflow for deploying the static site to GitHub Pages.
 
@@ -15,7 +21,7 @@ This note documents the map-first Chicago trip app and the GitHub Pages deployme
 The app is now map-first. The main screen is:
 
 - A large interactive Chicago map.
-- Category filters: hotels, culture, steak/BBQ, cars, drives, airport.
+- Category filters: flights, hotels, culture, nature, steak/BBQ, cars, drives, airport.
 - Day chips for 4-11 Oct.
 - A compact side panel that changes when a map pin or visible-place item is selected.
 - A small lower area for suggested flow, decisions, notes, weather, and sources.
@@ -30,6 +36,7 @@ Open `index.html` and search for these data blocks:
 - `places`: all map pins, notes, categories, dates, and primary actions.
 - `routes`: visible route lines on the map.
 - `weatherLocations`: live weather cards.
+- `site.webmanifest` and `icons/`: mobile home-screen name, theme color, and icon assets.
 
 Most updates should be made in `places`.
 
@@ -42,8 +49,10 @@ Example place:
 Useful `type` values:
 
 - `airport`
+- `flight`
 - `hotel`
 - `culture`
+- `nature`
 - `food`
 - `rental`
 - `drive`
@@ -83,6 +92,7 @@ Also check:
 3. Day chips change visible pins.
 4. Clicking a pin updates the side panel.
 5. Planning notes save in the browser.
+6. The browser can load `site.webmanifest` and the files in `icons/`.
 
 ## GitHub Pages Deployment
 
