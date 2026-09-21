@@ -1,490 +1,179 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#2364aa">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <meta name="apple-mobile-web-app-title" content="USA Trip 2026">
-  <meta name="application-name" content="USA Trip 2026">
-  <title>Chicago + Boston Autumn Trip 2026</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <style>
-    :root{
-      color-scheme:light;
-      --bg:#eef3f4;--panel:#fff;--ink:#17212b;--muted:#60717c;--line:#d8e0e5;
-      --blue:#2364aa;--green:#1f7a4d;--red:#c53f35;--amber:#a86412;
-      --violet:#7051a3;--teal:#087d80;--forest:#2f6f3e;--dark:#1f2933;
-      --shadow:0 14px 34px rgba(16,33,48,.13);
-      font-family:Arial,Helvetica,sans-serif
-    }
-    *{box-sizing:border-box}
-    body{margin:0;color:var(--ink);background:var(--bg)}
-    header{
-      position:sticky;top:0;z-index:40;display:grid;grid-template-columns:minmax(0,1fr) auto;
-      gap:12px;align-items:center;padding:10px 14px;background:rgba(255,255,255,.97);
-      border-bottom:1px solid var(--line);backdrop-filter:blur(10px)
-    }
-    h1{margin:0;font-size:21px;line-height:1.2}
-    h2{margin:0;font-size:17px;line-height:1.25}
-    h3{margin:0 0 8px;font-size:14px;line-height:1.25}
-    p{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
-    a{color:var(--blue)}
-    button,input,textarea{font:inherit}
-    .sub{margin-top:3px;color:var(--muted);font-size:12px}
-    .header-actions{display:flex;flex-wrap:wrap;gap:7px;justify-content:end}
-    .btn,.chip{
-      display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:8px 10px;
-      border:1px solid var(--line);border-radius:999px;color:var(--ink);background:#fff;
-      text-decoration:none;font-size:12px;font-weight:800;line-height:1.15;cursor:pointer
-    }
-    .btn.primary,.chip.active{color:#fff;border-color:#0f4f90;background:var(--blue)}
-    .btn.green{color:#fff;border-color:#17613d;background:var(--green)}
-    main{max-width:1280px;margin:0 auto;padding:12px}
-    .trip-shell{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:12px;align-items:stretch}
-    .map-card,.side-card,.compact-card{
-      border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden
-    }
-    .map-card{min-height:calc(100vh - 92px);display:grid;grid-template-rows:auto minmax(520px,1fr)}
-    .map-toolbar{display:grid;gap:9px;padding:10px;border-bottom:1px solid var(--line)}
-    .filters,.days{display:flex;gap:7px;overflow-x:auto;padding-bottom:1px}
-    .chip{flex:0 0 auto}
-    #tripMap{width:100%;min-height:520px;background:#dfe8ed}
-    .side-card{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto;min-height:calc(100vh - 92px)}
-    .panel-head,.panel-body,.panel-foot{padding:12px}
-    .panel-head{border-bottom:1px solid var(--line)}
-    .quick-bookings{display:grid;gap:8px;padding:12px;border-bottom:1px solid var(--line)}
-    .booking{
-      display:grid;grid-template-columns:82px 1fr;gap:8px;padding:8px;border:1px solid var(--line);
-      border-radius:10px;background:#fbfcfd;font-size:12px;line-height:1.25
-    }
-    .booking strong{color:var(--ink)} .booking span{color:var(--muted)}
-    .status{font-size:10px;font-weight:800;padding:2px 6px;border-radius:99px;display:inline-block;margin-top:3px}
-    .status.booked{background:#e5f5ea;color:#17613d}.status.tbd{background:#fff2da;color:#8a550f}
-    .badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-    .badge{display:inline-flex;min-height:24px;align-items:center;padding:4px 8px;border-radius:999px;background:#eef3f6;font-size:11px;font-weight:800}
-    .badge.hotel{background:#dff4f3}.badge.culture{background:#e6f0fb}.badge.university{background:#efe9fb}
-    .badge.food{background:#ffe7e4}.badge.airport{background:#e7eaed}.badge.flight{background:#e6f0fb}.badge.walk{background:#e6f4eb}
-    .place-list{display:grid;gap:7px;max-height:380px;overflow-y:auto;padding:0 12px 12px}
-    .place-button{
-      display:grid;grid-template-columns:28px 1fr;gap:8px;width:100%;min-height:44px;align-items:center;
-      padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
-      text-align:left;cursor:pointer
-    }
-    .place-button.active{border-color:#8fb3d8;background:#f1f7fd}
-    .dot{display:grid;width:26px;height:26px;place-items:center;border-radius:50%;color:#fff;font-size:11px;font-weight:800}
-    .place-title{display:block;font-size:12px;font-weight:800;line-height:1.2}
-    .place-meta{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.2}
-    .panel-foot{border-top:1px solid var(--line)}
-    .lower-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:12px;margin-top:12px}
-    .compact-card{padding:12px}
-    .mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}
-    .mini{padding:9px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd}
-    .mini strong{display:block;margin-bottom:3px;font-size:12px}
-    .mini span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
-    .day-plan{display:none}.day-plan.active{display:block}
-    .timeline{display:grid;gap:8px;margin-top:10px}
-    .event{display:grid;grid-template-columns:64px 1fr;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}
-    .event:last-child{border-bottom:0}
-    .event time{font-size:12px;font-weight:800;color:var(--blue)}
-    .event strong{font-size:13px;display:block;margin-bottom:2px}
-    .event span{font-size:12px;color:var(--muted);line-height:1.4}
-    .notice{margin-top:10px;padding:10px;border-radius:10px;background:#fff8e8;border:1px solid #ecd5a6;font-size:12px;line-height:1.4}
-    .route-summary{display:grid;gap:6px;margin-top:8px}
-    .route-line{font-size:12px;color:var(--muted)}
-    .route-line b{color:var(--ink)}
-    .city-toggle{display:flex;gap:6px}
-    @media(max-width:920px){
-      .trip-shell,.lower-grid{grid-template-columns:1fr}
-      .map-card,.side-card{min-height:auto}
-      .map-card{grid-template-rows:auto 460px}
-      #tripMap{min-height:460px}
-      .side-card{grid-template-rows:auto auto auto auto}
-    }
-    @media(max-width:560px){
-      header{grid-template-columns:1fr;padding:9px 10px}
-      .header-actions{justify-content:start}
-      main{padding:8px}
-      h1{font-size:18px}
-      .map-card{grid-template-rows:auto 390px}
-      #tripMap{min-height:390px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2364aa">
+<title>Chicago Autumn Trip 2026</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+:root{--bg:#eef3f4;--panel:#fff;--ink:#17212b;--muted:#60717c;--line:#d8e0e5;--blue:#2364aa;--green:#1f7a4d;--red:#c53f35;--violet:#7051a3;--teal:#087d80;--shadow:0 14px 34px rgba(16,33,48,.13);font-family:Arial,Helvetica,sans-serif}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--bg)}
+header{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 14px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+h1{margin:0;font-size:21px}h2{margin:0;font-size:17px}h3{margin:0 0 8px;font-size:14px}p{margin:0;color:var(--muted);font-size:13px;line-height:1.4}
+.sub{margin-top:3px;color:var(--muted);font-size:12px}.header-actions{display:flex;gap:7px;flex-wrap:wrap}
+.btn,.chip{display:inline-flex;min-height:36px;align-items:center;justify-content:center;padding:8px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:12px;font-weight:800;cursor:pointer}
+.btn.primary,.chip.active{color:#fff;border-color:#0f4f90;background:var(--blue)}
+main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:12px}
+.map-card,.side-card,.compact-card{border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);overflow:hidden}
+.map-card{min-height:calc(100vh - 92px);display:grid;grid-template-rows:auto minmax(520px,1fr)}
+.map-toolbar{display:grid;gap:9px;padding:10px;border-bottom:1px solid var(--line)}.filters,.days{display:flex;gap:7px;overflow-x:auto}.chip{flex:0 0 auto}
+#tripMap{width:100%;min-height:520px}.side-card{display:grid;grid-template-rows:auto auto minmax(0,1fr) auto}
+.panel-head,.panel-body,.panel-foot{padding:12px}.panel-head{border-bottom:1px solid var(--line)}.panel-foot{border-top:1px solid var(--line)}
+.quick-bookings{display:grid;gap:8px;padding:12px;border-bottom:1px solid var(--line)}
+.booking{display:grid;grid-template-columns:86px 1fr;gap:8px;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd;font-size:12px;line-height:1.3}
+.booking span{color:var(--muted)}.status{font-size:10px;font-weight:800;padding:2px 6px;border-radius:99px;display:inline-block;margin-top:3px}.status.booked{background:#e5f5ea;color:#17613d}.status.tbd{background:#fff2da;color:#8a550f}
+.badge-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.badge{display:inline-flex;min-height:24px;align-items:center;padding:4px 8px;border-radius:999px;background:#eef3f6;font-size:11px;font-weight:800}.badge.hotel{background:#dff4f3}.badge.culture{background:#e6f0fb}.badge.university{background:#efe9fb}
+.place-list{display:grid;gap:7px;max-height:380px;overflow:auto;padding:0 12px 12px}.place-button{display:grid;grid-template-columns:28px 1fr;gap:8px;width:100%;min-height:44px;align-items:center;padding:8px;border:1px solid var(--line);border-radius:10px;background:#fff;text-align:left;cursor:pointer}
+.place-button.active{border-color:#8fb3d8;background:#f1f7fd}.dot{display:grid;width:26px;height:26px;place-items:center;border-radius:50%;color:#fff;font-size:11px;font-weight:800}.place-title{font-size:12px;font-weight:800}.place-meta{display:block;margin-top:2px;color:var(--muted);font-size:11px}
+.lower-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:12px;margin-top:12px}.compact-card{padding:12px}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}.mini{padding:9px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd}.mini strong{display:block;margin-bottom:3px;font-size:12px}.mini span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.day-plan{display:none}.day-plan.active{display:block}.timeline{display:grid;gap:8px;margin-top:10px}.event{display:grid;grid-template-columns:68px 1fr;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}.event:last-child{border-bottom:0}.event time{font-size:12px;font-weight:800;color:var(--blue)}.event strong{font-size:13px;display:block;margin-bottom:2px}.event span{font-size:12px;color:var(--muted);line-height:1.4}
+.notice{margin-top:10px;padding:10px;border-radius:10px;background:#fff8e8;border:1px solid #ecd5a6;font-size:12px;line-height:1.4}
+@media(max-width:920px){.trip-shell,.lower-grid{grid-template-columns:1fr}.map-card{grid-template-rows:auto 460px}.side-card{grid-template-rows:auto auto auto auto}#tripMap{min-height:460px}}
+@media(max-width:560px){header{grid-template-columns:1fr;padding:9px 10px}main{padding:8px}h1{font-size:18px}.map-card{grid-template-rows:auto 390px}#tripMap{min-height:390px}}
+</style>
 </head>
 <body>
 <header>
-  <div>
-    <h1>Chicago + Boston Autumn Trip 2026</h1>
-    <div class="sub">Father & son • Oct 4–11, 2026 • Chicago 4 nights + Boston/Cambridge 3 nights</div>
-  </div>
-  <div class="header-actions">
-    <button class="btn primary" onclick="showAll()">Show whole trip</button>
-    <button class="btn" onclick="fitCity('Chicago')">Chicago</button>
-    <button class="btn" onclick="fitCity('Boston')">Boston</button>
-  </div>
+<div>
+<h1>Chicago Autumn Trip 2026</h1>
+<div class="sub">Father & son • Oct 4–11, 2026 • 6 nights downtown + 1 night near O'Hare</div>
+</div>
+<div class="header-actions">
+<button class="btn primary" onclick="showAll()">Show whole trip</button>
+<button class="btn" onclick="fitArea('Downtown')">Downtown</button>
+<button class="btn" onclick="fitArea('Evanston')">Northwestern</button>
+<button class="btn" onclick="fitArea('Hyde Park')">UChicago</button>
+</div>
 </header>
 
 <main>
-  <section class="trip-shell">
-    <div class="map-card">
-      <div class="map-toolbar">
-        <div class="filters" id="filters"></div>
-        <div class="days" id="dayTabs"></div>
-      </div>
-      <div id="tripMap" aria-label="Trip map"></div>
-    </div>
+<section class="trip-shell">
+<div class="map-card">
+<div class="map-toolbar"><div class="filters" id="filters"></div><div class="days" id="dayTabs"></div></div>
+<div id="tripMap"></div>
+</div>
 
-    <aside class="side-card">
-      <div class="panel-head">
-        <h2 id="selectedTitle">Trip overview</h2>
-        <p id="selectedText">Select a day or place to focus the map and view details.</p>
-        <div class="badge-row" id="selectedBadges">
-          <span class="badge flight">2 cities</span>
-          <span class="badge university">3 universities</span>
-          <span class="badge hotel">Hotels TBD</span>
-        </div>
-      </div>
+<aside class="side-card">
+<div class="panel-head">
+<h2 id="selectedTitle">Trip overview</h2>
+<p id="selectedText">Select a day or place to focus the map and view details.</p>
+<div class="badge-row" id="selectedBadges"><span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span><span class="badge hotel">Hotels TBD</span></div>
+</div>
 
-      <div class="quick-bookings">
-        <div class="booking">
-          <strong>International</strong>
-          <span>Oct 4 • Arrive ORD 16:10<br>Oct 11 • Depart ORD 19:15<br><span class="status booked">BOOKED / EXISTING</span></span>
-        </div>
-        <div class="booking">
-          <strong>Chicago hotel</strong>
-          <span>Oct 4–8 • River North / downtown preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span>
-        </div>
-        <div class="booking">
-          <strong>ORD → BOS</strong>
-          <span>Oct 8 • Prefer afternoon / early evening nonstop<br><span class="status tbd">TBD</span></span>
-        </div>
-        <div class="booking">
-          <strong>Boston hotel</strong>
-          <span>Oct 8–11 • Boston/Cambridge • ≤ 3,000 NOK/night<br>Hotels.com reward ≈ 2,500 NOK may be used here<br><span class="status tbd">NOT BOOKED</span></span>
-        </div>
-        <div class="booking">
-          <strong>BOS → ORD</strong>
-          <span>Oct 11 • Early nonstop • target ORD arrival before 09:00–10:00<br><span class="status tbd">TBD — CRITICAL</span></span>
-        </div>
-      </div>
+<div class="quick-bookings">
+<div class="booking"><strong>International</strong><span>Oct 4 • Arrive ORD 16:10<br>Oct 11 • Depart ORD 19:15<br><span class="status booked">EXISTING FLIGHTS</span></span></div>
+<div class="booking"><strong>Downtown hotel</strong><span>Oct 4–10 • 6 nights • River North / Magnificent Mile / Loop preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span></div>
+<div class="booking"><strong>O'Hare hotel</strong><span>Oct 10–11 • 1 night • airport-connected or free shuttle preferred<br><span class="status tbd">NOT BOOKED</span></span></div>
+<div class="booking"><strong>Hotels.com</strong><span>OneKeyCash about $229.65 • use where redemption value is best<br><span class="status tbd">AVAILABLE</span></span></div>
+</div>
 
-      <div>
-        <div class="panel-body">
-          <h3>Places on selected day</h3>
-        </div>
-        <div class="place-list" id="placeList"></div>
-      </div>
+<div><div class="panel-body"><h3>Places on selected day</h3></div><div class="place-list" id="placeList"></div></div>
+<div class="panel-foot"><p><strong>Planning note:</strong> Moving to O'Hare on Oct 10 avoids relying on a downtown-to-airport transfer during Marathon Sunday.</p></div>
+</aside>
+</section>
 
-      <div class="panel-foot">
-        <p><strong>Planning note:</strong> The Oct 11 BOS→ORD flight is intentionally left unbooked in the app. Choose a very early nonstop to preserve a large buffer before the 19:15 international departure.</p>
-      </div>
-    </aside>
-  </section>
+<section class="lower-grid">
+<div class="compact-card">
+<h2>Daily itinerary</h2>
+<p class="sub">University visits are given enough time to experience the campuses rather than just quick photo stops.</p>
+<div id="dailyPlans"></div>
+</div>
 
-  <section class="lower-grid">
-    <div class="compact-card">
-      <h2>Daily itinerary</h2>
-      <p class="sub">Updated for Chicago + Boston. Times are planning targets unless marked as existing flight times.</p>
-      <div id="dailyPlans"></div>
-    </div>
-
-    <div class="compact-card">
-      <h2>Trip strategy</h2>
-      <div class="mini-grid">
-        <div class="mini"><strong>Chicago • 4 nights</strong><span>Oct 4–8. Central base, architecture, lakefront and University of Chicago.</span></div>
-        <div class="mini"><strong>Boston • 3 nights</strong><span>Oct 8–11. Cambridge university day plus historic Boston.</span></div>
-        <div class="mini"><strong>University focus</strong><span>University of Chicago, Harvard and MIT — three distinct U.S. campus experiences.</span></div>
-        <div class="mini"><strong>Hotel budget</strong><span>Keep each stay under 3,000 NOK/night. Compare total price including taxes and fees.</span></div>
-        <div class="mini"><strong>Hotels.com reward</strong><span>Approx. 2,500 NOK one-night reward. Likely most valuable against the more expensive Boston stay.</span></div>
-        <div class="mini"><strong>Final-day safety</strong><span>Use an early BOS→ORD nonstop on Oct 11. Do not rely on a tight separate-ticket connection.</span></div>
-      </div>
-      <div class="notice">
-        <strong>Marathon weekend:</strong> The plan no longer requires a downtown Chicago hotel on Oct 10–11. You will already be in Boston, avoiding Chicago Marathon weekend hotel/transport complications.
-      </div>
-    </div>
-  </section>
+<div class="compact-card">
+<h2>Trip strategy</h2>
+<div class="mini-grid">
+<div class="mini"><strong>Downtown base • 6 nights</strong><span>Oct 4–10. River North, Magnificent Mile or Loop keeps most sightseeing easy.</span></div>
+<div class="mini"><strong>O'Hare • final night</strong><span>Oct 10–11. Move before Marathon Sunday and make departure day simple.</span></div>
+<div class="mini"><strong>University focus</strong><span>University of Chicago in Hyde Park + Northwestern University in Evanston.</span></div>
+<div class="mini"><strong>Northwestern day</strong><span>Lakefront campus, Evanston downtown and a relaxed North Shore day.</span></div>
+<div class="mini"><strong>Hotel budget</strong><span>Keep each hotel ≤ 3,000 NOK/night including taxes/fees where possible.</span></div>
+<div class="mini"><strong>Hotels.com reward</strong><span>Approx. $229.65 OneKeyCash. Compare downtown vs O'Hare redemption.</span></div>
+</div>
+<div class="notice"><strong>Why this version:</strong> no extra domestic flights, no expensive Boston/DC hotel nights, more time to enjoy Chicago properly, and your son still gets two very different U.S. university experiences.</div>
+</div>
+</section>
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const categories = {
-  airport:{label:"Airport", color:"#59636d"},
-  flight:{label:"Flight", color:"#2364aa"},
-  hotel:{label:"Hotel / area", color:"#087d80"},
-  culture:{label:"Sightseeing", color:"#7051a3"},
-  university:{label:"University", color:"#9b5b17"},
-  walk:{label:"Walk / outdoors", color:"#2f6f3e"},
-  food:{label:"Food / evening", color:"#c53f35"}
+const categories={
+airport:{label:"Airport",color:"#59636d"},
+hotel:{label:"Hotel / area",color:"#087d80"},
+culture:{label:"Sightseeing",color:"#7051a3"},
+university:{label:"University",color:"#9b5b17"},
+walk:{label:"Walk / outdoors",color:"#2f6f3e"},
+food:{label:"Food / neighborhood",color:"#c53f35"},
+transit:{label:"Transit",color:"#2364aa"}
 };
 
-const days = [
-  {
-    id:"oct4", short:"Oct 4", label:"Sun Oct 4", city:"Chicago", title:"Arrival in Chicago",
-    summary:"Arrive ORD at 16:10, transfer to the downtown/River North hotel, and keep the first evening relaxed.",
-    events:[
-      ["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],
-      ["17:15","Transfer to Chicago hotel","CTA Blue Line or taxi/rideshare depending on luggage and hotel choice."],
-      ["19:00","River North / Riverwalk evening","Easy dinner and short walk; no fixed attraction booking."]
-    ],
-    places:["ord","chicagoHotel","riverwalk"]
-  },
-  {
-    id:"oct5", short:"Oct 5", label:"Mon Oct 5", city:"Chicago", title:"Architecture & central Chicago",
-    summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",
-    events:[
-      ["09:00","Chicago Riverwalk","Walk through the central river corridor."],
-      ["10:30","Architecture river cruise","Strong candidate for a timed booking once dates open."],
-      ["13:00","Loop & lunch","Explore central architecture and elevated train streets."],
-      ["14:30","Millennium Park","Cloud Gate, park and nearby lakefront."],
-      ["17:00","Magnificent Mile / River North","Flexible shopping, skyline and dinner."]
-    ],
-    places:["riverwalk","cruise","loop","millennium","magmile"]
-  },
-  {
-    id:"oct6", short:"Oct 6", label:"Tue Oct 6", city:"Chicago", title:"Lakefront & museum day",
-    summary:"Keep this day flexible between major museums, lakefront walking and an observation experience.",
-    events:[
-      ["09:00","Museum Campus / lakefront","Start south of downtown with skyline views."],
-      ["10:00","Field Museum or Shedd Aquarium","Choose based on interests and ticket availability."],
-      ["14:30","Grant Park / downtown","Return north through the lakefront parks."],
-      ["17:00","Skydeck or 360 Chicago","Optional observation deck near sunset."],
-      ["19:00","Dinner","River North or West Loop."]
-    ],
-    places:["museumCampus","field","shedd","grant","skydeck"]
-  },
-  {
-    id:"oct7", short:"Oct 7", label:"Wed Oct 7", city:"Chicago", title:"University of Chicago & Hyde Park",
-    summary:"A dedicated university-focused day so your son can actually experience the campus atmosphere.",
-    events:[
-      ["09:00","Travel to Hyde Park","CTA/Metra/rideshare depending on hotel location."],
-      ["10:00","University of Chicago campus","Walk the Main Quadrangles, Rockefeller Chapel area and public campus spaces."],
-      ["12:30","Lunch in Hyde Park","Stay around 53rd Street / campus area."],
-      ["14:00","Museum of Science and Industry area","Optional museum visit or Jackson Park walk."],
-      ["17:30","Return downtown","Final full Chicago evening."]
-    ],
-    places:["uchicago","hydepark","msi","jackson"]
-  },
-  {
-    id:"oct8", short:"Oct 8", label:"Thu Oct 8", city:"Travel", title:"Chicago → Boston",
-    summary:"Use the morning in Chicago, then fly nonstop ORD→BOS in the afternoon or early evening.",
-    events:[
-      ["09:00","Final Chicago morning","Breakfast, short walk or a missed downtown attraction."],
-      ["12:00","Hotel checkout / luggage","Leave enough time for ORD transfer."],
-      ["14:00","Travel to ORD","Timing depends on selected domestic flight."],
-      ["TBD","ORD → BOS nonstop","Target afternoon / early evening. Flight not booked."],
-      ["Evening","Check in Boston/Cambridge","Simple dinner near hotel; preserve energy for university day."]
-    ],
-    places:["chicagoHotel","ord","bos","bostonHotel"]
-  },
-  {
-    id:"oct9", short:"Oct 9", label:"Fri Oct 9", city:"Boston", title:"Harvard + MIT university day",
-    summary:"Spend real time on both campuses rather than treating them as photo stops.",
-    events:[
-      ["09:00","Harvard Yard & Harvard Square","Walk the historic core and surrounding student district."],
-      ["11:30","Harvard museums / campus time","Choose one public museum or continue exploring campus."],
-      ["13:00","Lunch in Cambridge","Harvard Square or Central Square."],
-      ["14:30","MIT campus","Main Building / Infinite Corridor area, Stata Center and public campus spaces."],
-      ["17:00","Charles River","Walk toward the river for Boston skyline views."],
-      ["19:00","Cambridge or Back Bay dinner","Flexible evening."]
-    ],
-    places:["harvard","harvardSquare","mit","stata","charles"]
-  },
-  {
-    id:"oct10", short:"Oct 10", label:"Sat Oct 10", city:"Boston", title:"Historic Boston",
-    summary:"A compact walking day through Boston's historic core, parks, Beacon Hill and waterfront.",
-    events:[
-      ["09:00","Boston Common & Public Garden","Start the historic walking route."],
-      ["10:00","Freedom Trail","Follow the central section at an easy pace."],
-      ["12:30","Quincy Market / Faneuil Hall","Lunch and historic market area."],
-      ["14:00","Waterfront / North End","Harbor walk; optional USS Constitution depending on pace."],
-      ["16:30","Beacon Hill","Return through one of Boston's most distinctive neighborhoods."],
-      ["19:00","Early-ish dinner","Pack for very early airport departure next morning."]
-    ],
-    places:["common","publicGarden","freedom","quincy","waterfront","beacon"]
-  },
-  {
-    id:"oct11", short:"Oct 11", label:"Sun Oct 11", city:"Travel", title:"Boston → Chicago → home",
-    summary:"Critical transfer day: take a very early BOS→ORD nonstop and keep a large buffer before the 19:15 international departure.",
-    events:[
-      ["~04:00","Leave Boston/Cambridge hotel","Exact time depends on selected BOS flight."],
-      ["~06:00","BOS → ORD nonstop","Target very early departure; flight TBD."],
-      ["Before 09:00–10:00","Arrive ORD target","Allows a substantial disruption buffer."],
-      ["19:15","International departure from ORD","Existing international flight."],
-    ],
-    places:["bostonHotel","bos","ord"]
-  }
+const days=[
+{id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Downtown",title:"Arrival in Chicago",summary:"Arrive ORD at 16:10, transfer downtown, check in and keep the first evening relaxed.",events:[["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["ord","downtownHotel","riverwalk"]},
+{id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile"]},
+{id:"oct6",short:"Oct 6",label:"Tue Oct 6",area:"Downtown",title:"Museum Campus & lakefront",summary:"A flexible lakefront day with one major museum and an observation deck near sunset if the weather is good.",events:[["09:00","Museum Campus / lakefront","Start with skyline views."],["10:00","Field Museum or Shedd Aquarium","Choose based on interests."],["14:30","Grant Park / downtown","Return north through the lakefront parks."],["17:00","Skydeck or 360 Chicago","Optional observation deck."],["19:00","Dinner","River North or West Loop."]],places:["museumCampus","field","shedd","grant","skydeck"]},
+{id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"University of Chicago & Hyde Park",summary:"A proper campus day at the University of Chicago, with time for Hyde Park and the Museum of Science and Industry area.",events:[["09:00","Travel to Hyde Park","Metra, CTA or rideshare depending on hotel."],["10:00","University of Chicago campus","Main Quadrangles, Rockefeller Chapel area and public campus spaces."],["12:30","Lunch in Hyde Park","Explore the neighborhood around campus."],["14:00","Museum of Science and Industry","Optional visit or Jackson Park walk."],["17:30","Return downtown","Evening free."]],places:["uchicago","hydepark","msi","jackson"]},
+{id:"oct8",short:"Oct 8",label:"Thu Oct 8",area:"Downtown",title:"Neighborhoods & relaxed Chicago",summary:"Use the extra Chicago day to see more of the city rather than rushing between major attractions.",events:[["09:30","Lincoln Park","Park, lakefront and neighborhood walk."],["11:00","Lincoln Park Zoo area","Optional zoo or conservatory."],["13:00","Lunch","Lincoln Park or Old Town."],["14:30","Old Town / Wicker Park","Choose one neighborhood depending on energy and interests."],["18:00","West Loop dinner","Good evening for a more food-focused part of Chicago."]],places:["lincolnpark","zoo","oldtown","wicker","westloop"]},
+{id:"oct9",short:"Oct 9",label:"Fri Oct 9",area:"Evanston",title:"Northwestern University & Evanston",summary:"A dedicated North Shore university day: Northwestern's lakefront campus plus Evanston downtown.",events:[["08:30","Travel to Evanston","CTA Purple Line or Metra from downtown."],["10:00","Northwestern University campus","Walk the central campus and lakefront."],["12:30","Lunch in Evanston","Downtown Evanston is immediately beside campus."],["14:00","Lakefill / lakefront","Spend time on Northwestern's distinctive waterfront campus."],["15:30","Evanston / optional Bahá'í House of Worship","Optional extension before returning south."],["18:00","Return downtown","Final full downtown Chicago evening."]],places:["northwestern","nuLakefill","evanston","bahai","davis"]},
+{id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Downtown",title:"Final Chicago day → O'Hare hotel",summary:"Keep the final sightseeing day flexible, then move to an O'Hare hotel before Marathon Sunday.",events:[["09:00","Flexible final sightseeing","Use this morning for anything missed earlier."],["11:00","Shopping / museum / river area","Keep luggage at downtown hotel after checkout if needed."],["15:00","Collect luggage","Allow plenty of time before moving toward O'Hare."],["16:00","Transfer to O'Hare-area hotel","CTA, hotel shuttle or taxi depending on hotel choice."],["Evening","Relax near O'Hare","Early, simple evening before departure day."]],places:["downtownHotel","riverwalk","ordHotel","ord"]},
+{id:"oct11",short:"Oct 11",label:"Sun Oct 11",area:"O'Hare",title:"Departure day",summary:"No downtown travel required. Stay near ORD and keep the day easy before the 19:15 international flight.",events:[["Morning","Relaxed breakfast / hotel","No need to enter downtown during Marathon Sunday."],["Afternoon","Transfer to ORD","Use hotel shuttle or airport connection."],["~16:00","Airport check-in target","Comfortable buffer for international departure."],["19:15","Depart Chicago O'Hare","Existing international flight."]],places:["ordHotel","ord"]}
 ];
 
-const places = {
-  ord:{name:"Chicago O'Hare International Airport (ORD)",city:"Chicago",cat:"airport",lat:41.9742,lng:-87.9073,note:"Trip arrival Oct 4; domestic departure Oct 8; final connection Oct 11."},
-  chicagoHotel:{name:"Chicago hotel area — River North / Downtown",city:"Chicago",cat:"hotel",lat:41.8924,lng:-87.6324,note:"Oct 4–8, 4 nights. Not booked. Target ≤ 3,000 NOK/night."},
-  riverwalk:{name:"Chicago Riverwalk",city:"Chicago",cat:"walk",lat:41.8873,lng:-87.6266,note:"Central walking route and evening option."},
-  cruise:{name:"Chicago Architecture Cruise area",city:"Chicago",cat:"culture",lat:41.8880,lng:-87.6260,note:"Timed cruise candidate for Oct 5."},
-  loop:{name:"Chicago Loop",city:"Chicago",cat:"culture",lat:41.8837,lng:-87.6325,note:"Architecture, elevated train streets and downtown landmarks."},
-  millennium:{name:"Millennium Park",city:"Chicago",cat:"culture",lat:41.8826,lng:-87.6226,note:"Cloud Gate and central park area."},
-  magmile:{name:"Magnificent Mile",city:"Chicago",cat:"culture",lat:41.8954,lng:-87.6243,note:"Shopping, skyline and evening walking."},
-  museumCampus:{name:"Museum Campus",city:"Chicago",cat:"walk",lat:41.8663,lng:-87.6151,note:"Lakefront skyline views and museum cluster."},
-  field:{name:"Field Museum",city:"Chicago",cat:"culture",lat:41.8663,lng:-87.6170,note:"Optional major museum visit."},
-  shedd:{name:"Shedd Aquarium",city:"Chicago",cat:"culture",lat:41.8676,lng:-87.6140,note:"Alternative to Field Museum depending on interests."},
-  grant:{name:"Grant Park",city:"Chicago",cat:"walk",lat:41.8763,lng:-87.6192,note:"Lakefront park corridor back toward downtown."},
-  skydeck:{name:"Willis Tower / Skydeck",city:"Chicago",cat:"culture",lat:41.8789,lng:-87.6359,note:"Optional observation deck."},
-  uchicago:{name:"University of Chicago",city:"Chicago",cat:"university",lat:41.7886,lng:-87.5987,note:"Dedicated campus visit on Oct 7."},
-  hydepark:{name:"Hyde Park",city:"Chicago",cat:"food",lat:41.7990,lng:-87.5880,note:"Lunch and neighborhood exploration."},
-  msi:{name:"Museum of Science and Industry",city:"Chicago",cat:"culture",lat:41.7906,lng:-87.5831,note:"Optional afternoon visit after UChicago."},
-  jackson:{name:"Jackson Park",city:"Chicago",cat:"walk",lat:41.7838,lng:-87.5800,note:"Optional outdoor extension near MSI."},
-
-  bos:{name:"Boston Logan International Airport (BOS)",city:"Boston",cat:"airport",lat:42.3656,lng:-71.0096,note:"Arrive Oct 8; depart very early Oct 11."},
-  bostonHotel:{name:"Boston / Cambridge hotel area",city:"Boston",cat:"hotel",lat:42.3650,lng:-71.1050,note:"Oct 8–11, 3 nights. Not booked. Target ≤ 3,000 NOK/night. Consider Hotels.com reward."},
-  harvard:{name:"Harvard University",city:"Boston",cat:"university",lat:42.3744,lng:-71.1169,note:"Morning campus visit on Oct 9."},
-  harvardSquare:{name:"Harvard Square",city:"Boston",cat:"food",lat:42.3735,lng:-71.1190,note:"Student district, lunch and atmosphere."},
-  mit:{name:"MIT",city:"Boston",cat:"university",lat:42.3601,lng:-71.0942,note:"Afternoon campus visit on Oct 9."},
-  stata:{name:"MIT Stata Center",city:"Boston",cat:"university",lat:42.3616,lng:-71.0903,note:"Distinctive MIT architecture and campus stop."},
-  charles:{name:"Charles River Esplanade / Cambridge riverfront",city:"Boston",cat:"walk",lat:42.3575,lng:-71.0870,note:"Boston skyline and relaxed late-afternoon walk."},
-  common:{name:"Boston Common",city:"Boston",cat:"walk",lat:42.3550,lng:-71.0656,note:"Historic Boston starting point."},
-  publicGarden:{name:"Boston Public Garden",city:"Boston",cat:"walk",lat:42.3540,lng:-71.0708,note:"Park beside Boston Common."},
-  freedom:{name:"Freedom Trail — central section",city:"Boston",cat:"culture",lat:42.3601,lng:-71.0564,note:"Historic walking route."},
-  quincy:{name:"Quincy Market / Faneuil Hall",city:"Boston",cat:"food",lat:42.3600,lng:-71.0551,note:"Lunch and historic market."},
-  waterfront:{name:"Boston Waterfront / North End",city:"Boston",cat:"walk",lat:42.3654,lng:-71.0523,note:"Harbor and historic North End area."},
-  beacon:{name:"Beacon Hill",city:"Boston",cat:"culture",lat:42.3588,lng:-71.0707,note:"Classic residential Boston streets."}
+const places={
+ord:{name:"Chicago O'Hare International Airport (ORD)",area:"O'Hare",cat:"airport",lat:41.9742,lng:-87.9073,note:"Trip arrival Oct 4 and international departure Oct 11."},
+downtownHotel:{name:"Downtown Chicago hotel area",area:"Downtown",cat:"hotel",lat:41.8924,lng:-87.6324,note:"Oct 4–10, 6 nights. River North / Magnificent Mile / Loop preferred. Not booked."},
+ordHotel:{name:"O'Hare hotel area",area:"O'Hare",cat:"hotel",lat:41.9860,lng:-87.8590,note:"Oct 10–11, 1 night. Airport-connected or free shuttle preferred. Not booked."},
+riverwalk:{name:"Chicago Riverwalk",area:"Downtown",cat:"walk",lat:41.8873,lng:-87.6266,note:"Central walking route and evening option."},
+cruise:{name:"Chicago Architecture Cruise area",area:"Downtown",cat:"culture",lat:41.8880,lng:-87.6260,note:"Timed cruise candidate for Oct 5."},
+loop:{name:"Chicago Loop",area:"Downtown",cat:"culture",lat:41.8837,lng:-87.6325,note:"Architecture, elevated train streets and downtown landmarks."},
+millennium:{name:"Millennium Park",area:"Downtown",cat:"culture",lat:41.8826,lng:-87.6226,note:"Cloud Gate and central park area."},
+magmile:{name:"Magnificent Mile",area:"Downtown",cat:"culture",lat:41.8954,lng:-87.6243,note:"Shopping, skyline and evening walking."},
+museumCampus:{name:"Museum Campus",area:"Downtown",cat:"walk",lat:41.8663,lng:-87.6151,note:"Lakefront skyline views and museum cluster."},
+field:{name:"Field Museum",area:"Downtown",cat:"culture",lat:41.8663,lng:-87.6170,note:"Optional major museum visit."},
+shedd:{name:"Shedd Aquarium",area:"Downtown",cat:"culture",lat:41.8676,lng:-87.6140,note:"Alternative to Field Museum depending on interests."},
+grant:{name:"Grant Park",area:"Downtown",cat:"walk",lat:41.8763,lng:-87.6192,note:"Lakefront park corridor back toward downtown."},
+skydeck:{name:"Willis Tower / Skydeck",area:"Downtown",cat:"culture",lat:41.8789,lng:-87.6359,note:"Optional observation deck."},
+uchicago:{name:"University of Chicago",area:"Hyde Park",cat:"university",lat:41.7886,lng:-87.5987,note:"Dedicated campus visit on Oct 7."},
+hydepark:{name:"Hyde Park",area:"Hyde Park",cat:"food",lat:41.7990,lng:-87.5880,note:"Lunch and neighborhood exploration."},
+msi:{name:"Museum of Science and Industry",area:"Hyde Park",cat:"culture",lat:41.7906,lng:-87.5831,note:"Optional afternoon visit after UChicago."},
+jackson:{name:"Jackson Park",area:"Hyde Park",cat:"walk",lat:41.7838,lng:-87.5800,note:"Outdoor extension near MSI."},
+lincolnpark:{name:"Lincoln Park",area:"Downtown",cat:"walk",lat:41.9214,lng:-87.6513,note:"Park, neighborhood and lakefront day."},
+zoo:{name:"Lincoln Park Zoo",area:"Downtown",cat:"culture",lat:41.9211,lng:-87.6338,note:"Optional free zoo stop."},
+oldtown:{name:"Old Town",area:"Downtown",cat:"food",lat:41.9118,lng:-87.6382,note:"Historic neighborhood, cafés and walking."},
+wicker:{name:"Wicker Park",area:"Downtown",cat:"food",lat:41.9088,lng:-87.6796,note:"Alternative neighborhood for shops, cafés and street life."},
+westloop:{name:"West Loop",area:"Downtown",cat:"food",lat:41.8837,lng:-87.6488,note:"Strong dinner area."},
+northwestern:{name:"Northwestern University",area:"Evanston",cat:"university",lat:42.0565,lng:-87.6753,note:"Dedicated campus visit on Oct 9."},
+nuLakefill:{name:"Northwestern Lakefill",area:"Evanston",cat:"walk",lat:42.0587,lng:-87.6678,note:"One of the most distinctive parts of Northwestern's lakefront campus."},
+evanston:{name:"Downtown Evanston",area:"Evanston",cat:"food",lat:42.0460,lng:-87.6816,note:"Lunch, cafés and relaxed town center immediately beside campus."},
+bahai:{name:"Bahá'í House of Worship",area:"Evanston",cat:"culture",lat:42.0744,lng:-87.6844,note:"Optional architectural stop north of Evanston."},
+davis:{name:"Davis Street transit area",area:"Evanston",cat:"transit",lat:42.0478,lng:-87.6837,note:"Convenient CTA Purple Line / Metra access for Evanston."}
 };
 
-const map = L.map("tripMap",{zoomControl:true}).setView([41.9,-87.7],10);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
-  maxZoom:19,attribution:'&copy; OpenStreetMap contributors'
-}).addTo(map);
+const map=L.map("tripMap",{zoomControl:true}).setView([41.90,-87.68],10);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"&copy; OpenStreetMap contributors"}).addTo(map);
+const markerLayer=L.layerGroup().addTo(map),routeLayer=L.layerGroup().addTo(map);
+let markers={},activeDay=days[0].id,activeFilter="all";
 
-const markerLayer = L.layerGroup().addTo(map);
-const routeLayer = L.layerGroup().addTo(map);
-let markers = {};
-let activeDay = days[0].id;
-let activeFilter = "all";
-
-function markerIcon(place){
-  const c = categories[place.cat].color;
-  const letter = place.cat==="university"?"U":place.cat==="airport"?"✈":place.cat==="hotel"?"H":"•";
-  return L.divIcon({
-    className:"",
-    html:`<div style="width:28px;height:28px;border-radius:50%;background:${c};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3);color:#fff;display:grid;place-items:center;font:bold 12px Arial">${letter}</div>`,
-    iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-14]
-  });
-}
-
-function renderFilters(){
-  const el=document.getElementById("filters");
-  const items=[["all","All"],...Object.entries(categories).map(([k,v])=>[k,v.label])];
-  el.innerHTML=items.map(([k,label])=>`<button class="chip ${k===activeFilter?'active':''}" onclick="setFilter('${k}')">${label}</button>`).join("");
-}
-
-function renderDays(){
-  document.getElementById("dayTabs").innerHTML=days.map(d=>
-    `<button class="chip ${d.id===activeDay?'active':''}" onclick="selectDay('${d.id}')">${d.short}</button>`
-  ).join("");
-}
-
+function markerIcon(p){const c=categories[p.cat].color;const letter=p.cat==="university"?"U":p.cat==="airport"?"✈":p.cat==="hotel"?"H":"•";return L.divIcon({className:"",html:`<div style="width:28px;height:28px;border-radius:50%;background:${c};border:2px solid white;box-shadow:0 2px 6px rgba(0,0,0,.3);color:#fff;display:grid;place-items:center;font:bold 12px Arial">${letter}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-14]})}
+function renderFilters(){document.getElementById("filters").innerHTML=[["all","All"],...Object.entries(categories).map(([k,v])=>[k,v.label])].map(([k,l])=>`<button class="chip ${k===activeFilter?"active":""}" onclick="setFilter('${k}')">${l}</button>`).join("")}
+function renderDays(){document.getElementById("dayTabs").innerHTML=days.map(d=>`<button class="chip ${d.id===activeDay?"active":""}" onclick="selectDay('${d.id}')">${d.short}</button>`).join("")}
 function selectedDay(){return days.find(d=>d.id===activeDay)}
-
-function dayPlaces(day){
-  return day.places.map(id=>({id,...places[id]})).filter(p=>activeFilter==="all"||p.cat===activeFilter);
-}
-
+function dayPlaces(day){return day.places.map(id=>({id,...places[id]})).filter(p=>activeFilter==="all"||p.cat===activeFilter)}
 function drawDay(day,fit=true){
-  markerLayer.clearLayers();routeLayer.clearLayers();markers={};
-  const ps=dayPlaces(day);
-  ps.forEach(p=>{
-    const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer)
-      .bindPopup(`<strong>${p.name}</strong><br>${p.note}`);
-    m.on("click",()=>selectPlace(p.id));
-    markers[p.id]=m;
-  });
-
-  const linePoints=ps.map(p=>[p.lat,p.lng]);
-  if(linePoints.length>1){
-    L.polyline(linePoints,{color:"#2364aa",weight:3,opacity:.6,dashArray:"7 7"}).addTo(routeLayer);
-  }
-  if(fit && ps.length){
-    if(ps.length===1) map.setView([ps[0].lat,ps[0].lng],13);
-    else map.fitBounds(L.latLngBounds(linePoints).pad(.2));
-  }
-  renderPlaceList(day);
-  document.getElementById("selectedTitle").textContent=day.title;
-  document.getElementById("selectedText").textContent=day.summary;
-  document.getElementById("selectedBadges").innerHTML=
-    `<span class="badge flight">${day.label}</span><span class="badge ${day.city==='Boston'?'university':'culture'}">${day.city}</span>`;
+markerLayer.clearLayers();routeLayer.clearLayers();markers={};
+const ps=dayPlaces(day);
+ps.forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);m.on("click",()=>selectPlace(p.id));markers[p.id]=m});
+const pts=ps.map(p=>[p.lat,p.lng]);if(pts.length>1)L.polyline(pts,{color:"#2364aa",weight:3,opacity:.58,dashArray:"7 7"}).addTo(routeLayer);
+if(fit&&ps.length){if(ps.length===1)map.setView([ps[0].lat,ps[0].lng],13);else map.fitBounds(L.latLngBounds(pts).pad(.22))}
+renderPlaceList(day);document.getElementById("selectedTitle").textContent=day.title;document.getElementById("selectedText").textContent=day.summary;document.getElementById("selectedBadges").innerHTML=`<span class="badge culture">${day.label}</span><span class="badge">${day.area}</span>`;
 }
-
-function renderPlaceList(day){
-  const ps=dayPlaces(day);
-  document.getElementById("placeList").innerHTML=ps.length?ps.map(p=>{
-    const c=categories[p.cat].color;
-    return `<button class="place-button" id="placebtn-${p.id}" onclick="selectPlace('${p.id}')">
-      <span class="dot" style="background:${c}">${p.cat==="airport"?"✈":p.cat==="university"?"U":p.cat==="hotel"?"H":"•"}</span>
-      <span><span class="place-title">${p.name}</span><span class="place-meta">${categories[p.cat].label} • ${p.note}</span></span>
-    </button>`;
-  }).join(""):`<p>No places in this category for the selected day.</p>`;
-}
-
-function renderPlans(){
-  const wrap=document.getElementById("dailyPlans");
-  wrap.innerHTML=days.map(d=>`
-    <div class="day-plan ${d.id===activeDay?'active':''}" id="plan-${d.id}">
-      <div class="badge-row">
-        <span class="badge flight">${d.label}</span>
-        <span class="badge ${d.city==='Boston'?'university':'culture'}">${d.city}</span>
-      </div>
-      <h3 style="margin-top:10px">${d.title}</h3>
-      <p>${d.summary}</p>
-      <div class="timeline">
-        ${d.events.map(e=>`<div class="event"><time>${e[0]}</time><div><strong>${e[1]}</strong><span>${e[2]}</span></div></div>`).join("")}
-      </div>
-    </div>`).join("");
-}
-
-function selectDay(id){
-  activeDay=id;
-  renderDays();
-  document.querySelectorAll(".day-plan").forEach(x=>x.classList.remove("active"));
-  document.getElementById("plan-"+id)?.classList.add("active");
-  drawDay(selectedDay(),true);
-}
-
-function setFilter(cat){
-  activeFilter=cat;renderFilters();drawDay(selectedDay(),true);
-}
-
-function selectPlace(id){
-  const p=places[id]; if(!p)return;
-  document.querySelectorAll(".place-button").forEach(x=>x.classList.remove("active"));
-  document.getElementById("placebtn-"+id)?.classList.add("active");
-  document.getElementById("selectedTitle").textContent=p.name;
-  document.getElementById("selectedText").textContent=p.note;
-  document.getElementById("selectedBadges").innerHTML=
-    `<span class="badge ${p.cat}">${categories[p.cat].label}</span><span class="badge">${p.city}</span>`;
-  if(markers[id]){markers[id].openPopup();map.setView([p.lat,p.lng],Math.max(map.getZoom(),13));}
-}
-
-function showAll(){
-  markerLayer.clearLayers();routeLayer.clearLayers();markers={};
-  const visible=Object.entries(places).map(([id,p])=>({id,...p})).filter(p=>activeFilter==="all"||p.cat===activeFilter);
-  visible.forEach(p=>{
-    const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);
-    m.on("click",()=>selectPlace(p.id));markers[p.id]=m;
-  });
-  const bounds=L.latLngBounds(visible.map(p=>[p.lat,p.lng]));
-  if(visible.length)map.fitBounds(bounds.pad(.08));
-  document.getElementById("selectedTitle").textContent="Whole trip";
-  document.getElementById("selectedText").textContent="Chicago Oct 4–8, then Boston/Cambridge Oct 8–11, returning to ORD early on Oct 11 for the 19:15 international departure.";
-  document.getElementById("selectedBadges").innerHTML='<span class="badge flight">Chicago + Boston</span><span class="badge university">UChicago • Harvard • MIT</span>';
-  document.getElementById("placeList").innerHTML=visible.map(p=>`<button class="place-button" onclick="map.setView([${p.lat},${p.lng}],13);markers['${p.id}']?.openPopup()"><span class="dot" style="background:${categories[p.cat].color}">•</span><span><span class="place-title">${p.name}</span><span class="place-meta">${p.city} • ${categories[p.cat].label}</span></span></button>`).join("");
-}
-
-function fitCity(city){
-  const ps=Object.values(places).filter(p=>p.city===city);
-  if(ps.length)map.fitBounds(L.latLngBounds(ps.map(p=>[p.lat,p.lng])).pad(.12));
-}
-
-renderFilters();renderDays();renderPlans();drawDay(selectedDay(),true);
-setTimeout(()=>map.invalidateSize(),200);
+function renderPlaceList(day){const ps=dayPlaces(day);document.getElementById("placeList").innerHTML=ps.length?ps.map(p=>`<button class="place-button" id="placebtn-${p.id}" onclick="selectPlace('${p.id}')"><span class="dot" style="background:${categories[p.cat].color}">${p.cat==="airport"?"✈":p.cat==="university"?"U":p.cat==="hotel"?"H":"•"}</span><span><span class="place-title">${p.name}</span><span class="place-meta">${categories[p.cat].label} • ${p.note}</span></span></button>`).join(""):"<p>No places in this category for the selected day.</p>"}
+function renderPlans(){document.getElementById("dailyPlans").innerHTML=days.map(d=>`<div class="day-plan ${d.id===activeDay?"active":""}" id="plan-${d.id}"><div class="badge-row"><span class="badge culture">${d.label}</span><span class="badge">${d.area}</span></div><h3 style="margin-top:10px">${d.title}</h3><p>${d.summary}</p><div class="timeline">${d.events.map(e=>`<div class="event"><time>${e[0]}</time><div><strong>${e[1]}</strong><span>${e[2]}</span></div></div>`).join("")}</div></div>`).join("")}
+function selectDay(id){activeDay=id;renderDays();document.querySelectorAll(".day-plan").forEach(x=>x.classList.remove("active"));document.getElementById("plan-"+id)?.classList.add("active");drawDay(selectedDay(),true)}
+function setFilter(cat){activeFilter=cat;renderFilters();drawDay(selectedDay(),true)}
+function selectPlace(id){const p=places[id];if(!p)return;document.querySelectorAll(".place-button").forEach(x=>x.classList.remove("active"));document.getElementById("placebtn-"+id)?.classList.add("active");document.getElementById("selectedTitle").textContent=p.name;document.getElementById("selectedText").textContent=p.note;document.getElementById("selectedBadges").innerHTML=`<span class="badge ${p.cat}">${categories[p.cat].label}</span><span class="badge">${p.area}</span>`;if(markers[id]){markers[id].openPopup();map.setView([p.lat,p.lng],Math.max(map.getZoom(),13))}}
+function showAll(){markerLayer.clearLayers();routeLayer.clearLayers();markers={};const visible=Object.entries(places).map(([id,p])=>({id,...p})).filter(p=>activeFilter==="all"||p.cat===activeFilter);visible.forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);m.on("click",()=>selectPlace(p.id));markers[p.id]=m});if(visible.length)map.fitBounds(L.latLngBounds(visible.map(p=>[p.lat,p.lng])).pad(.08));document.getElementById("selectedTitle").textContent="Whole Chicago trip";document.getElementById("selectedText").textContent="Six nights downtown Chicago, dedicated visits to UChicago and Northwestern, then one final night near O'Hare before the Oct 11 international departure.";document.getElementById("selectedBadges").innerHTML='<span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span>';renderPlaceList({places:visible.map(p=>p.id)})}
+function fitArea(area){const ps=Object.values(places).filter(p=>p.area===area);if(ps.length)map.fitBounds(L.latLngBounds(ps.map(p=>[p.lat,p.lng])).pad(.16))}
+renderFilters();renderDays();renderPlans();drawDay(selectedDay(),true);setTimeout(()=>map.invalidateSize(),200);
 </script>
 </body>
 </html>
