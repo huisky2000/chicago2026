@@ -29,6 +29,21 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 .lower-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:12px;margin-top:12px}.compact-card{padding:12px}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}.mini{padding:9px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd}.mini strong{display:block;margin-bottom:3px;font-size:12px}.mini span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
 .day-plan{display:none}.day-plan.active{display:block}.timeline{display:grid;gap:8px;margin-top:10px}.event{display:grid;grid-template-columns:68px 1fr;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}.event:last-child{border-bottom:0}.event time{font-size:12px;font-weight:800;color:var(--blue)}.event strong{font-size:13px;display:block;margin-bottom:2px}.event span{font-size:12px;color:var(--muted);line-height:1.4}
 .notice{margin-top:10px;padding:10px;border-radius:10px;background:#fff8e8;border:1px solid #ecd5a6;font-size:12px;line-height:1.4}
+.tips-section{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);scroll-margin-top:80px}
+.tips-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
+.tips-updated{font-size:11px;font-weight:800;color:var(--muted);padding:5px 8px;border-radius:999px;background:#f1f4f6}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.tip-card{padding:11px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd}
+.tip-card h3{display:flex;align-items:center;gap:7px;margin:0 0 7px;font-size:14px}
+.tip-card p{font-size:12px;line-height:1.45}
+.tip-card ul{margin:8px 0 0;padding-left:18px;color:var(--muted);font-size:12px;line-height:1.45}
+.tip-card li{margin:5px 0}
+.tip-tag{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;font-size:10px;font-weight:800;background:#eef3f6;color:var(--ink)}
+.tip-tag.alert{background:#fff0e8;color:#974018}.tip-tag.free{background:#e6f4eb;color:#17613d}.tip-tag.event{background:#efe9fb;color:#594087}.tip-tag.uni{background:#e6f0fb;color:#234f86}
+.tip-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tip-link{display:inline-flex;align-items:center;min-height:30px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--blue);text-decoration:none;font-size:11px;font-weight:800}
+.tip-link:hover{text-decoration:underline}
+
 @media(max-width:920px){.trip-shell,.lower-grid{grid-template-columns:1fr}.map-card{grid-template-rows:auto 460px}.side-card{grid-template-rows:auto auto auto auto}#tripMap{min-height:460px}}
 @media(max-width:560px){header{grid-template-columns:1fr;padding:9px 10px}main{padding:8px}h1{font-size:18px}.map-card{grid-template-rows:auto 390px}#tripMap{min-height:390px}}
 </style>
@@ -45,6 +60,7 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <button class="btn" onclick="fitArea('Evanston')">Northwestern</button>
 <button class="btn" onclick="fitArea('Hyde Park')">UChicago</button>
 <button class="btn" onclick="fitArea('Copenhagen')">Copenhagen</button>
+<button class="btn" onclick="document.getElementById('tips').scrollIntoView({behavior:'smooth'})">Tips</button>
 </div>
 </header>
 
@@ -96,6 +112,124 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <div class="notice"><strong>Travel structure:</strong> SAS feeder TRD→CPH on Oct 4, six nights in Chicago, overnight return flight to Copenhagen on Oct 10, Copenhagen hotel on Oct 11, then SAS CPH→TRD on Oct 12.</div>
 </div>
 </section>
+
+<section class="tips-section" id="tips">
+  <div class="tips-head">
+    <div>
+      <h2>Tips</h2>
+      <p class="sub">Current trip-specific tips, events, savings and city arrangements. Recheck ticket availability and operating details shortly before each day.</p>
+    </div>
+    <span class="tips-updated">Last refreshed: 21 Sep 2026</span>
+  </div>
+
+  <div class="tips-grid">
+    <article class="tip-card">
+      <h3>🏃 Marathon weekend <span class="tip-tag alert">Important</span></h3>
+      <p>Your timing works well because you leave Chicago on Saturday, Oct 10, before Marathon Sunday.</p>
+      <ul>
+        <li><strong>Sat Oct 10:</strong> Abbott Chicago 5K starts at 07:30 downtown, with some street closures. The Health & Fitness Expo is also open at McCormick Place.</li>
+        <li><strong>Sun Oct 11:</strong> the Chicago Marathon brings major course closures from roughly 06:00 into the afternoon.</li>
+        <li>For the Oct 10 trip to ORD, keep a generous buffer and consider CTA rail if downtown traffic looks busy.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.chicagomarathon.com/event-info/race-weekend-events/">Race weekend schedule</a>
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.chicagomarathon.com/event-info/participant-information/course/street-closures/">Street closures</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🏀 Chicago sports nights <span class="tip-tag event">Optional</span></h3>
+      <p>If your son would enjoy an American sports game, there are several convenient options during your stay:</p>
+      <ul>
+        <li><strong>Tue Oct 6, 19:00:</strong> Chicago Blackhawks vs. St. Louis Blues — United Center.</li>
+        <li><strong>Wed Oct 7, 19:00:</strong> Chicago Bulls preseason vs. Phoenix Suns — United Center.</li>
+        <li><strong>Fri Oct 9, 19:00:</strong> Chicago Bulls preseason vs. Memphis Grizzlies — United Center.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.choosechicago.com/events/category/sports-recreation/">Check sports listings</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🎭 Culture after sightseeing <span class="tip-tag event">Good fit</span></h3>
+      <p>These can be added without changing the daytime itinerary much.</p>
+      <ul>
+        <li><strong>Mon Oct 5:</strong> Best of The Second City is listed at 19:00 in Old Town.</li>
+        <li><strong>River North:</strong> <em>Theater of the Mind</em>, created by David Byrne and Mala Gaonkar, is running during your stay.</li>
+        <li><strong>Oct 5–10:</strong> Chicago By Night River & Lake cruises are listed each day — a weather-friendly alternative to a daytime cruise.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.choosechicago.com/events/">Chicago events calendar</a>
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.choosechicago.com/event/theater-of-the-mind/2026-10-04/">Theater of the Mind</a>
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.choosechicago.com/event/series/chicago-by-night-river-lake/">Night cruise</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🦁 Free / good-value stop <span class="tip-tag free">Free</span></h3>
+      <p><strong>Lincoln Park Zoo admission is free and no reservation is required.</strong> That makes it ideal for the Oct 8 Lincoln Park day because you can stay for 60 minutes or several hours without feeling locked into a ticket.</p>
+      <ul>
+        <li>The zoo is near the lakefront and fits naturally with Lincoln Park and Old Town.</li>
+        <li>Check the zoo's same-day schedule for free animal demonstrations.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.lpzoo.org/visit/">Lincoln Park Zoo</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🎓 Northwestern visit <span class="tip-tag uni">Register</span></h3>
+      <p>Your Friday, Oct 9 plan is a particularly good day to make the university visit more meaningful.</p>
+      <ul>
+        <li>Northwestern offers general campus tours Monday–Friday plus selected specialized tours; official programs require registration.</li>
+        <li>If tours are full, the Segal Visitors Center vestibule supports a self-guided campus tour, and the downloadable route includes student stories and academic information.</li>
+        <li>Start at the Segal Visitors Center, then include Deering Library / central campus and the Lakefill.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://admissions.northwestern.edu/visit/visit-campus/">Northwestern visit registration</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🎓 UChicago visit <span class="tip-tag uni">Register</span></h3>
+      <p>For Oct 7, check the official admissions calendar before settling the exact Hyde Park schedule.</p>
+      <ul>
+        <li>UChicago offers admissions information sessions and student-led campus tours starting from Rosenwald Hall.</li>
+        <li>If a suitable time is available, reserve it and build the Museum of Science and Industry / Jackson Park part of the day around the tour.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://collegeadmissions.uchicago.edu/visit-connect/daily-visits/">UChicago campus visits</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🚇 Chicago transport & value <span class="tip-tag free">Save</span></h3>
+      <p>For six Chicago days, compare the current <strong>7-day CTA unlimited pass</strong> with pay-as-you-go in Ventra rather than buying individual rides each time.</p>
+      <ul>
+        <li>Use the Blue Line for ORD when practical; it avoids road-traffic uncertainty.</li>
+        <li>For Northwestern, compare Metra to Davis with the CTA Purple Line — the better choice depends on your hotel and schedule.</li>
+        <li>CTA's 2026 fare structure changed, so check the current price in Ventra/CTA rather than relying on older online fare examples.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.transitchicago.com/fares/">CTA fares & passes</a>
+      </div>
+    </article>
+
+    <article class="tip-card">
+      <h3>🇩🇰 Copenhagen overnight <span class="tip-tag">Oct 11</span></h3>
+      <p>You do not have to stay at the airport unless convenience is the priority.</p>
+      <ul>
+        <li>Metro or train from CPH reaches central Copenhagen in about 15 minutes.</li>
+        <li>If the Oct 11 arrival is reasonably early, a central hotel gives you an easy Copenhagen evening.</li>
+        <li>With the 09:55 SAS flight on Oct 12, an airport hotel remains the simplest choice; a city hotel is still practical if you leave early.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.visitcopenhagen.com/copenhagen/planning/transportation/travel-to-and-from-copenhagen-airport">CPH airport transport</a>
+      </div>
+    </article>
+  </div>
+</section>
+
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
