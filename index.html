@@ -37,13 +37,14 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <header>
 <div>
 <h1>Chicago Autumn Trip 2026</h1>
-<div class="sub">Father & son • Oct 4–11, 2026 • 6 nights downtown + 1 night near O'Hare</div>
+<div class="sub">Father & son • Oct 4–12, 2026 • Trondheim → Copenhagen → Chicago • 6 nights Chicago + 1 night Copenhagen</div>
 </div>
 <div class="header-actions">
 <button class="btn primary" onclick="showAll()">Show whole trip</button>
 <button class="btn" onclick="fitArea('Downtown')">Downtown</button>
 <button class="btn" onclick="fitArea('Evanston')">Northwestern</button>
 <button class="btn" onclick="fitArea('Hyde Park')">UChicago</button>
+<button class="btn" onclick="fitArea('Copenhagen')">Copenhagen</button>
 </div>
 </header>
 
@@ -62,14 +63,16 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 </div>
 
 <div class="quick-bookings">
-<div class="booking"><strong>International</strong><span>Oct 4 • Arrive ORD 16:10<br>Oct 11 • Depart ORD 19:15<br><span class="status booked">EXISTING FLIGHTS</span></span></div>
-<div class="booking"><strong>Downtown hotel</strong><span>Oct 4–10 • 6 nights • River North / Magnificent Mile / Loop preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span></div>
-<div class="booking"><strong>O'Hare hotel</strong><span>Oct 10–11 • 1 night • airport-connected or free shuttle preferred<br><span class="status tbd">NOT BOOKED</span></span></div>
+<div class="booking"><strong>TRD → CPH</strong><span>Oct 4 • 05:30–07:10 • SAS<br>Booking ref. <strong>YCZBGV</strong><br><span class="status booked">BOOKED</span></span></div>
+<div class="booking"><strong>Long-haul</strong><span>Oct 4 • Arrive ORD 16:10<br>Oct 10 • Depart ORD 19:15 for Copenhagen<br><span class="status booked">EXISTING BOOKING</span></span></div>
+<div class="booking"><strong>Chicago hotel</strong><span>Oct 4–10 • 6 nights • River North / Magnificent Mile / Loop preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span></div>
+<div class="booking"><strong>CPH hotel</strong><span>Oct 11–12 • 1 night in Copenhagen • airport or city location TBD<br><span class="status tbd">NOT BOOKED</span></span></div>
+<div class="booking"><strong>CPH → TRD</strong><span>Oct 12 • 09:55–14:10 • SAS<br>Booking ref. <strong>YSHCSQ</strong><br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>Hotels.com</strong><span>OneKeyCash about $229.65 • use where redemption value is best<br><span class="status tbd">AVAILABLE</span></span></div>
 </div>
 
 <div><div class="panel-body"><h3>Places on selected day</h3></div><div class="place-list" id="placeList"></div></div>
-<div class="panel-foot"><p><strong>Planning note:</strong> Moving to O'Hare on Oct 10 avoids relying on a downtown-to-airport transfer during Marathon Sunday.</p></div>
+<div class="panel-foot"><p><strong>Planning note:</strong> The Chicago stay ends on Oct 10. The return trip reaches Copenhagen on Oct 11, so one Copenhagen hotel night is needed before the booked SAS feeder to Trondheim on Oct 12.</p></div>
 </aside>
 </section>
 
@@ -84,13 +87,13 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <h2>Trip strategy</h2>
 <div class="mini-grid">
 <div class="mini"><strong>Downtown base • 6 nights</strong><span>Oct 4–10. River North, Magnificent Mile or Loop keeps most sightseeing easy.</span></div>
-<div class="mini"><strong>O'Hare • final night</strong><span>Oct 10–11. Move before Marathon Sunday and make departure day simple.</span></div>
+<div class="mini"><strong>Copenhagen • final night</strong><span>Oct 11–12. One overnight is needed before the booked SAS feeder to Trondheim.</span></div>
 <div class="mini"><strong>University focus</strong><span>University of Chicago in Hyde Park + Northwestern University in Evanston.</span></div>
 <div class="mini"><strong>Northwestern day</strong><span>Lakefront campus, Evanston downtown and a relaxed North Shore day.</span></div>
 <div class="mini"><strong>Hotel budget</strong><span>Keep each hotel ≤ 3,000 NOK/night including taxes/fees where possible.</span></div>
-<div class="mini"><strong>Hotels.com reward</strong><span>Approx. $229.65 OneKeyCash. Compare downtown vs O'Hare redemption.</span></div>
+<div class="mini"><strong>Hotels.com reward</strong><span>Approx. $229.65 OneKeyCash. Compare redemption value between the Chicago and Copenhagen hotel bookings.</span></div>
 </div>
-<div class="notice"><strong>Why this version:</strong> no extra domestic flights, no expensive Boston/DC hotel nights, more time to enjoy Chicago properly, and your son still gets two very different U.S. university experiences.</div>
+<div class="notice"><strong>Travel structure:</strong> SAS feeder TRD→CPH on Oct 4, six nights in Chicago, overnight return flight to Copenhagen on Oct 10, Copenhagen hotel on Oct 11, then SAS CPH→TRD on Oct 12.</div>
 </div>
 </section>
 </main>
@@ -108,20 +111,24 @@ transit:{label:"Transit",color:"#2364aa"}
 };
 
 const days=[
-{id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Downtown",title:"Arrival in Chicago",summary:"Arrive ORD at 16:10, transfer downtown, check in and keep the first evening relaxed.",events:[["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["ord","downtownHotel","riverwalk"]},
+{id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Travel",title:"Trondheim → Copenhagen → Chicago",summary:"Start early in Trondheim, take the booked SAS feeder to Copenhagen, continue to Chicago, then check in downtown after arriving ORD at 16:10.",events:[["05:30","SAS TRD → CPH","Booked feeder flight. Booking ref. YCZBGV."],["07:10","Arrive Copenhagen (CPH)","Connect onward to the Chicago long-haul flight."],["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["trd","cph","ord","downtownHotel","riverwalk"]},
 {id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile"]},
 {id:"oct6",short:"Oct 6",label:"Tue Oct 6",area:"Downtown",title:"Museum Campus & lakefront",summary:"A flexible lakefront day with one major museum and an observation deck near sunset if the weather is good.",events:[["09:00","Museum Campus / lakefront","Start with skyline views."],["10:00","Field Museum or Shedd Aquarium","Choose based on interests."],["14:30","Grant Park / downtown","Return north through the lakefront parks."],["17:00","Skydeck or 360 Chicago","Optional observation deck."],["19:00","Dinner","River North or West Loop."]],places:["museumCampus","field","shedd","grant","skydeck"]},
 {id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"University of Chicago & Hyde Park",summary:"A proper campus day at the University of Chicago, with time for Hyde Park and the Museum of Science and Industry area.",events:[["09:00","Travel to Hyde Park","Metra, CTA or rideshare depending on hotel."],["10:00","University of Chicago campus","Main Quadrangles, Rockefeller Chapel area and public campus spaces."],["12:30","Lunch in Hyde Park","Explore the neighborhood around campus."],["14:00","Museum of Science and Industry","Optional visit or Jackson Park walk."],["17:30","Return downtown","Evening free."]],places:["uchicago","hydepark","msi","jackson"]},
 {id:"oct8",short:"Oct 8",label:"Thu Oct 8",area:"Downtown",title:"Neighborhoods & relaxed Chicago",summary:"Use the extra Chicago day to see more of the city rather than rushing between major attractions.",events:[["09:30","Lincoln Park","Park, lakefront and neighborhood walk."],["11:00","Lincoln Park Zoo area","Optional zoo or conservatory."],["13:00","Lunch","Lincoln Park or Old Town."],["14:30","Old Town / Wicker Park","Choose one neighborhood depending on energy and interests."],["18:00","West Loop dinner","Good evening for a more food-focused part of Chicago."]],places:["lincolnpark","zoo","oldtown","wicker","westloop"]},
 {id:"oct9",short:"Oct 9",label:"Fri Oct 9",area:"Evanston",title:"Northwestern University & Evanston",summary:"A dedicated North Shore university day: Northwestern's lakefront campus plus Evanston downtown.",events:[["08:30","Travel to Evanston","CTA Purple Line or Metra from downtown."],["10:00","Northwestern University campus","Walk the central campus and lakefront."],["12:30","Lunch in Evanston","Downtown Evanston is immediately beside campus."],["14:00","Lakefill / lakefront","Spend time on Northwestern's distinctive waterfront campus."],["15:30","Evanston / optional Bahá'í House of Worship","Optional extension before returning south."],["18:00","Return downtown","Final full downtown Chicago evening."]],places:["northwestern","nuLakefill","evanston","bahai","davis"]},
-{id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Downtown",title:"Final Chicago day → O'Hare hotel",summary:"Keep the final sightseeing day flexible, then move to an O'Hare hotel before Marathon Sunday.",events:[["09:00","Flexible final sightseeing","Use this morning for anything missed earlier."],["11:00","Shopping / museum / river area","Keep luggage at downtown hotel after checkout if needed."],["15:00","Collect luggage","Allow plenty of time before moving toward O'Hare."],["16:00","Transfer to O'Hare-area hotel","CTA, hotel shuttle or taxi depending on hotel choice."],["Evening","Relax near O'Hare","Early, simple evening before departure day."]],places:["downtownHotel","riverwalk","ordHotel","ord"]},
-{id:"oct11",short:"Oct 11",label:"Sun Oct 11",area:"O'Hare",title:"Departure day",summary:"No downtown travel required. Stay near ORD and keep the day easy before the 19:15 international flight.",events:[["Morning","Relaxed breakfast / hotel","No need to enter downtown during Marathon Sunday."],["Afternoon","Transfer to ORD","Use hotel shuttle or airport connection."],["~16:00","Airport check-in target","Comfortable buffer for international departure."],["19:15","Depart Chicago O'Hare","Existing international flight."]],places:["ordHotel","ord"]}
+{id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Travel",title:"Final Chicago day → ORD → Copenhagen",summary:"Enjoy a final Chicago morning and early afternoon, then travel to O'Hare for the 19:15 overnight flight to Copenhagen.",events:[["09:00","Flexible final sightseeing","Use the morning for anything missed earlier."],["12:00","Lunch / river / shopping","Keep the final hours relaxed and central."],["15:00","Collect luggage","Return to the hotel and head for O'Hare."],["~16:00","Transfer to ORD","Allow a comfortable buffer for the international flight."],["19:15","Depart ORD for Copenhagen","Existing long-haul booking; overnight flight."]],places:["downtownHotel","riverwalk","ord"]},
+{id:"oct11",short:"Oct 11",label:"Sun Oct 11",area:"Copenhagen",title:"Copenhagen overnight",summary:"Arrive Copenhagen from Chicago and stay one night before the booked SAS feeder to Trondheim the next morning.",events:[["Morning","Arrive Copenhagen (CPH)","Arrival time follows the existing long-haul booking."],["After arrival","Transfer to Copenhagen hotel","Hotel is not booked yet."],["Afternoon","Optional easy Copenhagen time","Keep plans flexible after the overnight flight."],["Evening","Overnight in Copenhagen","Prepare for the 09:55 SAS departure next morning."]],places:["cph","cphHotel","copenhagenCenter"]},
+{id:"oct12",short:"Oct 12",label:"Mon Oct 12",area:"Travel",title:"Copenhagen → Trondheim",summary:"Check out, travel to Copenhagen Airport and take the booked SAS feeder home to Trondheim.",events:[["Morning","Hotel checkout","Allow enough time to reach CPH and complete airport formalities."],["09:55","SAS CPH → TRD","Booked feeder flight. Booking ref. YSHCSQ."],["14:10","Arrive Trondheim","End of trip."]],places:["cphHotel","cph","trd"]}
 ];
 
 const places={
-ord:{name:"Chicago O'Hare International Airport (ORD)",area:"O'Hare",cat:"airport",lat:41.9742,lng:-87.9073,note:"Trip arrival Oct 4 and international departure Oct 11."},
+trd:{name:"Trondheim Airport (TRD)",area:"Travel",cat:"airport",lat:63.4578,lng:10.9240,note:"SAS feeder departure Oct 4 at 05:30 and trip-end arrival Oct 12 at 14:10."},
+cph:{name:"Copenhagen Airport (CPH)",area:"Copenhagen",cat:"airport",lat:55.6180,lng:12.6508,note:"Outbound connection Oct 4; return arrival Oct 11; SAS feeder departure Oct 12 at 09:55."},
+cphHotel:{name:"Copenhagen hotel — not booked",area:"Copenhagen",cat:"hotel",lat:55.6300,lng:12.6400,note:"One night, Oct 11–12. Choose airport or city location depending on price and preferred evening."},
+copenhagenCenter:{name:"Central Copenhagen",area:"Copenhagen",cat:"walk",lat:55.6761,lng:12.5683,note:"Optional easy sightseeing on Oct 11 if energy and arrival time allow."},
+ord:{name:"Chicago O'Hare International Airport (ORD)",area:"O'Hare",cat:"airport",lat:41.9742,lng:-87.9073,note:"Chicago arrival Oct 4 and international departure Oct 10 at 19:15."},
 downtownHotel:{name:"Downtown Chicago hotel area",area:"Downtown",cat:"hotel",lat:41.8924,lng:-87.6324,note:"Oct 4–10, 6 nights. River North / Magnificent Mile / Loop preferred. Not booked."},
-ordHotel:{name:"O'Hare hotel area",area:"O'Hare",cat:"hotel",lat:41.9860,lng:-87.8590,note:"Oct 10–11, 1 night. Airport-connected or free shuttle preferred. Not booked."},
 riverwalk:{name:"Chicago Riverwalk",area:"Downtown",cat:"walk",lat:41.8873,lng:-87.6266,note:"Central walking route and evening option."},
 cruise:{name:"Chicago Architecture Cruise area",area:"Downtown",cat:"culture",lat:41.8880,lng:-87.6260,note:"Timed cruise candidate for Oct 5."},
 loop:{name:"Chicago Loop",area:"Downtown",cat:"culture",lat:41.8837,lng:-87.6325,note:"Architecture, elevated train streets and downtown landmarks."},
@@ -171,7 +178,7 @@ function renderPlans(){document.getElementById("dailyPlans").innerHTML=days.map(
 function selectDay(id){activeDay=id;renderDays();document.querySelectorAll(".day-plan").forEach(x=>x.classList.remove("active"));document.getElementById("plan-"+id)?.classList.add("active");drawDay(selectedDay(),true)}
 function setFilter(cat){activeFilter=cat;renderFilters();drawDay(selectedDay(),true)}
 function selectPlace(id){const p=places[id];if(!p)return;document.querySelectorAll(".place-button").forEach(x=>x.classList.remove("active"));document.getElementById("placebtn-"+id)?.classList.add("active");document.getElementById("selectedTitle").textContent=p.name;document.getElementById("selectedText").textContent=p.note;document.getElementById("selectedBadges").innerHTML=`<span class="badge ${p.cat}">${categories[p.cat].label}</span><span class="badge">${p.area}</span>`;if(markers[id]){markers[id].openPopup();map.setView([p.lat,p.lng],Math.max(map.getZoom(),13))}}
-function showAll(){markerLayer.clearLayers();routeLayer.clearLayers();markers={};const visible=Object.entries(places).map(([id,p])=>({id,...p})).filter(p=>activeFilter==="all"||p.cat===activeFilter);visible.forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);m.on("click",()=>selectPlace(p.id));markers[p.id]=m});if(visible.length)map.fitBounds(L.latLngBounds(visible.map(p=>[p.lat,p.lng])).pad(.08));document.getElementById("selectedTitle").textContent="Whole Chicago trip";document.getElementById("selectedText").textContent="Six nights downtown Chicago, dedicated visits to UChicago and Northwestern, then one final night near O'Hare before the Oct 11 international departure.";document.getElementById("selectedBadges").innerHTML='<span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span>';renderPlaceList({places:visible.map(p=>p.id)})}
+function showAll(){markerLayer.clearLayers();routeLayer.clearLayers();markers={};const visible=Object.entries(places).map(([id,p])=>({id,...p})).filter(p=>activeFilter==="all"||p.cat===activeFilter);visible.forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);m.on("click",()=>selectPlace(p.id));markers[p.id]=m});if(visible.length)map.fitBounds(L.latLngBounds(visible.map(p=>[p.lat,p.lng])).pad(.08));document.getElementById("selectedTitle").textContent="Whole Chicago trip";document.getElementById("selectedText").textContent="Booked SAS feeder TRD→CPH on Oct 4, six nights in Chicago with UChicago and Northwestern visits, overnight return to Copenhagen on Oct 10, Copenhagen hotel on Oct 11, then booked SAS CPH→TRD on Oct 12.";document.getElementById("selectedBadges").innerHTML='<span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span>';renderPlaceList({places:visible.map(p=>p.id)})}
 function fitArea(area){const ps=Object.values(places).filter(p=>p.area===area);if(ps.length)map.fitBounds(L.latLngBounds(ps.map(p=>[p.lat,p.lng])).pad(.16))}
 renderFilters();renderDays();renderPlans();drawDay(selectedDay(),true);setTimeout(()=>map.invalidateSize(),200);
 </script>
