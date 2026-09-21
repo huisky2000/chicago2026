@@ -84,6 +84,7 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <div class="booking"><strong>Chicago hotel</strong><span>Oct 4–10 • 6 nights • River North / Magnificent Mile / Loop preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span></div>
 <div class="booking"><strong>CPH hotel</strong><span>Oct 11–12 • 1 night in Copenhagen • airport or city location TBD<br><span class="status tbd">NOT BOOKED</span></span></div>
 <div class="booking"><strong>CPH → TRD</strong><span>Oct 12 • 09:55–14:10 • SAS<br>Booking ref. <strong>YSHCSQ</strong><br><span class="status booked">BOOKED</span></span></div>
+<div class="booking"><strong>Bulls tickets</strong><span>Oct 7 • 19:00 • Phoenix Suns at Chicago Bulls<br>United Center • Upper Level 311 • Row 1 • 2 tickets • $78 total<br>Electronic transfer<br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>Hotels.com</strong><span>OneKeyCash about $229.65 • use where redemption value is best<br><span class="status tbd">AVAILABLE</span></span></div>
 </div>
 
@@ -106,6 +107,7 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <div class="mini"><strong>Copenhagen • final night</strong><span>Oct 11–12. One overnight is needed before the booked SAS feeder to Trondheim.</span></div>
 <div class="mini"><strong>University focus</strong><span>University of Chicago in Hyde Park + Northwestern University in Evanston.</span></div>
 <div class="mini"><strong>Northwestern day</strong><span>Lakefront campus, Evanston downtown and a relaxed North Shore day.</span></div>
+<div class="mini"><strong>NBA night booked</strong><span>Oct 7 • Suns at Bulls • United Center • Section 311, Row 1 • 2 tickets, $78 total.</span></div>
 <div class="mini"><strong>Hotel budget</strong><span>Keep each hotel ≤ 3,000 NOK/night including taxes/fees where possible.</span></div>
 <div class="mini"><strong>Hotels.com reward</strong><span>Approx. $229.65 OneKeyCash. Compare redemption value between the Chicago and Copenhagen hotel bookings.</span></div>
 </div>
@@ -123,6 +125,21 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
   </div>
 
   <div class="tips-grid">
+
+    <article class="tip-card">
+      <h3>🏀 Bulls tickets booked <span class="tip-tag free">Booked</span></h3>
+      <p><strong>Wed Oct 7 at 19:00:</strong> Phoenix Suns at Chicago Bulls, NBA preseason, United Center.</p>
+      <ul>
+        <li><strong>Seats:</strong> Upper Level 311, Row 1.</li>
+        <li><strong>Tickets:</strong> 2 electronic-transfer tickets, $78 total.</li>
+        <li>Aim to reach United Center around 18:00 for security, concourse time and pregame atmosphere.</li>
+        <li>Keep the UChicago / Hyde Park afternoon a little shorter and have an early dinner before the game.</li>
+      </ul>
+      <div class="tip-links">
+        <a class="tip-link" target="_blank" rel="noopener" href="https://www.unitedcenter.com/venue/directions-parking/">United Center transport</a>
+      </div>
+    </article>
+
     <article class="tip-card">
       <h3>🏃 Marathon weekend <span class="tip-tag alert">Important</span></h3>
       <p>Your timing works well because you leave Chicago on Saturday, Oct 10, before Marathon Sunday.</p>
@@ -248,7 +265,7 @@ const days=[
 {id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Travel",title:"Trondheim → Copenhagen → Chicago",summary:"Start early in Trondheim, take the booked SAS feeder to Copenhagen, continue to Chicago, then check in downtown after arriving ORD at 16:10.",events:[["05:30","SAS TRD → CPH","Booked feeder flight. Booking ref. YCZBGV."],["07:10","Arrive Copenhagen (CPH)","Connect onward to the Chicago long-haul flight."],["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["trd","cph","ord","downtownHotel","riverwalk"]},
 {id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile"]},
 {id:"oct6",short:"Oct 6",label:"Tue Oct 6",area:"Downtown",title:"Museum Campus & lakefront",summary:"A flexible lakefront day with one major museum and an observation deck near sunset if the weather is good.",events:[["09:00","Museum Campus / lakefront","Start with skyline views."],["10:00","Field Museum or Shedd Aquarium","Choose based on interests."],["14:30","Grant Park / downtown","Return north through the lakefront parks."],["17:00","Skydeck or 360 Chicago","Optional observation deck."],["19:00","Dinner","River North or West Loop."]],places:["museumCampus","field","shedd","grant","skydeck"]},
-{id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"University of Chicago & Hyde Park",summary:"A proper campus day at the University of Chicago, with time for Hyde Park and the Museum of Science and Industry area.",events:[["09:00","Travel to Hyde Park","Metra, CTA or rideshare depending on hotel."],["10:00","University of Chicago campus","Main Quadrangles, Rockefeller Chapel area and public campus spaces."],["12:30","Lunch in Hyde Park","Explore the neighborhood around campus."],["14:00","Museum of Science and Industry","Optional visit or Jackson Park walk."],["17:30","Return downtown","Evening free."]],places:["uchicago","hydepark","msi","jackson"]},
+{id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"University of Chicago + Bulls game",summary:"A proper University of Chicago campus visit in Hyde Park, followed by the booked NBA preseason game at United Center in the evening.",events:[["09:00","Travel to Hyde Park","Metra, CTA or rideshare depending on hotel."],["10:00","University of Chicago campus","Main Quadrangles, Rockefeller Chapel area and public campus spaces."],["12:30","Lunch in Hyde Park","Explore the neighborhood around campus."],["14:00","Museum of Science and Industry / Jackson Park","Keep this portion shorter so the evening remains relaxed."],["16:30","Return toward hotel / United Center","Allow time for an early dinner and arena entry."],["~18:00","Arrive United Center","Security, concourse and pregame atmosphere."],["19:00","Phoenix Suns at Chicago Bulls","NBA preseason • Upper Level 311 • Row 1 • 2 tickets booked • $78 total."]],places:["uchicago","hydepark","msi","jackson","unitedCenter"]},
 {id:"oct8",short:"Oct 8",label:"Thu Oct 8",area:"Downtown",title:"Neighborhoods & relaxed Chicago",summary:"Use the extra Chicago day to see more of the city rather than rushing between major attractions.",events:[["09:30","Lincoln Park","Park, lakefront and neighborhood walk."],["11:00","Lincoln Park Zoo area","Optional zoo or conservatory."],["13:00","Lunch","Lincoln Park or Old Town."],["14:30","Old Town / Wicker Park","Choose one neighborhood depending on energy and interests."],["18:00","West Loop dinner","Good evening for a more food-focused part of Chicago."]],places:["lincolnpark","zoo","oldtown","wicker","westloop"]},
 {id:"oct9",short:"Oct 9",label:"Fri Oct 9",area:"Evanston",title:"Northwestern University & Evanston",summary:"A dedicated North Shore university day: Northwestern's lakefront campus plus Evanston downtown.",events:[["08:30","Travel to Evanston","CTA Purple Line or Metra from downtown."],["10:00","Northwestern University campus","Walk the central campus and lakefront."],["12:30","Lunch in Evanston","Downtown Evanston is immediately beside campus."],["14:00","Lakefill / lakefront","Spend time on Northwestern's distinctive waterfront campus."],["15:30","Evanston / optional Bahá'í House of Worship","Optional extension before returning south."],["18:00","Return downtown","Final full downtown Chicago evening."]],places:["northwestern","nuLakefill","evanston","bahai","davis"]},
 {id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Travel",title:"Final Chicago day → ORD → Copenhagen",summary:"Enjoy a final Chicago morning and early afternoon, then travel to O'Hare for the 19:15 overnight flight to Copenhagen.",events:[["09:00","Flexible final sightseeing","Use the morning for anything missed earlier."],["12:00","Lunch / river / shopping","Keep the final hours relaxed and central."],["15:00","Collect luggage","Return to the hotel and head for O'Hare."],["~16:00","Transfer to ORD","Allow a comfortable buffer for the international flight."],["19:15","Depart ORD for Copenhagen","Existing long-haul booking; overnight flight."]],places:["downtownHotel","riverwalk","ord"]},
@@ -277,6 +294,7 @@ uchicago:{name:"University of Chicago",area:"Hyde Park",cat:"university",lat:41.
 hydepark:{name:"Hyde Park",area:"Hyde Park",cat:"food",lat:41.7990,lng:-87.5880,note:"Lunch and neighborhood exploration."},
 msi:{name:"Museum of Science and Industry",area:"Hyde Park",cat:"culture",lat:41.7906,lng:-87.5831,note:"Optional afternoon visit after UChicago."},
 jackson:{name:"Jackson Park",area:"Hyde Park",cat:"walk",lat:41.7838,lng:-87.5800,note:"Outdoor extension near MSI."},
+unitedCenter:{name:"United Center",area:"Downtown",cat:"culture",lat:41.8807,lng:-87.6742,note:"Oct 7, 19:00 — NBA preseason: Phoenix Suns at Chicago Bulls. Upper Level 311, Row 1. 2 tickets booked, $78 total."},
 lincolnpark:{name:"Lincoln Park",area:"Downtown",cat:"walk",lat:41.9214,lng:-87.6513,note:"Park, neighborhood and lakefront day."},
 zoo:{name:"Lincoln Park Zoo",area:"Downtown",cat:"culture",lat:41.9211,lng:-87.6338,note:"Optional free zoo stop."},
 oldtown:{name:"Old Town",area:"Downtown",cat:"food",lat:41.9118,lng:-87.6382,note:"Historic neighborhood, cafés and walking."},
