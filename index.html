@@ -42,6 +42,30 @@ html{scroll-behavior:smooth}
 .glance-note{margin-top:10px;padding:10px;border-radius:10px;background:#eef6ff;border:1px solid #cfe0f8;font-size:12px;line-height:1.42}
 .section-link{color:var(--blue);font-weight:800;text-decoration:none}
 .section-link:hover{text-decoration:underline}
+.gifts-section{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);scroll-margin-top:80px}
+.gifts-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
+.gift-progress{min-width:180px;padding:9px 11px;border-radius:10px;background:#eef6ff;border:1px solid #cfe0f8}
+.gift-progress strong{display:block;font-size:13px}.gift-progress span{font-size:11px;color:var(--muted)}
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.gift-card{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfcfd}
+.gift-person{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.gift-person h3{margin:0;font-size:15px}.gift-icon{font-size:22px}
+.gift-ideas{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}
+.idea-chip{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;background:#eef3f6;font-size:10px;font-weight:800;color:var(--ink)}
+.gift-controls{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}
+.gift-controls label{font-size:10px;font-weight:800;color:var(--muted)}
+.gift-controls select,.gift-controls input{width:100%;margin-top:3px;padding:8px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-size:12px}
+.gift-note{grid-column:1/-1}
+.shopping-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:12px}
+.shop-card{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.shop-card strong{display:block;font-size:13px;margin-bottom:4px}.shop-card p{font-size:12px;line-height:1.42}
+.shop-meta{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+.shop-tag{display:inline-flex;padding:4px 7px;border-radius:999px;background:#eef3f6;font-size:10px;font-weight:800}
+.shop-tag.best{background:#e6f4eb;color:#17613d}.shop-tag.trip{background:#e6f0fb;color:#234f86}.shop-tag.far{background:#fff2da;color:#8a550f}
+.gift-reset{border:0;background:transparent;color:var(--blue);font-size:11px;font-weight:800;cursor:pointer;padding:0}
+@media(max-width:720px){.gift-grid,.shopping-grid{grid-template-columns:1fr}.gifts-section{padding:10px}.gift-controls{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.gift-controls{grid-template-columns:1fr}.gift-note{grid-column:auto}}
+
 
 .tips-section{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);scroll-margin-top:80px}
 .tips-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
@@ -101,6 +125,7 @@ h1{font-size:18px}
 <button class="btn" onclick="fitArea('Evanston')">Northwestern</button>
 <button class="btn" onclick="fitArea('Hyde Park')">UChicago</button>
 <button class="btn" onclick="fitArea('Copenhagen')">Copenhagen</button>
+<button class="btn" onclick="document.getElementById('gifts').scrollIntoView({behavior:'smooth'})">Gifts</button>
 <button class="btn" onclick="document.getElementById('tips').scrollIntoView({behavior:'smooth'})">Tips</button>
 </div>
 </header>
@@ -112,6 +137,7 @@ h1{font-size:18px}
   <a class="anchor-link" href="#bookings">Bookings</a>
   <a class="anchor-link" href="#itinerary">Itinerary</a>
   <a class="anchor-link" href="#mapview">Map</a>
+  <a class="anchor-link" href="#gifts">Gifts</a>
   <a class="anchor-link" href="#tips">Tips</a>
 </nav>
 
@@ -144,6 +170,12 @@ h1{font-size:18px}
       <span class="glance-kicker">Booked event</span>
       <strong>Bulls vs Suns — Oct 7, 19:00</strong>
       <p><b>United Center</b> • Upper Level <b>311</b>, <b>Row 1</b> • 2 tickets • <b>$78 total</b>. Already integrated into the itinerary.</p>
+    </div>
+
+    <div class="glance-card">
+      <span class="glance-kicker">Gift mission</span>
+      <strong>4 people to buy for</strong>
+      <p>Wife, daughter, smallest son, and your son's girlfriend. Use the <a class="section-link" href="#gifts">Gifts module</a> to track ideas, budget, status and shopping locations.</p>
     </div>
   </div>
 
@@ -202,6 +234,105 @@ h1{font-size:18px}
 <div class="notice"><strong>Travel structure:</strong> SAS feeder TRD→CPH on Oct 4, six nights in Chicago, overnight return flight to Copenhagen on Oct 10, Copenhagen hotel on Oct 11, then SAS CPH→TRD on Oct 12.</div>
 </div>
 </section>
+
+
+<section class="gifts-section" id="gifts">
+  <div class="gifts-head">
+    <div>
+      <h2>Gifts & Shopping</h2>
+      <p class="sub">A practical shopping checklist for the family. Status, budget and notes are saved on this device in the browser.</p>
+    </div>
+    <div class="gift-progress">
+      <strong id="giftProgressText">0 of 4 gifts bought</strong>
+      <span>Mark each gift as Bought or Packed as you go.</span>
+    </div>
+  </div>
+
+  <div class="gift-grid">
+    <article class="gift-card" data-gift="wife">
+      <div class="gift-person"><div><h3>For my wife</h3><p>Something refined rather than a generic souvenir.</p></div><div class="gift-icon">💝</div></div>
+      <div class="gift-ideas">
+        <span class="idea-chip">Jewelry</span><span class="idea-chip">Designer accessory</span><span class="idea-chip">Perfume / beauty</span><span class="idea-chip">Chicago design</span>
+      </div>
+      <div class="gift-controls">
+        <label>Status<select class="gift-status"><option>Need idea</option><option>Shortlisted</option><option>Bought</option><option>Packed</option></select></label>
+        <label>Budget<input class="gift-budget" placeholder="e.g. $100"></label>
+        <label class="gift-note">Notes / shortlist<input class="gift-notes" placeholder="Store, item, size, color..."></label>
+      </div>
+    </article>
+
+    <article class="gift-card" data-gift="daughter">
+      <div class="gift-person"><div><h3>For my daughter</h3><p>Stylish, useful, or something recognizably from the trip.</p></div><div class="gift-icon">🎁</div></div>
+      <div class="gift-ideas">
+        <span class="idea-chip">Small bag</span><span class="idea-chip">Accessory</span><span class="idea-chip">Beauty</span><span class="idea-chip">Chicago item</span>
+      </div>
+      <div class="gift-controls">
+        <label>Status<select class="gift-status"><option>Need idea</option><option>Shortlisted</option><option>Bought</option><option>Packed</option></select></label>
+        <label>Budget<input class="gift-budget" placeholder="e.g. $60"></label>
+        <label class="gift-note">Notes / shortlist<input class="gift-notes" placeholder="Brand, style, size..."></label>
+      </div>
+    </article>
+
+    <article class="gift-card" data-gift="smallson">
+      <div class="gift-person"><div><h3>For my smallest son</h3><p>A gift connected to something you actually did in Chicago.</p></div><div class="gift-icon">🏀</div></div>
+      <div class="gift-ideas">
+        <span class="idea-chip">Bulls cap / shirt</span><span class="idea-chip">Nike</span><span class="idea-chip">LEGO</span><span class="idea-chip">Toy / collectible</span>
+      </div>
+      <div class="gift-controls">
+        <label>Status<select class="gift-status"><option>Need idea</option><option>Shortlisted</option><option>Bought</option><option>Packed</option></select></label>
+        <label>Budget<input class="gift-budget" placeholder="e.g. $50"></label>
+        <label class="gift-note">Notes / shortlist<input class="gift-notes" placeholder="Team, size, character..."></label>
+      </div>
+    </article>
+
+    <article class="gift-card" data-gift="girlfriend">
+      <div class="gift-person"><div><h3>For my son's girlfriend</h3><p>Small, thoughtful and easy for your son to choose himself.</p></div><div class="gift-icon">✨</div></div>
+      <div class="gift-ideas">
+        <span class="idea-chip">Bracelet / jewelry</span><span class="idea-chip">Beauty</span><span class="idea-chip">Small accessory</span><span class="idea-chip">Cute Chicago gift</span>
+      </div>
+      <div class="gift-controls">
+        <label>Status<select class="gift-status"><option>Need idea</option><option>Shortlisted</option><option>Bought</option><option>Packed</option></select></label>
+        <label>Budget<input class="gift-budget" placeholder="e.g. $40"></label>
+        <label class="gift-note">Notes / shortlist<input class="gift-notes" placeholder="Let him choose / store / idea..."></label>
+      </div>
+    </article>
+  </div>
+
+  <div class="shopping-grid">
+    <article class="shop-card">
+      <strong>Fashion Outlets of Chicago — Rosemont</strong>
+      <div class="shop-meta"><span class="shop-tag best">Best outlet fit</span><span class="shop-tag trip">Near ORD</span></div>
+      <p>More than 130 designer/outlet brands, including Gucci, Burberry, Tory Burch, Michael Kors, Nike, lululemon, Swarovski, Pandora, Kate Spade and more. It is about five minutes from O'Hare and even offers paid luggage storage at the concierge desk. <b>Best candidate if you still have gifts to buy on Oct 10.</b></p>
+      <div class="tip-links"><a class="tip-link" target="_blank" rel="noopener" href="https://www.fashionoutletsofchicago.com/">Official site</a></div>
+    </article>
+
+    <article class="shop-card">
+      <strong>900 North Michigan Shops</strong>
+      <div class="shop-meta"><span class="shop-tag trip">Downtown</span><span class="shop-tag">Easy</span></div>
+      <p>A seven-level shopping center on the Magnificent Mile with Bloomingdale's, Aritzia, Gucci, Kate Spade and jewelry/accessory stores. This is the easiest place to work gifts for your wife or daughter into the existing Oct 5 downtown itinerary.</p>
+      <div class="tip-links"><a class="tip-link" target="_blank" rel="noopener" href="https://www.shop900.com/">Official site</a></div>
+    </article>
+
+    <article class="shop-card">
+      <strong>Westfield Old Orchard — Skokie</strong>
+      <div class="shop-meta"><span class="shop-tag trip">Fits Northwestern day</span></div>
+      <p>Over 100 shops, including Nordstrom, Macy's, Tiffany & Co., LEGO, Sephora, Zara, Apple and more. It is close enough to Evanston to be an optional extension of the Oct 9 Northwestern day if the shopping list is not finished.</p>
+      <div class="tip-links"><a class="tip-link" target="_blank" rel="noopener" href="https://www.westfield.com/en/united-states/oldorchard">Official site</a></div>
+    </article>
+
+    <article class="shop-card">
+      <strong>Chicago Premium Outlets — Aurora</strong>
+      <div class="shop-meta"><span class="shop-tag far">Farther away</span><span class="shop-tag">Dedicated trip</span></div>
+      <p>A large outlet center in Aurora. Worth considering only if outlet shopping becomes a major objective; for this itinerary, Rosemont is much more convenient and costs less sightseeing time.</p>
+      <div class="tip-links"><a class="tip-link" target="_blank" rel="noopener" href="https://www.premiumoutlets.com/outlet/chicago">Official site</a></div>
+    </article>
+  </div>
+
+  <div class="glance-note">
+    <b>Suggested shopping sequence:</b> Oct 5 — 900 North Michigan for wife/daughter ideas; Oct 7 — Bulls merchandise for your smallest son; Oct 9 — Old Orchard only if needed after Northwestern; Oct 10 — Fashion Outlets of Chicago as the final backup before ORD. <button class="gift-reset" type="button" onclick="resetGiftTracker()">Reset gift tracker</button>
+  </div>
+</section>
+
 
 <section class="tips-section" id="tips">
   <div class="tips-head">
@@ -346,17 +477,18 @@ culture:{label:"Sightseeing",color:"#7051a3"},
 university:{label:"University",color:"#9b5b17"},
 walk:{label:"Walk / outdoors",color:"#2f6f3e"},
 food:{label:"Food / neighborhood",color:"#c53f35"},
-transit:{label:"Transit",color:"#2364aa"}
+transit:{label:"Transit",color:"#2364aa"},
+shopping:{label:"Shopping",color:"#a86412"}
 };
 
 const days=[
 {id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Travel",title:"Trondheim → Copenhagen → Chicago",summary:"Start early in Trondheim, take the booked SAS feeder to Copenhagen, continue to Chicago, then check in downtown after arriving ORD at 16:10.",events:[["05:30","SAS TRD → CPH","Booked feeder flight. Booking ref. YCZBGV."],["07:10","Arrive Copenhagen (CPH)","Connect onward to the Chicago long-haul flight."],["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["trd","cph","ord","downtownHotel","riverwalk"]},
-{id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile"]},
+{id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile","northMichigan900"]},
 {id:"oct6",short:"Oct 6",label:"Tue Oct 6",area:"Downtown",title:"Museum Campus & lakefront",summary:"A flexible lakefront day with one major museum and an observation deck near sunset if the weather is good.",events:[["09:00","Museum Campus / lakefront","Start with skyline views."],["10:00","Field Museum or Shedd Aquarium","Choose based on interests."],["14:30","Grant Park / downtown","Return north through the lakefront parks."],["17:00","Skydeck or 360 Chicago","Optional observation deck."],["19:00","Dinner","River North or West Loop."]],places:["museumCampus","field","shedd","grant","skydeck"]},
 {id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"University of Chicago + Bulls game",summary:"A proper University of Chicago campus visit in Hyde Park, followed by the booked NBA preseason game at United Center in the evening.",events:[["09:00","Travel to Hyde Park","Metra, CTA or rideshare depending on hotel."],["10:00","University of Chicago campus","Main Quadrangles, Rockefeller Chapel area and public campus spaces."],["12:30","Lunch in Hyde Park","Explore the neighborhood around campus."],["14:00","Museum of Science and Industry / Jackson Park","Keep this portion shorter so the evening remains relaxed."],["16:30","Return toward hotel / United Center","Allow time for an early dinner and arena entry."],["~18:00","Arrive United Center","Security, concourse and pregame atmosphere."],["19:00","Phoenix Suns at Chicago Bulls","NBA preseason • Upper Level 311 • Row 1 • 2 tickets booked • $78 total."]],places:["uchicago","hydepark","msi","jackson","unitedCenter"]},
 {id:"oct8",short:"Oct 8",label:"Thu Oct 8",area:"Downtown",title:"Neighborhoods & relaxed Chicago",summary:"Use the extra Chicago day to see more of the city rather than rushing between major attractions.",events:[["09:30","Lincoln Park","Park, lakefront and neighborhood walk."],["11:00","Lincoln Park Zoo area","Optional zoo or conservatory."],["13:00","Lunch","Lincoln Park or Old Town."],["14:30","Old Town / Wicker Park","Choose one neighborhood depending on energy and interests."],["18:00","West Loop dinner","Good evening for a more food-focused part of Chicago."]],places:["lincolnpark","zoo","oldtown","wicker","westloop"]},
-{id:"oct9",short:"Oct 9",label:"Fri Oct 9",area:"Evanston",title:"Northwestern University & Evanston",summary:"A dedicated North Shore university day: Northwestern's lakefront campus plus Evanston downtown.",events:[["08:30","Travel to Evanston","CTA Purple Line or Metra from downtown."],["10:00","Northwestern University campus","Walk the central campus and lakefront."],["12:30","Lunch in Evanston","Downtown Evanston is immediately beside campus."],["14:00","Lakefill / lakefront","Spend time on Northwestern's distinctive waterfront campus."],["15:30","Evanston / optional Bahá'í House of Worship","Optional extension before returning south."],["18:00","Return downtown","Final full downtown Chicago evening."]],places:["northwestern","nuLakefill","evanston","bahai","davis"]},
-{id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Travel",title:"Final Chicago day → ORD → Copenhagen",summary:"Enjoy a final Chicago morning and early afternoon, then travel to O'Hare for the 19:15 overnight flight to Copenhagen.",events:[["09:00","Flexible final sightseeing","Use the morning for anything missed earlier."],["12:00","Lunch / river / shopping","Keep the final hours relaxed and central."],["15:00","Collect luggage","Return to the hotel and head for O'Hare."],["~16:00","Transfer to ORD","Allow a comfortable buffer for the international flight."],["19:15","Depart ORD for Copenhagen","Existing long-haul booking; overnight flight."]],places:["downtownHotel","riverwalk","ord"]},
+{id:"oct9",short:"Oct 9",label:"Fri Oct 9",area:"Evanston",title:"Northwestern University & Evanston",summary:"A dedicated North Shore university day: Northwestern's lakefront campus plus Evanston downtown.",events:[["08:30","Travel to Evanston","CTA Purple Line or Metra from downtown."],["10:00","Northwestern University campus","Walk the central campus and lakefront."],["12:30","Lunch in Evanston","Downtown Evanston is immediately beside campus."],["14:00","Lakefill / lakefront","Spend time on Northwestern's distinctive waterfront campus."],["15:30","Evanston / optional Bahá'í House of Worship","Optional extension before returning south."],["18:00","Return downtown","Final full downtown Chicago evening."]],places:["northwestern","nuLakefill","evanston","bahai","davis","oldOrchard"]},
+{id:"oct10",short:"Oct 10",label:"Sat Oct 10",area:"Travel",title:"Final Chicago day → ORD → Copenhagen",summary:"Enjoy a final Chicago morning and early afternoon, then travel to O'Hare for the 19:15 overnight flight to Copenhagen.",events:[["09:00","Flexible final sightseeing","Use the morning for anything missed earlier."],["10:00","Optional Fashion Outlets of Chicago","If gifts are still missing, Rosemont is close to O’Hare and the outlet offers luggage storage at its concierge desk."],["13:30","Lunch / final shopping","Finish by early afternoon so the international departure stays comfortable."],["~15:00","Head to ORD","Leave the outlet or downtown with a generous airport buffer."],["~16:00","Transfer to ORD","Allow a comfortable buffer for the international flight."],["19:15","Depart ORD for Copenhagen","Existing long-haul booking; overnight flight."]],places:["downtownHotel","riverwalk","fashionOutlets","ord"]},
 {id:"oct11",short:"Oct 11",label:"Sun Oct 11",area:"Copenhagen",title:"Copenhagen overnight",summary:"Arrive Copenhagen from Chicago and stay one night before the booked SAS feeder to Trondheim the next morning.",events:[["Morning","Arrive Copenhagen (CPH)","Arrival time follows the existing long-haul booking."],["After arrival","Transfer to Copenhagen hotel","Hotel is not booked yet."],["Afternoon","Optional easy Copenhagen time","Keep plans flexible after the overnight flight."],["Evening","Overnight in Copenhagen","Prepare for the 09:55 SAS departure next morning."]],places:["cph","cphHotel","copenhagenCenter"]},
 {id:"oct12",short:"Oct 12",label:"Mon Oct 12",area:"Travel",title:"Copenhagen → Trondheim",summary:"Check out, travel to Copenhagen Airport and take the booked SAS feeder home to Trondheim.",events:[["Morning","Hotel checkout","Allow enough time to reach CPH and complete airport formalities."],["09:55","SAS CPH → TRD","Booked feeder flight. Booking ref. YSHCSQ."],["14:10","Arrive Trondheim","End of trip."]],places:["cphHotel","cph","trd"]}
 ];
@@ -392,7 +524,11 @@ northwestern:{name:"Northwestern University",area:"Evanston",cat:"university",la
 nuLakefill:{name:"Northwestern Lakefill",area:"Evanston",cat:"walk",lat:42.0587,lng:-87.6678,note:"One of the most distinctive parts of Northwestern's lakefront campus."},
 evanston:{name:"Downtown Evanston",area:"Evanston",cat:"food",lat:42.0460,lng:-87.6816,note:"Lunch, cafés and relaxed town center immediately beside campus."},
 bahai:{name:"Bahá'í House of Worship",area:"Evanston",cat:"culture",lat:42.0744,lng:-87.6844,note:"Optional architectural stop north of Evanston."},
-davis:{name:"Davis Street transit area",area:"Evanston",cat:"transit",lat:42.0478,lng:-87.6837,note:"Convenient CTA Purple Line / Metra access for Evanston."}
+davis:{name:"Davis Street transit area",area:"Evanston",cat:"transit",lat:42.0478,lng:-87.6837,note:"Convenient CTA Purple Line / Metra access for Evanston."},
+fashionOutlets:{name:"Fashion Outlets of Chicago",area:"O'Hare",cat:"shopping",lat:41.9757,lng:-87.8665,note:"Rosemont luxury outlet near O'Hare. 130+ brands, luggage storage available, and a useful final-day shopping option."},
+oldOrchard:{name:"Westfield Old Orchard",area:"Evanston",cat:"shopping",lat:42.0599,lng:-87.7495,note:"Large Skokie shopping center with 100+ shops; convenient to combine with the Northwestern/Evanston day."},
+northMichigan900:{name:"900 North Michigan Shops",area:"Downtown",cat:"shopping",lat:41.8998,lng:-87.6248,note:"Seven-level Magnificent Mile shopping center; easy place for wife/daughter gifts without a separate trip."}
+
 };
 
 const map=L.map("tripMap",{zoomControl:true}).setView([41.90,-87.68],10);
@@ -420,7 +556,50 @@ function setFilter(cat){activeFilter=cat;renderFilters();drawDay(selectedDay(),t
 function selectPlace(id){const p=places[id];if(!p)return;document.querySelectorAll(".place-button").forEach(x=>x.classList.remove("active"));document.getElementById("placebtn-"+id)?.classList.add("active");document.getElementById("selectedTitle").textContent=p.name;document.getElementById("selectedText").textContent=p.note;document.getElementById("selectedBadges").innerHTML=`<span class="badge ${p.cat}">${categories[p.cat].label}</span><span class="badge">${p.area}</span>`;if(markers[id]){markers[id].openPopup();map.setView([p.lat,p.lng],Math.max(map.getZoom(),13))}}
 function showAll(){markerLayer.clearLayers();routeLayer.clearLayers();markers={};const visible=Object.entries(places).map(([id,p])=>({id,...p})).filter(p=>activeFilter==="all"||p.cat===activeFilter);visible.forEach(p=>{const m=L.marker([p.lat,p.lng],{icon:markerIcon(p)}).addTo(markerLayer).bindPopup(`<strong>${p.name}</strong><br>${p.note}`);m.on("click",()=>selectPlace(p.id));markers[p.id]=m});if(visible.length)map.fitBounds(L.latLngBounds(visible.map(p=>[p.lat,p.lng])).pad(.08));document.getElementById("selectedTitle").textContent="Whole Chicago trip";document.getElementById("selectedText").textContent="Booked SAS feeder TRD→CPH on Oct 4, six nights in Chicago with UChicago and Northwestern visits, overnight return to Copenhagen on Oct 10, Copenhagen hotel on Oct 11, then booked SAS CPH→TRD on Oct 12.";document.getElementById("selectedBadges").innerHTML='<span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span>';renderPlaceList({places:visible.map(p=>p.id)})}
 function fitArea(area){const ps=Object.values(places).filter(p=>p.area===area);if(ps.length)map.fitBounds(L.latLngBounds(ps.map(p=>[p.lat,p.lng])).pad(.16))}
-renderFilters();renderDays();renderPlans();drawDay(selectedDay(),true);setTimeout(()=>map.invalidateSize(),200);
+
+function initGiftTracker(){
+  document.querySelectorAll(".gift-card").forEach(card=>{
+    const key=card.dataset.gift;
+    const status=card.querySelector(".gift-status");
+    const budget=card.querySelector(".gift-budget");
+    const notes=card.querySelector(".gift-notes");
+    const saved=JSON.parse(localStorage.getItem("chicagoGift_"+key)||"{}");
+    if(saved.status) status.value=saved.status;
+    if(saved.budget) budget.value=saved.budget;
+    if(saved.notes) notes.value=saved.notes;
+    [status,budget,notes].forEach(el=>el.addEventListener("change",()=>saveGiftCard(card)));
+    notes.addEventListener("input",()=>saveGiftCard(card));
+    budget.addEventListener("input",()=>saveGiftCard(card));
+  });
+  updateGiftProgress();
+}
+function saveGiftCard(card){
+  const key=card.dataset.gift;
+  localStorage.setItem("chicagoGift_"+key,JSON.stringify({
+    status:card.querySelector(".gift-status").value,
+    budget:card.querySelector(".gift-budget").value,
+    notes:card.querySelector(".gift-notes").value
+  }));
+  updateGiftProgress();
+}
+function updateGiftProgress(){
+  const cards=[...document.querySelectorAll(".gift-card")];
+  const done=cards.filter(c=>["Bought","Packed"].includes(c.querySelector(".gift-status").value)).length;
+  const el=document.getElementById("giftProgressText");
+  if(el) el.textContent=`${done} of ${cards.length} gifts bought`;
+}
+function resetGiftTracker(){
+  if(!confirm("Reset all gift status, budget and notes on this device?")) return;
+  document.querySelectorAll(".gift-card").forEach(card=>{
+    localStorage.removeItem("chicagoGift_"+card.dataset.gift);
+    card.querySelector(".gift-status").value="Need idea";
+    card.querySelector(".gift-budget").value="";
+    card.querySelector(".gift-notes").value="";
+  });
+  updateGiftProgress();
+}
+
+renderFilters();renderDays();renderPlans();drawDay(selectedDay(),true);initGiftTracker();setTimeout(()=>map.invalidateSize(),200);
 </script>
 </body>
 </html>
