@@ -29,6 +29,20 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 .lower-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:12px;margin-top:12px}.compact-card{padding:12px}.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:10px}.mini{padding:9px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd}.mini strong{display:block;margin-bottom:3px;font-size:12px}.mini span{display:block;color:var(--muted);font-size:12px;line-height:1.35}
 .day-plan{display:none}.day-plan.active{display:block}.timeline{display:grid;gap:8px;margin-top:10px}.event{display:grid;grid-template-columns:68px 1fr;gap:9px;padding:8px 0;border-bottom:1px dashed var(--line)}.event:last-child{border-bottom:0}.event time{font-size:12px;font-weight:800;color:var(--blue)}.event strong{font-size:13px;display:block;margin-bottom:2px}.event span{font-size:12px;color:var(--muted);line-height:1.4}
 .notice{margin-top:10px;padding:10px;border-radius:10px;background:#fff8e8;border:1px solid #ecd5a6;font-size:12px;line-height:1.4}
+html{scroll-behavior:smooth}
+.anchor-strip{display:flex;gap:8px;overflow-x:auto;padding:0 0 2px;margin:0 0 12px}
+.anchor-link{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);text-decoration:none;font-size:12px;font-weight:800;white-space:nowrap}
+.glance-section{margin-bottom:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(180deg,#ffffff 0%,#f8fbfd 100%);box-shadow:var(--shadow)}
+.glance-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
+.glance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.glance-card{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.glance-kicker{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;background:#eef3f6;color:var(--ink);font-size:10px;font-weight:800;margin-bottom:7px}
+.glance-card strong{display:block;font-size:14px;line-height:1.3;margin-bottom:4px}
+.glance-card p{font-size:12px;line-height:1.42}
+.glance-note{margin-top:10px;padding:10px;border-radius:10px;background:#eef6ff;border:1px solid #cfe0f8;font-size:12px;line-height:1.42}
+.section-link{color:var(--blue);font-weight:800;text-decoration:none}
+.section-link:hover{text-decoration:underline}
+
 .tips-section{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel);box-shadow:var(--shadow);scroll-margin-top:80px}
 .tips-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:10px}
 .tips-updated{font-size:11px;font-weight:800;color:var(--muted);padding:5px 8px;border-radius:999px;background:#f1f4f6}
@@ -45,7 +59,34 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 .tip-link:hover{text-decoration:underline}
 
 @media(max-width:920px){.trip-shell,.lower-grid{grid-template-columns:1fr}.map-card{grid-template-rows:auto 460px}.side-card{grid-template-rows:auto auto auto auto}#tripMap{min-height:460px}}
-@media(max-width:560px){header{grid-template-columns:1fr;padding:9px 10px}main{padding:8px}h1{font-size:18px}.map-card{grid-template-rows:auto 390px}#tripMap{min-height:390px}}
+@media(max-width:720px){
+header{grid-template-columns:1fr}
+.header-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.btn{width:100%;padding:8px 6px}
+.trip-shell{display:flex;flex-direction:column}
+.side-card{order:1}
+.map-card{order:2}
+.quick-bookings{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+.booking{min-width:250px;grid-template-columns:1fr;scroll-snap-align:start}
+.event{grid-template-columns:1fr;gap:4px}
+.glance-grid{grid-template-columns:1fr 1fr}
+.tips-grid{grid-template-columns:1fr}
+.place-list{max-height:none}
+#tripMap{min-height:330px}
+}
+@media(max-width:560px){
+header{grid-template-columns:1fr;padding:9px 10px}
+main{padding:8px}
+h1{font-size:18px}
+.sub{font-size:11px}
+.header-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+.glance-grid{grid-template-columns:1fr}
+.map-card{grid-template-rows:auto 320px}
+#tripMap{min-height:320px}
+.btn,.chip,.anchor-link{min-height:40px}
+.panel-head,.panel-body,.panel-foot,.compact-card,.tips-section{padding:10px}
+}
+
 </style>
 </head>
 <body>
@@ -65,7 +106,53 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 </header>
 
 <main>
-<section class="trip-shell">
+
+<nav class="anchor-strip" aria-label="Quick navigation">
+  <a class="anchor-link" href="#overview">Overview</a>
+  <a class="anchor-link" href="#bookings">Bookings</a>
+  <a class="anchor-link" href="#itinerary">Itinerary</a>
+  <a class="anchor-link" href="#mapview">Map</a>
+  <a class="anchor-link" href="#tips">Tips</a>
+</nav>
+
+<section class="glance-section" id="overview">
+  <div class="glance-head">
+    <div>
+      <h2>Trip at a glance</h2>
+      <p class="sub">A cleaner, mobile-friendly overview of what is booked, what is still open, and the key moments of the trip.</p>
+    </div>
+    <a class="section-link" href="#itinerary">Jump to full itinerary</a>
+  </div>
+
+  <div class="glance-grid">
+    <div class="glance-card">
+      <span class="glance-kicker">Flights</span>
+      <strong>TRD → CPH → Chicago → CPH → TRD</strong>
+      <p>SAS feeder flights are booked on <b>Oct 4</b> and <b>Oct 12</b>. Chicago arrival is <b>ORD 16:10 on Oct 4</b>, and the return departs <b>ORD 19:15 on Oct 10</b>.</p>
+    </div>
+    <div class="glance-card">
+      <span class="glance-kicker">Hotels</span>
+      <strong>Still to book</strong>
+      <p><b>Chicago:</b> 6 nights, Oct 4–10, ideally River North / Magnificent Mile / Loop. <b>Copenhagen:</b> 1 night, Oct 11–12, airport or city depending on price and convenience.</p>
+    </div>
+    <div class="glance-card">
+      <span class="glance-kicker">Universities</span>
+      <strong>Two strong campus days</strong>
+      <p><b>Oct 7:</b> University of Chicago + Hyde Park. <b>Oct 9:</b> Northwestern University + Evanston + lakefront campus.</p>
+    </div>
+    <div class="glance-card">
+      <span class="glance-kicker">Booked event</span>
+      <strong>Bulls vs Suns — Oct 7, 19:00</strong>
+      <p><b>United Center</b> • Upper Level <b>311</b>, <b>Row 1</b> • 2 tickets • <b>$78 total</b>. Already integrated into the itinerary.</p>
+    </div>
+  </div>
+
+  <div class="glance-note">
+    <b>Best mobile flow:</b> start with these quick cards, swipe through the <a class="section-link" href="#bookings">bookings</a>, then use the day tabs or scroll to the <a class="section-link" href="#itinerary">daily itinerary</a>. The <a class="section-link" href="#tips">tips</a> section works like a trip notebook for updated advice and events.
+  </div>
+</section>
+
+<section class="trip-shell" id="mapview">
 <div class="map-card">
 <div class="map-toolbar"><div class="filters" id="filters"></div><div class="days" id="dayTabs"></div></div>
 <div id="tripMap"></div>
@@ -74,11 +161,11 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <aside class="side-card">
 <div class="panel-head">
 <h2 id="selectedTitle">Trip overview</h2>
-<p id="selectedText">Select a day or place to focus the map and view details.</p>
+<p id="selectedText">Select a day or place to focus the map and view details. On mobile, it is often easiest to start with the “Trip at a glance” cards and the swipeable bookings strip.</p>
 <div class="badge-row" id="selectedBadges"><span class="badge culture">Chicago</span><span class="badge university">UChicago + Northwestern</span><span class="badge hotel">Hotels TBD</span></div>
 </div>
 
-<div class="quick-bookings">
+<div class="quick-bookings" id="bookings">
 <div class="booking"><strong>TRD → CPH</strong><span>Oct 4 • 05:30–07:10 • SAS<br>Booking ref. <strong>YCZBGV</strong><br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>Long-haul</strong><span>Oct 4 • Arrive ORD 16:10<br>Oct 10 • Depart ORD 19:15 for Copenhagen<br><span class="status booked">EXISTING BOOKING</span></span></div>
 <div class="booking"><strong>Chicago hotel</strong><span>Oct 4–10 • 6 nights • River North / Magnificent Mile / Loop preferred • ≤ 3,000 NOK/night<br><span class="status tbd">NOT BOOKED</span></span></div>
@@ -88,15 +175,16 @@ main{max-width:1280px;margin:auto;padding:12px}.trip-shell{display:grid;grid-tem
 <div class="booking"><strong>Hotels.com</strong><span>OneKeyCash about $229.65 • use where redemption value is best<br><span class="status tbd">AVAILABLE</span></span></div>
 </div>
 
-<div><div class="panel-body"><h3>Places on selected day</h3></div><div class="place-list" id="placeList"></div></div>
+<div><div class="panel-body"><h3>Places on selected day</h3>
+          <p class="sub">Tip: on mobile, swipe the booking cards horizontally to review all reservations and pending items.</p></div><div class="place-list" id="placeList"></div></div>
 <div class="panel-foot"><p><strong>Planning note:</strong> The Chicago stay ends on Oct 10. The return trip reaches Copenhagen on Oct 11, so one Copenhagen hotel night is needed before the booked SAS feeder to Trondheim on Oct 12.</p></div>
 </aside>
 </section>
 
-<section class="lower-grid">
+<section class="lower-grid" id="itinerary">
 <div class="compact-card">
 <h2>Daily itinerary</h2>
-<p class="sub">University visits are given enough time to experience the campuses rather than just quick photo stops.</p>
+<p class="sub">Tap the day tabs above the map to focus each day. This section gives the fuller narrative version, which is easier to read on a small screen.</p>
 <div id="dailyPlans"></div>
 </div>
 
