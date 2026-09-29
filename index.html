@@ -174,6 +174,12 @@ h1{font-size:18px}
     </div>
 
     <div class="glance-card">
+      <span class="glance-kicker">Booked cruise</span>
+      <strong>Architecture River Cruise — Oct 5, 11:30</strong>
+      <p><b>Chicago Architecture Center River Cruise</b> • General Boarding × 2 • <b>BOOKED</b>. Arrive <b>30 minutes early</b>, so target the boarding area by <b>11:00</b>.</p>
+    </div>
+
+    <div class="glance-card">
       <span class="glance-kicker">Gift mission</span>
       <strong>4 people to buy for</strong>
       <p>Wife, daughter, smallest son, and your son's girlfriend. Use the <a class="section-link" href="#gifts">Gifts module</a> to track ideas, budget, status and shopping locations.</p>
@@ -221,6 +227,7 @@ Copenhagen Airport • very close to Terminal 3<br>
 Reservation: <strong>72079567938107</strong><br>
 <span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>CPH → TRD</strong><span>Oct 12 • 09:55–14:10 • SAS<br>Booking ref. <strong>YSHCSQ</strong><br><span class="status booked">BOOKED</span></span></div>
+<div class="booking"><strong>Architecture River Cruise</strong><span>Oct 5 • 11:30 • Chicago Architecture Center River Cruise<br>General Boarding × 2 • arrive 30 min early (target 11:00)<br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>Bulls tickets</strong><span>Oct 7 • 19:00 • Phoenix Suns at Chicago Bulls<br>United Center • Upper Level 311 • Row 1 • 2 tickets • $78 total<br>Electronic transfer<br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>UChicago tour</strong><span>Oct 7 • 14:00 • University of Chicago<br>Official campus visit / admissions tour<br><span class="status booked">BOOKED</span></span></div>
 <div class="booking"><strong>Northwestern tour</strong><span>Oct 9 • 09:00 • Northwestern University, Evanston<br>Official campus tour<br><span class="status booked">BOOKED</span></span></div>
@@ -400,6 +407,17 @@ Reservation: <strong>72079567938107</strong><br>
         <a class="tip-link" target="_blank" rel="noopener" href="https://www.bestwestern.com/en_US/book/hotel-details.14112.html">Best Western</a>
         <a class="tip-link" target="_blank" rel="noopener" href="https://www.hyatt.com/hyatt-centric/en-US/rosem-hyatt-centric-chicago-ohare">Hyatt Centric</a>
       </div>
+    </article>
+
+
+    <article class="tip-card">
+      <h3>🚢 Architecture river cruise <span class="tip-tag free">Booked</span></h3>
+      <p><strong>Mon Oct 5 at 11:30:</strong> Chicago Architecture Center River Cruise, General Boarding × 2.</p>
+      <ul>
+        <li><strong>Arrival:</strong> the ticket says to arrive 30 minutes early, so target <strong>11:00</strong>.</li>
+        <li>The morning Riverwalk remains in the plan, but keep enough margin to reach the boarding point without rushing.</li>
+        <li>Loop lunch and Millennium Park move naturally to after the cruise.</li>
+      </ul>
     </article>
 
 
@@ -595,7 +613,7 @@ shopping:{label:"Shopping",color:"#a86412"}
 
 const days=[
 {id:"oct4",short:"Oct 4",label:"Sun Oct 4",area:"Travel",title:"Trondheim → Copenhagen → Chicago",summary:"Start early in Trondheim, take the booked SAS feeder to Copenhagen, continue to Chicago, then check in downtown after arriving ORD at 16:10.",events:[["05:30","SAS TRD → CPH","Booked feeder flight. Booking ref. YCZBGV."],["07:10","Arrive Copenhagen (CPH)","Connect onward to the Chicago long-haul flight."],["16:10","Arrive Chicago O'Hare (ORD)","Existing international flight arrival."],["17:15","Transfer downtown","CTA Blue Line or taxi/rideshare depending on luggage and hotel."],["19:00","River North / Riverwalk evening","Easy dinner and a short first walk."]],places:["trd","cph","ord","downtownHotel","riverwalk"]},
-{id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture & central Chicago",summary:"A classic first full Chicago day focused on the river, Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor."],["10:30","Architecture river cruise","Strong candidate for a timed booking."],["13:00","Loop & lunch","Explore central architecture and elevated train streets."],["14:30","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile","northMichigan900"]},
+{id:"oct5",short:"Oct 5",label:"Mon Oct 5",area:"Downtown",title:"Architecture cruise & central Chicago",summary:"A classic first full Chicago day built around the BOOKED Chicago Architecture Center River Cruise at 11:30, followed by the Loop, Millennium Park and skyline.",events:[["09:00","Chicago Riverwalk","Walk the central river corridor at an easy pace."],["11:00","Arrive for architecture cruise","BOOKED • General Boarding × 2 • arrive 30 minutes before departure."],["11:30","Chicago Architecture Center River Cruise","BOOKED • timed cruise departure."],["~13:15","Loop & lunch","Explore central architecture and elevated train streets after the cruise."],["15:00","Millennium Park","Cloud Gate and nearby lakefront."],["17:00","Magnificent Mile / River North","Shopping, skyline and dinner."]],places:["riverwalk","cruise","loop","millennium","magmile","northMichigan900"]},
 {id:"oct6",short:"Oct 6",label:"Tue Oct 6",area:"Downtown",title:"Museum Campus & lakefront",summary:"A flexible lakefront day with one major museum and an observation deck near sunset if the weather is good.",events:[["09:00","Museum Campus / lakefront","Start with skyline views."],["10:00","Field Museum or Shedd Aquarium","Choose based on interests."],["14:30","Grant Park / downtown","Return north through the lakefront parks."],["17:00","Skydeck or 360 Chicago","Optional observation deck."],["19:00","Dinner","River North or West Loop."]],places:["museumCampus","field","shedd","grant","skydeck"]},
 {id:"oct7",short:"Oct 7",label:"Wed Oct 7",area:"Hyde Park",title:"UChicago tour + Bulls game",summary:"A deliberately paced day built around two fixed bookings: the University of Chicago campus tour at 14:00 and Bulls vs Suns at United Center at 19:00.",events:[["09:00","Relaxed morning downtown","Keep the morning light; breakfast, Riverwalk, shopping or anything missed earlier."],["11:30","Travel to Hyde Park","Use Metra Electric, CTA or rideshare depending on the hotel and timing."],["12:15","Lunch near UChicago","Have lunch before the tour so there is no rush afterwards."],["13:30","Arrive at UChicago","Allow time to find the admissions check-in point and settle in."],["14:00","University of Chicago official tour","BOOKED • campus visit / admissions tour."],["~16:00","Finish tour & leave Hyde Park","Skip MSI/Jackson Park on this day; the campus visit is the priority."],["16:30","Early dinner / travel toward United Center","Head back north and keep a comfortable margin for the game."],["~18:00","Arrive United Center","Security, concourse and pregame atmosphere."],["19:00","Phoenix Suns at Chicago Bulls","BOOKED • NBA preseason • Upper Level 311 • Row 1 • 2 tickets • $78 total."]],places:["uchicago","hydepark","unitedCenter"]},
 {id:"oct8",short:"Oct 8",label:"Thu Oct 8",area:"Downtown",title:"Chinatown + Lincoln Park",summary:"A neighborhood day that adds Chicago Chinatown properly: morning sightseeing and lunch there, then Lincoln Park / Old Town in the afternoon.",events:[["09:30","CTA Red Line to Chinatown","Head to Cermak–Chinatown from downtown."],["10:00","Chinatown Gate & Wentworth Avenue","Walk the historic commercial core and browse local shops."],["10:45","Chinatown Square","Explore the plaza, zodiac statues and surrounding shops."],["11:45","Ping Tom Memorial Park","Short riverfront walk with skyline views."],["12:30","Lunch in Chinatown","Dim sum, noodles, hot pot or another Chinese lunch."],["14:30","Lincoln Park / Zoo","Return north for a relaxed park and lakefront afternoon."],["16:30","Old Town","Walk the neighborhood, cafés and shops."],["18:30","West Loop dinner","Finish with a food-focused evening."]],places:["chinatownGate","chinatownSquare","pingTom","chinatownFood","lincolnpark","zoo","oldtown","westloop"]},
@@ -613,7 +631,7 @@ copenhagenCenter:{name:"Central Copenhagen",area:"Copenhagen",cat:"walk",lat:55.
 ord:{name:"Chicago O'Hare International Airport (ORD)",area:"O'Hare",cat:"airport",lat:41.9742,lng:-87.9073,note:"Chicago arrival Oct 4 and international departure Oct 10 at 19:15."},
 downtownHotel:{name:"Best Western River North Hotel",area:"Downtown",cat:"hotel",lat:41.892301,lng:-87.632131,note:"BOOKED Oct 4–9 • 5 nights • 125 W Ohio St • 2 double beds • 17,313 NOK • free cancellation before Oct 1."},
 riverwalk:{name:"Chicago Riverwalk",area:"Downtown",cat:"walk",lat:41.8873,lng:-87.6266,note:"Central walking route and evening option."},
-cruise:{name:"Chicago Architecture Cruise area",area:"Downtown",cat:"culture",lat:41.8880,lng:-87.6260,note:"Timed cruise candidate for Oct 5."},
+cruise:{name:"Chicago Architecture Center River Cruise",area:"Downtown",cat:"culture",lat:41.8880,lng:-87.6260,note:"BOOKED • Oct 5 at 11:30 • General Boarding × 2 • arrive 30 minutes early (target 11:00)."},
 loop:{name:"Chicago Loop",area:"Downtown",cat:"culture",lat:41.8837,lng:-87.6325,note:"Architecture, elevated train streets and downtown landmarks."},
 millennium:{name:"Millennium Park",area:"Downtown",cat:"culture",lat:41.8826,lng:-87.6226,note:"Cloud Gate and central park area."},
 magmile:{name:"Magnificent Mile",area:"Downtown",cat:"culture",lat:41.8954,lng:-87.6243,note:"Shopping, skyline and evening walking."},
